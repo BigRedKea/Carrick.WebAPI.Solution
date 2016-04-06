@@ -3,9 +3,10 @@ namespace Carrick.Data.Model
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Scout.BusinessLogic.Interfaces;
 
     [Table("Person")]
-    public partial class Person : TableBase
+    public partial class Person : TableBase, IPerson
     {
 
         [StringLength(50)]
@@ -13,6 +14,9 @@ namespace Carrick.Data.Model
 
         [StringLength(50)]
         public string Surname { get; set; }
+
+        [StringLength(50)]
+        public string ScoutName { get; set; }
 
         [StringLength(50)]
         public string MembershipId { get; set; }
@@ -41,5 +45,16 @@ namespace Carrick.Data.Model
 
         [StringLength(1)]
         public string Gender { get; set; }
+
+        public override string ToString()
+        {
+            return PreferredName + " " + Surname;
+        }
+
+        string IPerson.FullName()
+        {
+            return PreferredName + " " + Surname;
+        }
+
     }
 }

@@ -11,7 +11,7 @@ namespace Carrick.Data.Controllers
         internal CarrickEntityDataModel DataModel;
 
         private BadgeDataController _BadgeDataController;
-        private BadgeRequestDataController _BadgeRequestDataController;
+        private PersonBadgeDataController _PersonBadgeDataController;
         private EventLocationDataController _EventLocationDataController;
         private LocationDataController _LocationDataController;
         private OrganisationUnitDataController _OrganisationUnitDataController;
@@ -38,15 +38,15 @@ namespace Carrick.Data.Controllers
             }
         }
 
-        public BadgeRequestDataController BadgeRequestDataController
+        public PersonBadgeDataController PersonBadgeDataController
         {
             get
             {
-                if (_BadgeRequestDataController == null)
+                if (_PersonBadgeDataController == null)
                 {
-                    _BadgeRequestDataController = new BadgeRequestDataController(this);
+                    _PersonBadgeDataController = new PersonBadgeDataController(this);
                 }
-                return _BadgeRequestDataController;
+                return _PersonBadgeDataController;
             }
         }
 

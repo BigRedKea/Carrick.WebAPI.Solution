@@ -8,14 +8,14 @@ namespace Carrick.Web.Controllers
 {
     [Authorize]
     [RequireHttps]
-    public class BadgeRequestController : ApiController
+    public class PersonBadgeController : ApiController
     {
 
-        private BadgeRequestDataController datacontroller
+        private PersonBadgeDataController datacontroller
         {
             get
             {
-                return BusinessModel.Singleton.BadgeRequestDataController;
+                return BusinessModel.Singleton.PersonBadgeDataController;
 
             }
         }
@@ -23,7 +23,7 @@ namespace Carrick.Web.Controllers
         // GET api/values
         [AcceptVerbs("GET")]
         [HttpGet]
-        public BadgeRequest[] Get()
+        public PersonBadge[] Get()
         {
             return datacontroller.GetAllItems();
         }
@@ -31,7 +31,7 @@ namespace Carrick.Web.Controllers
 
         [AcceptVerbs("GET")]
         [HttpGet]
-        public BadgeRequest[] Get(DateTime updatetimestamp)
+        public PersonBadge[] Get(DateTime updatetimestamp)
         {
             return datacontroller.GetUpdatedItems(updatetimestamp);
         }
@@ -39,7 +39,7 @@ namespace Carrick.Web.Controllers
         // GET api/values/5
         [AcceptVerbs("GET")]
         [HttpGet]
-        public BadgeRequest Get(int id)
+        public PersonBadge Get(int id)
         {
             return datacontroller.GetItem(id);
         }
@@ -48,7 +48,7 @@ namespace Carrick.Web.Controllers
         // POST api/values
         [AcceptVerbs("POST")]
         [HttpPost]
-        public BadgeRequest Insert([FromBody]BadgeRequest s)
+        public PersonBadge Insert([FromBody]PersonBadge s)
         {
             return datacontroller.InsertItem(s);
         }
@@ -57,7 +57,7 @@ namespace Carrick.Web.Controllers
         // PUT api/values/5
         [AcceptVerbs("PUT")]
         [HttpPut]
-        public BadgeRequest Update(int id, [FromBody] BadgeRequest s)
+        public PersonBadge Update(int id, [FromBody] PersonBadge s)
         {
             return datacontroller.UpdateItem(s);
         }

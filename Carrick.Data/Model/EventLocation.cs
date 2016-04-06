@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Carrick.Data.Model
+
 {
-    public class EventLocation : TableBase
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using Scout.BusinessLogic.Interfaces;
+
+    public class EventLocation : TableBase, IEventLocation
     {
         public int LocationId { get; set; }
 

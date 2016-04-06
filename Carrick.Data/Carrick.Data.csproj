@@ -66,6 +66,7 @@
     <Compile Include="DataControllers\EventLocationDataController.cs" />
     <Compile Include="DataControllers\OrganisationUnitDataController.cs" />
     <Compile Include="DataControllers\LocationDataController.cs" />
+    <Compile Include="DataControllers\PersonBadgeDataController.cs" />
     <Compile Include="DataControllers\PersonScoutingEventDataController.cs" />
     <Compile Include="DataControllers\ScoutingEventDataController.cs" />
     <Compile Include="DataControllers\ResidenceDataController.cs" />
@@ -78,13 +79,11 @@
     <Compile Include="DataControllers\GenericDataController.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Badge.cs" />
-    <Compile Include="Model\BadgeRequest.cs" />
+    <Compile Include="Model\PersonBadge.cs" />
     <Compile Include="CarrickEntityDataModel.cs" />
-    <Compile Include="DataControllers\BadgeRequestDataController.cs" />
     <Compile Include="DataControllers\ScoutingRoleDataController.cs" />
     <Compile Include="Model\EventLocation.cs" />
     <Compile Include="Model\GenericRepository.cs" />
-    <Compile Include="Model\ITableBase.cs" />
     <Compile Include="Model\Location.cs" />
     <Compile Include="Model\TableBase.cs" />
     <Compile Include="Model\OrganisationUnit.cs" />
@@ -107,6 +106,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Carrick.BusinessLogic\Carrick.BusinessLogic.csproj">
+      <Project>{b88df5aa-ad6a-493e-986f-62bf41dee512}</Project>
+      <Name>Carrick.BusinessLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

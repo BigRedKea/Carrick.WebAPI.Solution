@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Carrick.Data.Model
 {
-    public class Location: TableBase
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using Scout.BusinessLogic.Interfaces;
+
+    public class Location: TableBase, ILocation
     {
         [StringLength(50)]
         public string LocationName { get; set; }

@@ -3,9 +3,10 @@ namespace Carrick.Data.Model
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Scout.BusinessLogic.Interfaces;
 
     [Table("PersonSignIn")]
-    public partial class PersonSignIn :TableBase
+    public partial class PersonSignIn :TableBase, IPersonSignIn
     {
 
         public long? PersonId { get; set; }

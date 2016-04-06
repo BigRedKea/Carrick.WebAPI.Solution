@@ -262,10 +262,10 @@
     <Compile Include="Areas\RouteDebugger\RouteDebuggerAreaRegistration.cs" />
     <Compile Include="Areas\RouteDebugger\RouteDebuggerConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\PersonBadgeController.cs" />
     <Compile Include="Controllers\PersonOrganisationUnitController.cs" />
     <Compile Include="Controllers\PersonScoutingEventController.cs" />
     <Compile Include="Controllers\OrganisationUnitController.cs" />
-    <Compile Include="Controllers\BadgeRequestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BadgeController.cs" />
     <Compile Include="Controllers\Residence.cs" />

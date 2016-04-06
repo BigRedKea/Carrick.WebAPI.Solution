@@ -1,10 +1,12 @@
 namespace Carrick.Data.Model
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Scout.BusinessLogic.Interfaces;
 
     [Table("PersonResidence")]
-    public partial class PersonResidence : TableBase
+    public partial class PersonResidence : TableBase, IPersonResidence
     {
 
         public int? PersonId { get; set; }

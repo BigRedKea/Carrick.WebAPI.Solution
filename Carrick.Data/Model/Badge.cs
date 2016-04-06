@@ -2,9 +2,10 @@ namespace Carrick.Data.Model
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Scout.BusinessLogic.Interfaces;
 
     [Table("Badge")]
-    public partial class Badge : TableBase
+    public partial class Badge : TableBase, IBadge
     {
 
         [StringLength(256)]

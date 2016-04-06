@@ -14,7 +14,7 @@ namespace Carrick.Data
         }
      
         public virtual DbSet<Badge> Badges { get; set; }
-        public virtual DbSet<BadgeRequest> BadgeRequests { get; set; }
+        public virtual DbSet<PersonBadge> PersonBadges { get; set; }
         public virtual DbSet<EventLocation> EventLocations { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<OrganisationUnit> OrganisationUnits { get; set; }

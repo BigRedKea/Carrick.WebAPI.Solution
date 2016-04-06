@@ -1,10 +1,12 @@
 namespace Carrick.Data.Model
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Scout.BusinessLogic.Interfaces;
 
-    [Table("BadgeRequest")]
-    public partial class BadgeRequest : TableBase
+    [Table("PersonBadge")]
+    public partial class PersonBadge : TableBase, IPersonBadge
     {
         public int? BadgeId { get; set; }
 

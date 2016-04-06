@@ -3,9 +3,10 @@ namespace Carrick.Data.Model
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Scout.BusinessLogic.Interfaces;
 
     [Table("ScoutingEvent")]
-    public partial class ScoutingEvent : TableBase
+    public partial class ScoutingEvent : TableBase, IScoutingEvent
     {
 
         [StringLength(128)]

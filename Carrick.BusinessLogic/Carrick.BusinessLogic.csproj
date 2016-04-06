@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B88DF5AA-AD6A-493E-986F-62BF41DEE512}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Scout.BusinessLogic</RootNamespace>
+    <AssemblyName>Scout.BusinessLogic</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessLogic\BadgeBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\BadgeRequestBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\BusinessLogic.cs" />
+    <Compile Include="BusinessLogic\BusinessLogicBase.cs" />
+    <Compile Include="BusinessLogic\OrganisationUnitBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\PersonBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\PersonOrganisationBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\PersonPersonBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\PersonResidenceBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\PersonScoutingEventBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\ScoutingRoleBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\PersonScoutingRoleBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\PersonSignInBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\ResidenceBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\ScoutingEventBusinessLogic.cs" />
+    <Compile Include="CompositeObjects\PersonBadgeComposite.cs" />
+    <Compile Include="CompositeObjects\PersonComposite.cs" />
+    <Compile Include="CompositeObjects\PersonScoutingEventComposite.cs" />
+    <Compile Include="Interfaces\ILocation.cs" />
+    <Compile Include="Interfaces\IEventLocation.cs" />
+    <Compile Include="Interfaces\IPersonBadge.cs" />
+    <Compile Include="Interfaces\IBadge.cs" />
+    <Compile Include="Interfaces\IDataProviderInterface.cs" />
+    <Compile Include="Interfaces\IDataProviders.cs" />
+    <Compile Include="Interfaces\IDataTable.cs" />
+    <Compile Include="Interfaces\IPerson.cs" />
+    <Compile Include="Interfaces\IOrganisationUnit.cs" />
+    <Compile Include="Interfaces\IPersonOrganisationUnit.cs" />
+    <Compile Include="Interfaces\IPersonPerson.cs" />
+    <Compile Include="Interfaces\IPersonResidence.cs" />
+    <Compile Include="Interfaces\IPersonScoutingEvent.cs" />
+    <Compile Include="Interfaces\IPersonScoutingRole.cs" />
+    <Compile Include="Interfaces\IPersonSignIn.cs" />
+    <Compile Include="Interfaces\IResidence.cs" />
+    <Compile Include="Interfaces\IScoutingEvent.cs" />
+    <Compile Include="Interfaces\IScoutingRole.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -2,11 +2,11 @@
 
 namespace Carrick.Data.Model
 {
-    internal interface ITableBase 
+    internal interface ITableBase
         {
         int Id { get; set; }
 
-        Guid? RowGuid { get; set; }
+        Guid? RowGUID { get; set; }
 
         bool IsDeleted { get; set; }
 
