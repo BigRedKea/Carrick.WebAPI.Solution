@@ -1,11 +1,11 @@
 
-namespace ScoutDataModelPortable.Model
+namespace Carrick.DataModel
 {
-    using Scout.BusinessLogic.Interfaces;
+    
     using SQLite.Net.Attributes;
 
     [Table("Badge")]
-    public partial class Badge : TableBase, IBadge
+    public partial class Badge : TableBase
     {
 
         [MaxLength(256)]

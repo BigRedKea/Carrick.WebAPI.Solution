@@ -90,8 +90,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DataProviders\OrganisationUnitDataProvider.cs" />
     <Compile Include="DataProviders\DataProviderBase.cs" />
+    <Compile Include="DataProviders\IClientDataProvider.cs" />
+    <Compile Include="DataProviders\OrganisationUnitDataProvider.cs" />
     <Compile Include="DataProviders\PersonBadgeDataProvider.cs" />
     <Compile Include="DataProviders\PersonOrganisationUnitDataProvider.cs" />
     <Compile Include="DataProviders\PersonPersonDataProvider.cs" />
@@ -105,26 +106,10 @@
     <Compile Include="DataProviders\BadgeDataProvider.cs" />
     <Compile Include="DataProviders\ModelDataProvider.cs" />
     <Compile Include="DataProviders\PersonDataProvider.cs" />
-    <Compile Include="Model\Badge.cs" />
-    <Compile Include="Model\DataCollection.cs" />
-    <Compile Include="Model\DataStoredResponse.cs" />
-    <Compile Include="Model\OrganisationUnit.cs" />
-    <Compile Include="Model\PersonBadge.cs" />
-    <Compile Include="Model\PersonScoutingEvent.cs" />
-    <Compile Include="Model\PersonSignIn.cs" />
-    <Compile Include="Model\PersonOrganisationUnit.cs" />
-    <Compile Include="Model\PersonPerson.cs" />
-    <Compile Include="Model\PersonResidence.cs" />
-    <Compile Include="Model\PersonScoutingRole.cs" />
-    <Compile Include="Model\Residence.cs" />
-    <Compile Include="Model\ScoutingEvent.cs" />
-    <Compile Include="Model\ScoutingRole.cs" />
-    <Compile Include="Model\TableBase.cs" />
     <Compile Include="Web\ResolveConflict.cs" />
     <Compile Include="Web\WebAPITokenHelper.cs" />
     <Compile Include="Web\WebAPIRegisterHelper.cs" />
     <Compile Include="Web\WebAPIHelper.cs" />
-    <Compile Include="Model\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -171,7 +156,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Carrick.BusinessLogic\Carrick.BusinessLogic.csproj">
       <Project>{b88df5aa-ad6a-493e-986f-62bf41dee512}</Project>
-      <Name>Scout.BusinessLogic</Name>
+      <Name>Carrick.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carrick.DataModel\Carrick.DataModel.csproj">
+      <Project>{ff5a4710-9075-4ecd-aa0f-153bc2a6becd}</Project>
+      <Name>Carrick.DataModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

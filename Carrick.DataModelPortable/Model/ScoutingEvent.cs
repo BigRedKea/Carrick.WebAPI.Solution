@@ -1,10 +1,10 @@
-namespace ScoutDataModelPortable.Model
+namespace Carrick.DataModel
 {
     using SQLite.Net.Attributes;
     using System;
-    using Scout.BusinessLogic.Interfaces;
+    
     [Table("ScoutingEvent")]
-    public partial class ScoutingEvent : TableBase, IScoutingEvent
+    public partial class ScoutingEvent : TableBase
     {
 
         [MaxLength(128)]

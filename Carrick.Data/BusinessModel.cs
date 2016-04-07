@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Carrick.Data;
-using Carrick.Data.Model;
+using Carrick.DataModel;
 using Carrick.Data.Controllers;
 
 namespace Carrick.BusinessLogic

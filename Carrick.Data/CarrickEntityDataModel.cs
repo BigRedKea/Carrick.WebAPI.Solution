@@ -4,7 +4,7 @@ namespace Carrick.Data
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using Carrick.Data.Model;
+    using Carrick.DataModel;
 
     public partial class CarrickEntityDataModel : DbContext
     {

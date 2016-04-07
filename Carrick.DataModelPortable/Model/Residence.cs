@@ -1,10 +1,10 @@
 
-namespace ScoutDataModelPortable.Model
+namespace Carrick.DataModel
 {
     using SQLite.Net.Attributes;
-    using Scout.BusinessLogic.Interfaces;
+    
     [Table("Residence")]
-    public partial class Residence :TableBase ,IResidence
+    public partial class Residence :TableBase
     {
 
         [MaxLength(50)]

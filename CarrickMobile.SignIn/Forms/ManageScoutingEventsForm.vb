@@ -1,4 +1,4 @@
-﻿Imports ScoutDataModelPortable.Model
+﻿Imports Carrick.DataModel
 
 Public Class ManageScoutingEventsForm
 
@@ -7,7 +7,7 @@ Public Class ManageScoutingEventsForm
 
     Public Sub New()
         InitializeComponent()
-        For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetItems
+        For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
             For Each s As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
                 Dim chk As New ScoutingEventNightsUserControl
                 'HACK chk.LoadData(s)
@@ -17,7 +17,7 @@ Public Class ManageScoutingEventsForm
             Next
         Next
 
-        For Each se As ScoutingEvent In BL.Singleton.ScoutingEventBL.GetItems
+        For Each se As ScoutingEvent In BL.Singleton.ScoutingEventBL.GetAllItems
             EventsComboBox.Items.Add(se)
         Next
     End Sub

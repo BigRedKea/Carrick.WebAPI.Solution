@@ -1,10 +1,10 @@
 
-namespace ScoutDataModelPortable.Model
+namespace Carrick.DataModel
 {
     using SQLite.Net.Attributes;
-    using Scout.BusinessLogic.Interfaces;
+    
     [Table("OrganisationUnit")]
-    public partial class OrganisationUnit :TableBase, IOrganisationUnit
+    public partial class OrganisationUnit :TableBase
     {
         public int? ParentOrganisationUnitId { get; set; }
 

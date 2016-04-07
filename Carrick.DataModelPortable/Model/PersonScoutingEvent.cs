@@ -1,10 +1,10 @@
-namespace ScoutDataModelPortable.Model
+namespace Carrick.DataModel
 {
     using SQLite.Net.Attributes;
     using System;
-    using Scout.BusinessLogic.Interfaces;
+    
     [Table("PersonScoutingEvent")]
-    public partial class PersonScoutingEvent :TableBase, IPersonScoutingEvent
+    public partial class PersonScoutingEvent :TableBase
     {
         public int? ScoutingEventId { get; set; }
 

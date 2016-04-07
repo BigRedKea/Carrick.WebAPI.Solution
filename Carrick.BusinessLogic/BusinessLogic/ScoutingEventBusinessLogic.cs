@@ -1,22 +1,23 @@
 ﻿using System;
-using Scout.BusinessLogic.Interfaces;
+
 using System.Collections.Generic;
 using Scout.BusinessLogic.CompositeObjects;
+using Carrick.DataModel;
 
 namespace Scout.BusinessLogic.BusinessLogic
 {
-    public class ScoutingEventBusinessLogic : BusinessLogicBase<IScoutingEvent>
+    public class ScoutingEventBusinessLogic : BusinessLogicBase<ScoutingEvent>
     {
         internal ScoutingEventBusinessLogic(BusinessLogic BL) : base(BL)
         {
         }
 
-        public IEnumerable<PersonScoutingEventComposite> GetScoutingEvents(IPerson p)
+        public IEnumerable<PersonScoutingEventComposite> GetScoutingEvents(Person p)
         {
             throw new NotImplementedException();
         }
 
-        public IScoutingEvent GetScoutingEvent(PersonScoutingEventComposite p)
+        public ScoutingEvent GetScoutingEvent(PersonScoutingEventComposite p)
         {
             throw new NotImplementedException();
         }

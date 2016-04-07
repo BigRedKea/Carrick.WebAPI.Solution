@@ -1,4 +1,4 @@
-﻿Imports ScoutDataModelPortable.Model
+﻿Imports Carrick.DataModel
 
 
 Public Class ScoutEventUserControl

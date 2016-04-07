@@ -1,7 +1,7 @@
 ﻿
 Imports Scout.BusinessLogic.CompositeObjects
 Imports Scout.BusinessLogic.Interfaces
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 
 Public Class PersonLoginUserControl
 
@@ -53,21 +53,21 @@ Public Class PersonLoginUserControl
 
         LoginButton.BackColor = _LogoutColour
 
-        SetLoginButton(BL.Singleton.PersonBL.IsSignedIn(Person))
+        SetLoginButton(BL.Singleton.PersonBL.IsSignedIn(Person.Person))
     End Sub
 
     Private Sub LoginButton_Click(sender As Object, e As EventArgs) Handles LoginButton.Click
         'Don't ask for sign out
         'Don't ask questions of leaders
-        If Not BL.Singleton.PersonBL.IsSignedIn(Person) AndAlso Not BL.Singleton.LeaderModeEnabled Then
+        If Not BL.Singleton.PersonBL.IsSignedIn(Person.Person) AndAlso Not BL.Singleton.LeaderModeEnabled Then
 
             Dim frm2 As New UpcomingEventsForm
             frm2.LoadData(_Person.Person)
             frm2.ShowDialog(Me)
         End If
 
-        BL.Singleton.PersonBL.SignedIn(Person, Not BL.Singleton.PersonBL.IsSignedIn(Person))
-        SetLoginButton(BL.Singleton.PersonBL.IsSignedIn(Person))
+        BL.Singleton.PersonBL.SignedIn(Person.Person, Not BL.Singleton.PersonBL.IsSignedIn(Person.Person))
+        SetLoginButton(BL.Singleton.PersonBL.IsSignedIn(Person.Person))
     End Sub
 
     Private Sub SetLoginButton(SignedIn As Boolean)
@@ -80,7 +80,7 @@ Public Class PersonLoginUserControl
 
 
     Private Sub EditButton_Click(sender As Object, e As EventArgs) Handles EditButton.Click
-        Dim frm As New EditScoutForm(_Person)
+        Dim frm As New EditScoutForm(_Person.Person)
         frm.ShowDialog(Me)
     End Sub
 End Class

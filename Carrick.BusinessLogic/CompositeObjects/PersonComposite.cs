@@ -1,16 +1,17 @@
-﻿using Scout.BusinessLogic.Interfaces;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Carrick.DataModel;
 
 namespace Scout.BusinessLogic.CompositeObjects
 {
     public class PersonComposite
     {
-        public IPerson Person { get; set; }
-        public IOrganisationUnit Organisation { get; set; }
+        public Person Person { get; set; }
+        public OrganisationUnit Organisation { get; set; }
 
         public TimeSpan? Age()
         {
@@ -35,7 +36,7 @@ namespace Scout.BusinessLogic.CompositeObjects
         }
 
 
-        IOrganisationUnit Patrol()
+        OrganisationUnit Patrol()
         {
             throw new NotImplementedException();
         }
@@ -74,12 +75,12 @@ namespace Scout.BusinessLogic.CompositeObjects
             throw new NotImplementedException();
         }
 
-        public IPersonSignIn GetLatestSignIn(IPerson p)
+        public PersonSignIn GetLatestSignIn(Person p)
         {
             throw new NotImplementedException();
         }
 
-        public void SignIn(IPerson p)
+        public void SignIn(Person p)
         {
             EventArgs e = new EventArgs();
             PersonSignedInEventHandler handler = PersonSignedInEvent;
@@ -89,7 +90,7 @@ namespace Scout.BusinessLogic.CompositeObjects
             }
         }
 
-        public void SignOut(IPerson p)
+        public void SignOut(Person p)
         {
             EventArgs e = new EventArgs();
             PersonSignedOutEventHandler handler = PersonSignedOutEvent;

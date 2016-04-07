@@ -1,4 +1,4 @@
-﻿using Scout.BusinessLogic.Interfaces;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace Scout.BusinessLogic.CompositeObjects
 {
+
+    using Carrick.DataModel;
+
     public class PersonScoutingEventComposite
     {
-        public IPerson Person { get; set; }
-        public IScoutingEvent ScoutingEvent { get; set; }
-        public IPersonScoutingEvent PersonScoutingEvent { get; set; }
+        public Person Person { get; set; }
+        public ScoutingEvent ScoutingEvent { get; set; }
+        public PersonScoutingEvent PersonScoutingEvent { get; set; }
     }
 
     public delegate void PropertyChangedEventHandler(object x, EventArgs e);

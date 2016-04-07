@@ -2,16 +2,17 @@
 {
     using Carrick.BusinessLogic;
     using Carrick.Data.Controllers;
-    using Carrick.Data.Model;
+    using Carrick.DataModel;
     using System;
     using System.Web.Http;
+    using System.Linq;
 
     [Authorize]
     [RequireHttps]
     public class ResidenceController : ApiController
         {
 
-        private ResidenceDataController datacontroller
+        private ResidenceDataProvider datacontroller
         {
             get
             {
@@ -25,7 +26,7 @@
         [HttpGet]
         public Residence[] Get()
         {
-            return datacontroller.GetAllItems();
+            return datacontroller.GetAllItems().ToArray<Residence>();
         }
 
 
@@ -33,7 +34,7 @@
         [HttpGet]
         public Residence[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp);
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<Residence>();
         }
 
         // GET api/values/5
@@ -59,7 +60,7 @@
         [HttpPut]
         public Residence Update(int id, [FromBody]  Residence s)
         {
-            return datacontroller.UpdateItem(s);
+            return datacontroller.ModifyItem(s);
         }
 
         // DELETE api/values/5

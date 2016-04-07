@@ -1,12 +1,12 @@
 using SQLite.Net.Attributes;
 using System;
 
-namespace ScoutDataModelPortable.Model
+namespace Carrick.DataModel
 {
-    using Scout.BusinessLogic.Interfaces;
+    
 
-    [Table("BadgeRequest")]
-    public partial class PersonBadge : TableBase, IPersonBadge
+    [Table("PersonBadge")]
+    public partial class PersonBadge : TableBase
     {
         public int? BadgeId { get; set; }
 

@@ -2,181 +2,182 @@
 namespace Carrick.Data.Controllers
 {
     using Carrick.Data;
-    using Model;
+    using Carrick.DataModel;
+    using Scout.BusinessLogic.Interfaces;
     using System;
 
-    public class Repository
+    public class Repository : IDataProviders
     {
         //public static Repository Singleton = new Repository();
         internal CarrickEntityDataModel DataModel;
 
-        private BadgeDataController _BadgeDataController;
-        private PersonBadgeDataController _PersonBadgeDataController;
-        private EventLocationDataController _EventLocationDataController;
-        private LocationDataController _LocationDataController;
-        private OrganisationUnitDataController _OrganisationUnitDataController;
-        private PersonScoutingEventDataController _PersonAtEventDataController;
-        private PersonDataController _PersonDataController;
-        private PersonSignInDataController _PersonSignInDataController;
-        private PersonOrganisationUnitDataController _PersonOrganisationUnitDataController;
-        private PersonPersonDataController _PersonPersonDataController;
-        private PersonResidenceDataController _PersonResidenceDataController;
-        private PersonScoutingRoleDataController _PersonScoutingRoleDataController;
-        private ResidenceDataController _ResidenceDataController;
+        private BadgeDataProvider _BadgeDataController;
+        private PersonBadgeDataProvider _PersonBadgeDataController;
+        private EventLocationDataProvider _EventLocationDataController;
+        private LocationDataProvider _LocationDataController;
+        private OrganisationUnitDataProvider _OrganisationUnitDataController;
+        private PersonScoutingEventDataProvider _PersonAtEventDataController;
+        private PersonDataProvider _PersonDataController;
+        private PersonSignInDataProvider _PersonSignInDataController;
+        private PersonOrganisationUnitDataProvider _PersonOrganisationUnitDataController;
+        private PersonPersonDataProvider _PersonPersonDataController;
+        private PersonResidenceDataProvider _PersonResidenceDataController;
+        private PersonScoutingRoleDataProvider _PersonScoutingRoleDataController;
+        private ResidenceDataProvider _ResidenceDataController;
         private ScoutingRoleDataController _ScoutingRoleDataController;
-        private ScoutingEventDataController _ScoutingEventDataController;
+        private ScoutingEventDataProvider _ScoutingEventDataController;
 
-        public BadgeDataController BadgeDataController
+        public BadgeDataProvider BadgeDataController
         {
             get
             {
                 if (_BadgeDataController == null)
                 {
-                    _BadgeDataController = new BadgeDataController(this);
+                    _BadgeDataController = new BadgeDataProvider(this);
                 }
                 return _BadgeDataController;
             }
         }
 
-        public PersonBadgeDataController PersonBadgeDataController
+        public PersonBadgeDataProvider PersonBadgeDataController
         {
             get
             {
                 if (_PersonBadgeDataController == null)
                 {
-                    _PersonBadgeDataController = new PersonBadgeDataController(this);
+                    _PersonBadgeDataController = new PersonBadgeDataProvider(this);
                 }
                 return _PersonBadgeDataController;
             }
         }
 
-        public EventLocationDataController EventLocationDataController
+        public EventLocationDataProvider EventLocationDataController
         {
             get
             {
                 if (_EventLocationDataController == null)
                 {
-                    _EventLocationDataController = new EventLocationDataController(this);
+                    _EventLocationDataController = new EventLocationDataProvider(this);
                 }
                 return _EventLocationDataController;
             }
         }
 
-        public LocationDataController LocationDataController
+        public LocationDataProvider LocationDataController
         {
             get
             {
                 if (_LocationDataController == null)
                 {
-                    _LocationDataController = new LocationDataController(this);
+                    _LocationDataController = new LocationDataProvider(this);
                 }
                 return _LocationDataController;
             }
         }
 
-        public OrganisationUnitDataController OrganisationUnitDataController
+        public OrganisationUnitDataProvider OrganisationUnitDataController
         {
             get
             {
                 if (_OrganisationUnitDataController == null)
                 {
-                    _OrganisationUnitDataController = new OrganisationUnitDataController(this);
+                    _OrganisationUnitDataController = new OrganisationUnitDataProvider(this);
                 }
                 return _OrganisationUnitDataController;
             }
         }
         
-        public PersonScoutingEventDataController PersonScoutingEventDataController
+        public PersonScoutingEventDataProvider PersonScoutingEventDataController
         {
             get
             {
                 if (_PersonAtEventDataController == null)
                 {
-                    _PersonAtEventDataController = new PersonScoutingEventDataController(this);
+                    _PersonAtEventDataController = new PersonScoutingEventDataProvider(this);
                 }
                 return _PersonAtEventDataController;
             }
         }
 
-        public PersonDataController PersonDataController
+        public PersonDataProvider PersonDataController
         {
             get
             {
                 if (_PersonDataController == null)
                 {
-                    _PersonDataController = new PersonDataController(this);
+                    _PersonDataController = new PersonDataProvider(this);
                 }
                 return _PersonDataController;
             }
         }
 
-        public PersonSignInDataController PersonSignInDataController
+        public PersonSignInDataProvider PersonSignInDataController
         {
             get
             {
                 if (_PersonSignInDataController == null)
                 {
-                    _PersonSignInDataController = new PersonSignInDataController(this);
+                    _PersonSignInDataController = new PersonSignInDataProvider(this);
                 }
                 return _PersonSignInDataController;
             }
         }
 
-        public PersonOrganisationUnitDataController PersonOrganisationUnitDataController
+        public PersonOrganisationUnitDataProvider PersonOrganisationUnitDataController
         {
             get
             {
                 if (_PersonOrganisationUnitDataController == null)
                 {
-                    _PersonOrganisationUnitDataController = new PersonOrganisationUnitDataController(this);
+                    _PersonOrganisationUnitDataController = new PersonOrganisationUnitDataProvider(this);
                 }
                 return _PersonOrganisationUnitDataController;
             }
         }
 
-        public PersonPersonDataController PersonPersonDataController
+        public PersonPersonDataProvider PersonPersonDataController
         {
             get
             {
                 if (_PersonPersonDataController == null)
                 {
-                    _PersonPersonDataController = new PersonPersonDataController(this);
+                    _PersonPersonDataController = new PersonPersonDataProvider(this);
                 }
                 return _PersonPersonDataController;
             }
         }
 
-        public PersonResidenceDataController PersonResidenceDataController
+        public PersonResidenceDataProvider PersonResidenceDataController
         {
             get
             {
                 if (_PersonResidenceDataController == null)
                 {
-                    _PersonResidenceDataController = new PersonResidenceDataController(this);
+                    _PersonResidenceDataController = new PersonResidenceDataProvider(this);
                 }
                 return _PersonResidenceDataController;
             }
         }
 
-        public PersonScoutingRoleDataController PersonScoutingRoleDataController
+        public PersonScoutingRoleDataProvider PersonScoutingRoleDataController
         {
             get
             {
                 if (_PersonScoutingRoleDataController == null)
                 {
-                    _PersonScoutingRoleDataController = new PersonScoutingRoleDataController(this);
+                    _PersonScoutingRoleDataController = new PersonScoutingRoleDataProvider(this);
                 }
                 return _PersonScoutingRoleDataController;
             }
         }
 
-        public ResidenceDataController ResidenceDataController
+        public ResidenceDataProvider ResidenceDataController
         {
             get
             {
                 if (_ResidenceDataController == null)
                 {
-                    _ResidenceDataController = new ResidenceDataController(this);
+                    _ResidenceDataController = new ResidenceDataProvider(this);
                 }
                 return _ResidenceDataController;
             }
@@ -194,13 +195,13 @@ namespace Carrick.Data.Controllers
             }
         }
 
-        public ScoutingEventDataController ScoutingEventDataController
+        public ScoutingEventDataProvider ScoutingEventDataController
         {
             get
             {
                 if (_ScoutingEventDataController == null)
                 {
-                    _ScoutingEventDataController = new ScoutingEventDataController(this);
+                    _ScoutingEventDataController = new ScoutingEventDataProvider(this);
                 }
                 return _ScoutingEventDataController;
             }
@@ -211,6 +212,11 @@ namespace Carrick.Data.Controllers
         public Repository()
         {
             DataModel = new CarrickEntityDataModel();
+        }
+
+        public object GetProvider(Type t)
+        {
+            throw new NotImplementedException();
         }
     }
 }

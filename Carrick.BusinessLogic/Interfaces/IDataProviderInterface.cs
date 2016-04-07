@@ -1,34 +1,34 @@
 ﻿
+using Carrick.DataModel;
 using System;
 using System.Collections.Generic;
 
 namespace Scout.BusinessLogic.Interfaces
 {
 
-    public interface IDataProviderInterface
-    {
-        void Initialise();
 
-        void Sync();
+    public interface IDataProviderInterface<T> where T : TableBase
+    {
+        //void Initialise();
+
+        //void Sync();
 
         Type GetDataType();
 
-        void LoadLocalData();
-    }
+        //void LoadLocalData();
 
-    public interface IDataProviderInterface<T> : IDataProviderInterface 
-    {
+        T InsertItem(T item);
 
-        void InsertItem(T item);
+        T ModifyItem(T item);
 
-        void ModifyItem(T item);
-
-        void DeleteItem(T item);
+        T DeleteItem(T item);
 
         T GetItem(int id);
 
-        T Factory();
+        T CreateItem();
 
-        IEnumerable<T> GetItems();
+        IEnumerable<T> GetAllItems();
+
+        IEnumerable<T> GetActiveItems();
     }
 }

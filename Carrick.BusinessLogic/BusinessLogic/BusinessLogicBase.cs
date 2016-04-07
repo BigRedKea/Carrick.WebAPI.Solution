@@ -1,13 +1,15 @@
-﻿using Scout.BusinessLogic.Interfaces;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Scout.BusinessLogic.Interfaces;
+using Carrick.DataModel;
 
 namespace Scout.BusinessLogic.BusinessLogic
 {
-    public class BusinessLogicBase<T>
+    public class BusinessLogicBase<T> where T : TableBase
     {
         protected BusinessLogic _BL;
 
@@ -16,7 +18,7 @@ namespace Scout.BusinessLogic.BusinessLogic
         public BusinessLogicBase(BusinessLogic BL)
         {
             this._BL = BL;
-            DataProvider = _BL.DataProviders.GetProvider<T>(typeof(T));
+            DataProvider = (IDataProviderInterface<T>) _BL.DataProviders.GetProvider(typeof(T));
         }
 
         public T GetItem(Int32 id)
@@ -24,9 +26,14 @@ namespace Scout.BusinessLogic.BusinessLogic
             return DataProvider.GetItem(id);
         }
 
-        public IEnumerable<T> GetItems()
+        public IEnumerable<T> GetAllItems()
         {
-            return DataProvider.GetItems();
+            return DataProvider.GetAllItems();
+        }
+
+        public IEnumerable<T> GetActiveItems()
+        {
+            return DataProvider.GetActiveItems();
         }
 
         public void ModifyItem(T item)
@@ -44,9 +51,9 @@ namespace Scout.BusinessLogic.BusinessLogic
             DataProvider.DeleteItem(item);
         }
 
-        public T Factory()
+        public T CreateItem()
         {
-            return DataProvider.Factory();
+            return DataProvider.CreateItem();
         }
 
     }

@@ -1,10 +1,10 @@
-namespace ScoutDataModelPortable.Model
+namespace Carrick.DataModel
 {
     using SQLite.Net.Attributes;
     using System;
-    using Scout.BusinessLogic.Interfaces;
+    
     [Table("PersonSignIn")]
-    public partial class PersonSignIn :TableBase, IPersonSignIn
+    public partial class PersonSignIn :TableBase
     {
 
         public long? PersonId { get; set; }

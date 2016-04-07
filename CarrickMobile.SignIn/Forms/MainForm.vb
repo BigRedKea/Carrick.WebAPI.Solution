@@ -2,7 +2,7 @@
 Imports System.IO
 Imports System.Xml.Serialization
 Imports ScoutDataModelPortable
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 Imports Scout.BusinessLogic.Interfaces
 
 Public Class MainForm
@@ -12,9 +12,9 @@ Public Class MainForm
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Dim OrganisationUnits As List(Of IOrganisationUnit) = BL.Singleton.OrganisationUnitBL.GetOrganisationsSortedLargestToSmallest
+        Dim OrganisationUnits As List(Of OrganisationUnit) = BL.Singleton.OrganisationUnitBL.GetOrganisationsSortedLargestToSmallest
 
-        For Each p As IOrganisationUnit In OrganisationUnits
+        For Each p As OrganisationUnit In OrganisationUnits
             Dim ctl As New OrganisationLoginUserControl(p)
             Me.FlowLayoutPanel1.Controls.Add(ctl)
         Next
@@ -152,7 +152,7 @@ Public Class MainForm
 
         Dim t As String = ""
         For Each itm In BL.Singleton.BadgeRequestBL.GetBadgesToOrder
-            t &= vbTab & BL.Singleton.PersonBL.GetPerson(itm).FullName.ToString & " " & BL.Singleton.BadgeBL.GetBadge(itm).BadgeName & vbCrLf
+            t &= vbTab & itm.Person.FullName.ToString & " " & itm.Badge.BadgeName & vbCrLf
         Next
 
         If MsgBox("Place Order for " & vbCrLf & t, MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then

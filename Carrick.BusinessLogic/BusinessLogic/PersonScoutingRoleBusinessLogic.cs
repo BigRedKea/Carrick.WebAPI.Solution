@@ -1,9 +1,9 @@
 ﻿using System;
-using Scout.BusinessLogic.Interfaces;
+using Carrick.DataModel;
 
 namespace Scout.BusinessLogic.BusinessLogic
 {
-    public class PersonScoutingRoleBusinessLogic : BusinessLogicBase<IPersonScoutingRole>
+    public class PersonScoutingRoleBusinessLogic : BusinessLogicBase<PersonScoutingRole>
     {
         internal PersonScoutingRoleBusinessLogic(BusinessLogic BL) : base(BL)
         {

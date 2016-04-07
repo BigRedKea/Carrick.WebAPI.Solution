@@ -1,23 +1,24 @@
 ﻿Imports System.IO
 Imports System.Web.UI
 Imports System.Text
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 Imports Scout.BusinessLogic.Interfaces
+Imports Scout.BusinessLogic.CompositeObjects
 
 Public Class EmailEventsHTML
 
     Public Sub Execute()
-        For Each itm As ScoutingEvent In BL.Singleton.PersonScoutingEventBL.GetItems
+        For Each itm As PersonScoutingEventComposite In BL.Singleton.PersonScoutingEventBL.GetActiveCompositeItems
             Dim scoutsgoing As New List(Of Integer)
-            For Each sae As PersonScoutingEvent In BL.Singleton.PersonBL.GetPersonsAtEvent(itm)
+            'For Each sae As PersonScoutingEvent In BL.Singleton.PersonBL.GetPersonsAtEvent(itm)
 
-                If Not (scoutsgoing.Contains(sae.PersonId)) Then
-                    scoutsgoing.Add(sae.PersonId)
-                End If
-            Next
+            '    If Not (scoutsgoing.Contains(sae.PersonId)) Then
+            '        scoutsgoing.Add(sae.PersonId)
+            '    End If
+            'Next
 
-            If itm.StartDateTime > Now() Then
-                Dim evtname As String = itm.EventName
+            If itm.ScoutingEvent.StartDateTime > Now() Then
+                Dim evtname As String = itm.ScoutingEvent.EventName
                 evtname = Replace(evtname, "\", "_")
                 evtname = Replace(evtname, "/", "_")
 
@@ -28,7 +29,7 @@ Public Class EmailEventsHTML
                     sw.WriteLine("<HTML>")
                     '   
                     sw.WriteLine("<HEAD>")
-                    sw.WriteLine("<TITLE>Create Scout Emails for Scouts Who Have Registered interest in " & itm.EventName & "</TITLE>")
+                    sw.WriteLine("<TITLE>Create Scout Emails for Scouts Who Have Registered interest in " & itm.ScoutingEvent.EventName & "</TITLE>")
 
                     sw.WriteLine("<SCRIPT>")
 
@@ -36,16 +37,16 @@ Public Class EmailEventsHTML
                     sw.WriteLine("    switch(filter)")
                     sw.WriteLine("        {")
                     sw.WriteLine("            case '':")
-                    For Each org As IOrganisationUnit In BL.Singleton.OrganisationUnitBL.GetItems
-                        For Each sct As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
+                    For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
+                        For Each sct As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
                             sw.WriteLine("                form.Checkbox" & sct.Id & ".checked = select;")
                         Next
                     Next
                     sw.WriteLine("                break")
 
-                    For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetItems
+                    For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
                         sw.WriteLine("            case '" & org.Description & "':")
-                        For Each sct As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
+                        For Each sct As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
                             sw.WriteLine("                form.Checkbox" & sct.Id & ".checked = select;")
                         Next
                         sw.WriteLine("                break")
@@ -60,10 +61,10 @@ Public Class EmailEventsHTML
                     sw.WriteLine("    var bodytext = '';")
                     sw.WriteLine("    var newline = '%0D%0A';")
 
-                    For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetItems
-                        For Each sct As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
+                    For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
+                        For Each sct As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
                             Dim email As String = ""
-                            For Each p As IPerson In BL.Singleton.PersonBL.GetParents(sct)
+                            For Each p As Person In BL.Singleton.PersonBL.GetParents(sct)
                                 email = email & Trim(p.Email) & ";"
                             Next
 
@@ -79,8 +80,8 @@ Public Class EmailEventsHTML
 
                     sw.WriteLine("    if (form.BccScoutsCheckBox.checked)")
                     sw.WriteLine("    {")
-                    For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetItems
-                        For Each sct As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
+                    For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
+                        For Each sct As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
                             Dim email As String = Trim(sct.Email)
 
                             If email.Length > 0 Then
@@ -144,12 +145,12 @@ Public Class EmailEventsHTML
                     sw.WriteLine("     </table>")
                     sw.WriteLine("     <br />")
 
-                    For Each ptl As IOrganisationUnit In BL.Singleton.OrganisationUnitBL.GetItems
+                    For Each ptl As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
                         sw.WriteLine("     <h4> " & ptl.Description & " </h4>")
                         sw.WriteLine("     <input type=""button"" value=""Select"" onclick=""selectscout(this.form, '" & ptl.Description & "', true)"">")
                         sw.WriteLine("     <input type=""button"" value=""Unselect"" onclick=""selectscout(this.form, '" & ptl.Description & "', false)"">")
                         sw.WriteLine("     <table width=""200"" style=""border:1px solid black;width:200pt"">")
-                        For Each sct As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(ptl)
+                        For Each sct As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(ptl)
                             sw.WriteLine("         <tr>")
 
                             Dim ckd As String = ""

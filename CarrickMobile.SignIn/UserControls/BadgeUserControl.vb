@@ -1,16 +1,16 @@
 ﻿Imports Scout.BusinessLogic.Interfaces
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 
 
 Public Class BadgeUserControl
 
-    Private _Badge As IBadge
+    Private _Badge As Badge
 
     Public Sub New()
         InitializeComponent()
     End Sub
 
-    Public Sub LoadData(b As IBadge)
+    Public Sub LoadData(b As Badge)
         _Badge = b
         Me.PictureBox1.Image = (New ImageHelper).Convert(b.BadgeImage)
         Me.NameTextBox.Text = b.BadgeName

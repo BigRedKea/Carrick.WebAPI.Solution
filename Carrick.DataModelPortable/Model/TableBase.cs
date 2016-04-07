@@ -1,12 +1,12 @@
-﻿namespace ScoutDataModelPortable.Model
+﻿namespace Carrick.DataModel
 {
-    using Scout.BusinessLogic.Interfaces;
+    
     using SQLite.Net.Attributes;
     using System;
 
     public delegate void PropertyChangedEventHandler(object sender, EventArgs e);
 
-    public class TableBase : IDataTable
+    public class TableBase
     {
         public TableBase()
         {

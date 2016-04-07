@@ -1,14 +1,14 @@
 ﻿Imports Scout.BusinessLogic.CompositeObjects
 Imports Scout.BusinessLogic.Interfaces
 Imports ScoutDataModelPortable
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 
 Public Class EditScoutForm
 
-    Private _Scout As IPerson
+    Private _Scout As Person
     Private bm As Image
 
-    Public Sub New(s As IPerson)
+    Public Sub New(s As Person)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -19,14 +19,14 @@ Public Class EditScoutForm
 
         'Patrol
         With PatrolComboBox
-            For Each p As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetItems
+            For Each p As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
                 .Items.Add(p)
             Next
 
             .DropDownStyle = ComboBoxStyle.DropDown
             'HACK .SelectedItem = s.OrganisationUnit
             AddHandler .SelectionChangeCommitted, Sub(sender As Object, e As EventArgs)
-                                                      BL.Singleton.PersonOrganisationUnitBL.ChangeOrganisation(_Scout, CType(PatrolComboBox.SelectedItem, IOrganisationUnit))
+                                                      BL.Singleton.PersonOrganisationUnitBL.ChangeOrganisation(_Scout, CType(PatrolComboBox.SelectedItem, OrganisationUnit))
                                                   End Sub
             .Enabled = BL.Singleton.LeaderModeEnabled
         End With
@@ -34,7 +34,7 @@ Public Class EditScoutForm
 
         'Scout Leader
         With Me.ScoutLeaderComboBox
-            For Each itm As IPerson In BL.Singleton.PersonBL.GetItems
+            For Each itm As Person In BL.Singleton.PersonBL.GetAllItems
                 .Items.Add(itm)
             Next
             .DropDownStyle = ComboBoxStyle.DropDownList
@@ -127,7 +127,7 @@ Public Class EditScoutForm
 
         'Request Badge
         With RequestBadgeComboBox
-            For Each p As IBadge In BL.Singleton.BadgeBL.GetItems
+            For Each p As Badge In BL.Singleton.BadgeBL.GetAllItems
                 If p.BadgeEnabled Then
                     .Items.Add(p)
                 End If
@@ -137,7 +137,7 @@ Public Class EditScoutForm
             '.SelectedItem = s.Rank
             AddHandler .SelectionChangeCommitted, Sub(sender As Object, e As EventArgs)
                                                       RefreshScreen()
-                                                      PictureBox1.Image = (New ImageHelper).Convert(CType(RequestBadgeComboBox.SelectedItem, IBadge).BadgeImage)
+                                                      PictureBox1.Image = (New ImageHelper).Convert(CType(RequestBadgeComboBox.SelectedItem, Badge).BadgeImage)
 
                                                   End Sub
             '.Enabled = DataRepository.Singleton.LeaderModeEnabled
@@ -147,8 +147,8 @@ Public Class EditScoutForm
         With RequestBadgeButton
             .Enabled = False
             AddHandler .Click, Sub(sender As Object, e As EventArgs)
-                                   Dim br As IPersonBadge = BL.Singleton.BadgeRequestBL.RequestBadge(_Scout, CType(RequestBadgeComboBox.SelectedItem, IBadge))
-                                   br.LeaderAssignedId = CType(ScoutLeaderComboBox.SelectedItem, Person).Id
+                                   Dim br As PersonBadgeComposite = BL.Singleton.BadgeRequestBL.RequestBadge(_Scout, CType(RequestBadgeComboBox.SelectedItem, Badge))
+                                   br.PersonBadge.LeaderAssignedId = CType(ScoutLeaderComboBox.SelectedItem, Person).Id
                                    AddBadge(br)
                                    ScoutLeaderComboBox.SelectedItem = Nothing
                                    RequestBadgeComboBox.SelectedItem = Nothing
@@ -158,7 +158,7 @@ Public Class EditScoutForm
 
         BadgeRequestDataGridViewRow.SetupDataGrid(DataGridView1)
 
-        For Each itm As IPersonBadge In BL.Singleton.BadgeRequestBL.GetBadgeRequestsforPerson(_Scout)
+        For Each itm As PersonBadgeComposite In BL.Singleton.BadgeRequestBL.GetBadgeRequestsforPerson(_Scout)
             AddBadge(itm)
         Next
 
@@ -193,12 +193,12 @@ Public Class EditScoutForm
                 evnts.Add(itm.PersonScoutingEvent.Id, t)
             Next
 
-            For Each itm As PersonScoutingEventComposite In BL.Singleton.ScoutingEventBL.GetItems()
+            For Each itm As PersonScoutingEventComposite In BL.Singleton.ScoutingEventBL.GetScoutingEvents(_Scout)
                 If itm.ScoutingEvent.StartDateTime > Now And Not evnts.ContainsKey(itm.ScoutingEvent.Id) Then
                     Dim t As New ScoutingEventNightsUserControl
                     t.DisplayMode = ScoutingEventNightsUserControl.eDisplayMode.DisplayEventName
                     t.LoadData(itm)
-                    t.LoadData(_Scout)
+                    't.LoadData(_Scout)
                     .Controls.Add(t)
                     evnts.Add(itm.ScoutingEvent.Id, t)
                 End If

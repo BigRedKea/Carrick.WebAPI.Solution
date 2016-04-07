@@ -2,60 +2,60 @@
 using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
-using Scout.BusinessLogic.Interfaces;
 
-namespace ScoutDataModelPortable.Model
+
+namespace Carrick.DataModel
 {
-    public class Person :TableBase ,IPerson
+    public partial class Person :TableBase
     {
 
 
         private string _PreferredName;
         [MaxLength(16)]
-        string IPerson.PreferredName { get { return _PreferredName; } set { _PreferredName = value; } }
+        public string PreferredName { get { return _PreferredName; } set { _PreferredName = value; } }
 
         private string _ScoutName;
         [MaxLength(16)]
-        string IPerson.ScoutName { get { return _ScoutName; } set { _ScoutName = value; } }
+        public string ScoutName { get { return _ScoutName; } set { _ScoutName = value; } }
 
         private string _Surname;
         [MaxLength(16)]
-        string IPerson.Surname { get { return _Surname; } set { _Surname = value; } }
+        public string Surname { get { return _Surname; } set { _Surname = value; } }
 
         [MaxLength(50)]
-        string IPerson.MembershipId { get; set; }
+        public string MembershipId { get; set; }
 
-        DateTime? IPerson.DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
-        DateTime? IPerson.DateOfInvestiture { get; set; }
-
-        [MaxLength(50)]
-        string IPerson.MedicareNumber { get; set; }
-
-        DateTime? IPerson.LastTetanus { get; set; }
-
-        DateTime? IPerson.DateLeftOrganisation { get; set; }
-
-        string IPerson.NotesForMembership { get; set; }
+        public DateTime? DateOfInvestiture { get; set; }
 
         [MaxLength(50)]
-        string IPerson.FamilyCode { get; set; }
+        public string MedicareNumber { get; set; }
+
+        public DateTime? LastTetanus { get; set; }
+
+        public DateTime? DateLeftOrganisation { get; set; }
+
+        public string NotesForMembership { get; set; }
 
         [MaxLength(50)]
-        string IPerson.Email { get; set; }
+        public string FamilyCode { get; set; }
+
+        [MaxLength(50)]
+        public string Email { get; set; }
 
         [MaxLength(20)]
-        string IPerson.Mobile { get; set; }
+        public string Mobile { get; set; }
 
         [MaxLength(1)]
-        string IPerson.Gender { get; set; }
+        public string Gender { get; set; }
 
         public override string ToString()
         {
             return _PreferredName + " " + _Surname;
         }
 
-        string IPerson.FullName()
+        string FullName()
         {
             return _PreferredName + " " + _Surname;
         }

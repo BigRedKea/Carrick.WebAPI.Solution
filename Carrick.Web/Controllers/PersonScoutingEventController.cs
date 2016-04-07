@@ -1,7 +1,8 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.Data.Controllers;
-using Carrick.Data.Model;
+using Carrick.DataModel;
 using System;
+using System.Linq;
 using System.Web.Http;
 
 namespace Carrick.Web.Controllers
@@ -11,7 +12,7 @@ namespace Carrick.Web.Controllers
     public class PersonScoutingEventController : ApiController
     {
 
-        private PersonScoutingEventDataController datacontroller
+        private PersonScoutingEventDataProvider datacontroller
         {
             get
             {
@@ -25,7 +26,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public PersonScoutingEvent[] Get()
         {
-            return datacontroller.GetAllItems();
+            return datacontroller.GetAllItems().ToArray<PersonScoutingEvent>();
         }
 
 
@@ -33,7 +34,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public PersonScoutingEvent[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp);
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<PersonScoutingEvent>();
         }
 
         // GET api/values/5
@@ -59,7 +60,7 @@ namespace Carrick.Web.Controllers
         [HttpPut]
         public PersonScoutingEvent Update(int id, [FromBody] PersonScoutingEvent s)
         {
-            return datacontroller.UpdateItem(s);
+            return datacontroller.ModifyItem(s);
         }
 
         // DELETE api/values/5

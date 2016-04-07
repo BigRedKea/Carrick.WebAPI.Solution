@@ -1,7 +1,7 @@
 ﻿imports Scout.BusinessLogic.BusinessLogic
 imports Scout.BusinessLogic.Interfaces
 imports ScoutDataModelPortable.DataProviders
-imports ScoutDataModelPortable.Model
+imports Carrick.DataModel
 imports System
 
 

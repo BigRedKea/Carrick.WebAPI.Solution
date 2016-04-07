@@ -1,13 +1,13 @@
 ﻿Imports System.IO
 Imports System.Web.UI
 Imports System.Text
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 Imports Scout.BusinessLogic.Interfaces
 
 Public Class ExportPersonToHTML
 
 
-    Public Function Execute(Person As IPerson) As String
+    Public Function Execute(Person As Person) As String
 
         Dim filepath As String = Nothing
         Try
@@ -79,7 +79,7 @@ Public Class ExportPersonToHTML
                         .RenderEndTag() 'Div
 
 
-                        For Each p As IPerson In BL.Singleton.PersonBL.GetParents(Person)
+                        For Each p As Person In BL.Singleton.PersonBL.GetParents(Person)
 
                             .RenderBeginTag(HtmlTextWriterTag.Div)
 
@@ -147,7 +147,7 @@ Public Class ExportPersonToHTML
                         .RenderEndTag()
                         .RenderEndTag()
 
-                        For Each itm As IPersonBadge In badges.Values
+                        For Each itm As PersonBadge In badges.Values
                             Dim s As New List(Of String)
                             s.Add(itm.Id.ToString)
                             s.Add(BL.Singleton.BadgeBL.GetBadge(itm).BadgeName)
@@ -178,7 +178,7 @@ Public Class ExportPersonToHTML
                         'End Div
                         .RenderEndTag()
 
-                        Dim GetPersonScoutingEvents As IEnumerable(Of PersonScoutingEvent) = BL.Singleton.ScoutingEventBL.GetItems
+                        Dim GetPersonScoutingEvents As IEnumerable(Of PersonScoutingEvent) = BL.Singleton.ScoutingEventBL.GetAllItems
 
 
                         .RenderBeginTag(HtmlTextWriterTag.Div)

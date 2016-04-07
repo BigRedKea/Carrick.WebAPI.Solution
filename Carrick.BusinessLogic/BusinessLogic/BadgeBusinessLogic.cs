@@ -1,10 +1,10 @@
 ﻿
 using System;
-using Scout.BusinessLogic.Interfaces;
+using Carrick.DataModel;
 
 namespace Scout.BusinessLogic.BusinessLogic
 {
-    public class BadgeBusinessLogic :BusinessLogicBase <IBadge>
+    public class BadgeBusinessLogic :BusinessLogicBase <Badge>
     {
 
         internal BadgeBusinessLogic(BusinessLogic BL) :base (BL)
@@ -12,7 +12,7 @@ namespace Scout.BusinessLogic.BusinessLogic
 
         }
 
-        public IBadge GetBadge(IPersonBadge br)
+        public Badge GetBadge(PersonBadge br)
         {
             if (br != null)
             {

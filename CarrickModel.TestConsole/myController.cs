@@ -1,7 +1,7 @@
 ﻿using Scout.BusinessLogic.BusinessLogic;
-using Scout.BusinessLogic.Interfaces;
+
 using ScoutDataModelPortable.DataProviders;
-using ScoutDataModelPortable.Model;
+using Carrick.DataModel;
 using System;
 
 
@@ -29,7 +29,7 @@ namespace ScoutModel.TestConsole
         }
         public void loadtestdata1()
         {
-            IScoutingRole sr = ScoutingRoleBL.GetItem(12);
+            ScoutingRole sr = ScoutingRoleBL.GetItem(12);
 
             if (sr != null)
             {
@@ -37,7 +37,7 @@ namespace ScoutModel.TestConsole
                 ScoutingRoleBL.ModifyItem(sr);
             }
 
-            IScoutingRole sr2 = ScoutingRoleBL.Factory();
+            ScoutingRole sr2 = ScoutingRoleBL.CreateItem();
             sr2.Description = "Tester2";
             ScoutingRoleBL.InsertItem(sr2);
         }
@@ -50,12 +50,12 @@ namespace ScoutModel.TestConsole
 
             //_controller.ScoutingRoleController.InsertItem(sr);
 
-            IPerson james = PersonBL.Factory();
+            Person james = PersonBL.CreateItem();
             james.PreferredName = "James";
             james.Surname = "Noonan";
             PersonBL.InsertItem(james);
 
-            IPerson newPerson = PersonBL.Factory();
+            Person newPerson = PersonBL.CreateItem();
             newPerson.PreferredName = "Logan";
             PersonBL.InsertItem(newPerson);
 
@@ -89,13 +89,13 @@ namespace ScoutModel.TestConsole
         public void readdata()
         {
             Console.WriteLine("Scouting Role");
-            foreach (IScoutingRole s in ScoutingRoleBL.GetItems())
+            foreach (ScoutingRole s in ScoutingRoleBL.GetAllItems())
             {
                 Console.WriteLine(s.LocalId + " " + s.Description);
             }
 
             Console.WriteLine("People");
-            foreach (IPerson s in PersonBL.GetItems())
+            foreach (Person s in PersonBL.GetAllItems())
             {
                 Console.WriteLine(s.PreferredName + ' ' + s.Surname );
                 Console.WriteLine(s.Email);

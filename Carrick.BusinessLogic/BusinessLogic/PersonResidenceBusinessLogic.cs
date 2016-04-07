@@ -1,20 +1,20 @@
 ﻿using System;
-using Scout.BusinessLogic.Interfaces;
+using Carrick.DataModel;
 
 namespace Scout.BusinessLogic.BusinessLogic
 {
-    public class PersonResidenceBusinessLogic : BusinessLogicBase<IPersonResidence>
+    public class PersonResidenceBusinessLogic : BusinessLogicBase<PersonResidence>
     {
         internal PersonResidenceBusinessLogic(BusinessLogic BL) : base(BL)
         {
         }
 
-        public void LinkPersonResidence(IPerson _Person, IResidence r)
+        public void LinkPersonResidence(Person _Person, Residence r)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdatePersonResidence(IPerson _Person, int id, IResidence r)
+        public void UpdatePersonResidence(Person _Person, int id, Residence r)
         {
             throw new NotImplementedException();
         }

@@ -1,6 +1,6 @@
 ﻿Imports Scout.BusinessLogic.CompositeObjects
 Imports Scout.BusinessLogic.Interfaces
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 
 Public Class ScoutingEventNightsUserControl
     Private _sae As PersonScoutingEventComposite
@@ -19,7 +19,7 @@ Public Class ScoutingEventNightsUserControl
                                                 If AttendingCheckBox.Checked Then
                                                     BL.Singleton.PersonScoutingEventBL.Link(_sae.ScoutingEvent, _sae.Person)
                                                 Else
-                                                    BL.Singleton.PersonScoutingEventBL.UnLink(_sae.ScoutingEvent)
+                                                    BL.Singleton.PersonScoutingEventBL.UnLink(_sae)
                                                 End If
                                                 RefreshData()
                                             End Sub
@@ -84,13 +84,13 @@ Public Class ScoutingEventNightsUserControl
         RefreshData()
     End Sub
 
-    'Public Sub LoadData(s As IPerson)
+    'Public Sub LoadData(s As Person)
     '    _Person = s
     '    Checked = False
     '    RefreshData()
     'End Sub
 
-    'Public Sub LoadData(se As IScoutingEvent)
+    'Public Sub LoadData(se As ScoutingEvent)
     '    _se = se
 
     '    Checked = False

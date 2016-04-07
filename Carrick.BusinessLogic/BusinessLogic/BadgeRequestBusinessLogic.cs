@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Scout.BusinessLogic.Interfaces;
+
 using Scout.BusinessLogic.CompositeObjects;
+using Carrick.DataModel;
 
 namespace Scout.BusinessLogic.BusinessLogic
 {
 
-    public class BadgeRequestBusinessLogic : BusinessLogicBase<IPersonBadge>
+    public class BadgeRequestBusinessLogic : BusinessLogicBase<PersonBadge>
     {
         internal BadgeRequestBusinessLogic(BusinessLogic BL) :base (BL)
         {
@@ -17,7 +18,7 @@ namespace Scout.BusinessLogic.BusinessLogic
             throw new NotImplementedException();
         }
 
-        private PersonBadgeComposite CreateBadgeRequestComposite(IPersonBadge br)
+        private PersonBadgeComposite CreateBadgeRequestComposite(PersonBadge br)
         {
             PersonBadgeComposite brc = new PersonBadgeComposite()
             {
@@ -34,7 +35,7 @@ namespace Scout.BusinessLogic.BusinessLogic
         {
             List<PersonBadgeComposite> brs = new List<PersonBadgeComposite>();
 
-            foreach (IPersonBadge br in GetItems())
+            foreach (PersonBadge br in GetAllItems())
             {
                 if (br.PresentedDateTime == null && br.AuthorisedById == null)
                 {
@@ -44,11 +45,11 @@ namespace Scout.BusinessLogic.BusinessLogic
             return brs;
         }
 
-        public IEnumerable<PersonBadgeComposite> GetBadgesToPresent(IPerson p)
+        public IEnumerable<PersonBadgeComposite> GetBadgesToPresent(Person p)
         {
             List<PersonBadgeComposite> brs = new List<PersonBadgeComposite>();
 
-            foreach (IPersonBadge br in GetItems())
+            foreach (PersonBadge br in GetAllItems())
             {
                 if (br.PresentedDateTime == null && !(br.AuthorisedById ==null))
                 {
@@ -60,10 +61,10 @@ namespace Scout.BusinessLogic.BusinessLogic
 
         public IEnumerable<PersonBadgeComposite> GetBadgesToPresentToPersonsPresent()
         {
-            IEnumerable<IPerson> persons = _BL.PersonBL.GetItems();
+            IEnumerable<Person> persons = _BL.PersonBL.GetAllItems();
             List<PersonBadgeComposite> brs = new List<PersonBadgeComposite>();
 
-            foreach (IPerson s in persons)
+            foreach (Person s in persons)
             {
                 if (_BL.PersonBL.IsSignedIn(s))
                 {
@@ -88,12 +89,12 @@ namespace Scout.BusinessLogic.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PersonBadgeComposite> GetBadgeRequestsforPerson(IPerson person)
+        public IEnumerable<PersonBadgeComposite> GetBadgeRequestsforPerson(Person person)
         {
             {
                 List<PersonBadgeComposite> brs = new List<PersonBadgeComposite>();
 
-                foreach (IPersonBadge br in GetItems())
+                foreach (PersonBadge br in GetAllItems())
                 {
                     if (br.PresentedDateTime == null && !(br.AuthorisedById == null))
                     {
@@ -109,12 +110,12 @@ namespace Scout.BusinessLogic.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public PersonBadgeComposite RequestBadge(IPerson Person, IBadge Badge)
+        public PersonBadgeComposite RequestBadge(Person Person, Badge Badge)
         {
             PersonBadgeComposite br = new PersonBadgeComposite();
             br.Badge = Badge;
             br.Person = Person;
-            br.PersonBadge = Factory();
+            br.PersonBadge = CreateItem();
             return br;
         }
 

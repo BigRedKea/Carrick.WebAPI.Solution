@@ -1,11 +1,11 @@
 ﻿
 Imports Scout.BusinessLogic.Interfaces
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 
 Public Class PersonUserControl
-    Private _Person As IPerson
+    Private _Person As Person
 
-    Public ReadOnly Property Person As IPerson
+    Public ReadOnly Property Person As Person
         Get
             Return _Person
         End Get

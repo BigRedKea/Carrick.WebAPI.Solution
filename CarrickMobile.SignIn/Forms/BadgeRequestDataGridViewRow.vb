@@ -3,7 +3,7 @@ Option Explicit On
 
 Imports Scout.BusinessLogic.CompositeObjects
 Imports Scout.BusinessLogic.Interfaces
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 
 Public Class BadgeRequestDataGridViewRow : Inherits DataGridViewRow
 
@@ -106,14 +106,14 @@ Public Class BadgeRequestDataGridViewRow : Inherits DataGridViewRow
 
 
             LeaderAssignedCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton
-            For Each leader As IPerson In BL.Singleton.PersonBL.GetItems
+            For Each leader As Person In BL.Singleton.PersonBL.GetAllItems
                 LeaderAssignedCell.Items.Add(leader.ScoutName)
             Next
             LeaderAssignedCell.Value = BL.Singleton.PersonBL.GetItem(_BadgeRequest.PersonBadge.LeaderAssignedId.Value).ScoutName
 
 
             AuthorisedByCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton
-            For Each leader As IPerson In BL.Singleton.PersonBL.GetItems
+            For Each leader As Person In BL.Singleton.PersonBL.GetAllItems
                 AuthorisedByCell.Items.Add(leader.ScoutName)
             Next
             If _BadgeRequest.PersonBadge.AuthorisedById.HasValue Then
@@ -163,7 +163,7 @@ Public Class BadgeRequestDataGridViewRow : Inherits DataGridViewRow
     End Sub
 
     Sub SelectIfScoutPresent()
-        For Each s As IPerson In BL.Singleton.PersonBL.GetItems
+        For Each s As Person In BL.Singleton.PersonBL.GetAllItems
 
             'HACK If s.Id = brc.Person.Id And BL.Singleton.PersonSignInBL.GetItem(s.Id).SigninState = True Then
             '    MarkCell.Value = True

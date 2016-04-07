@@ -10,7 +10,7 @@ namespace ScoutDataModelPortable.DataProviders
     using System.Net.Http.Headers;
     using DataProviders;
     using Scout.BusinessLogic.Interfaces;
-
+    using Carrick.DataModel;
     public class ModelDataProvider :IDataProviders
     {
         
@@ -19,7 +19,7 @@ namespace ScoutDataModelPortable.DataProviders
         internal HttpClient client = new HttpClient();
         private string url = "";
 
-        private Dictionary<Type, IDataProviderInterface> _DataProviders = new Dictionary<Type, IDataProviderInterface>();
+        private Dictionary<Type, IClientDataProvider> _DataProviders = new Dictionary<Type, IClientDataProvider>();
 
 
         public ModelDataProvider(String url, string username, string password)
@@ -50,16 +50,17 @@ namespace ScoutDataModelPortable.DataProviders
             AddDataProvider(new PersonDataProvider(this));
         }
 
-        private void AddDataProvider(IDataProviderInterface obj)
+        private void AddDataProvider(IClientDataProvider obj)
         {
             _DataProviders.Add(obj.GetDataType(), obj);
         }
 
-        IDataProviderInterface<T> IDataProviders.GetProvider<T>(Type t)
+
+        public Object GetProvider(Type t)
         {
-            IDataProviderInterface retval;
+            IClientDataProvider retval;
             _DataProviders.TryGetValue(t, out retval);
-            return (IDataProviderInterface < T >) retval;
+            return retval;
         }
 
         internal SQLiteConnection GetLocalConnection()
@@ -75,7 +76,7 @@ namespace ScoutDataModelPortable.DataProviders
 
             _conn = new SQLiteConnection(platform, dbPath);
 
-            foreach (IDataProviderInterface c in _DataProviders.Values)
+            foreach (IClientDataProvider c in _DataProviders.Values)
             {
                 c.Initialise();
                 c.LoadLocalData();
@@ -84,7 +85,7 @@ namespace ScoutDataModelPortable.DataProviders
 
         public void LoadLocalData()
         {
-            foreach (IDataProviderInterface c in _DataProviders.Values)
+            foreach (IClientDataProvider c in _DataProviders.Values)
             {
                 c.LoadLocalData();
             }
@@ -92,7 +93,7 @@ namespace ScoutDataModelPortable.DataProviders
 
         public void Sync()
         {
-            foreach (IDataProviderInterface c in _DataProviders.Values)
+            foreach (IClientDataProvider c in _DataProviders.Values)
             {
                 try
                 {

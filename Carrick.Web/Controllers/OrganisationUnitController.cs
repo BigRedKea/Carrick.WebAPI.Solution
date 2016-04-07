@@ -1,7 +1,8 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.Data.Controllers;
-using Carrick.Data.Model;
+using Carrick.DataModel;
 using System;
+using System.Linq;
 using System.Web.Http;
 
 namespace Carrick.Web.Controllers
@@ -11,7 +12,7 @@ namespace Carrick.Web.Controllers
     public class OrganisationUnitController : ApiController
     {
 
-        private OrganisationUnitDataController datacontroller
+        private OrganisationUnitDataProvider datacontroller
         {
             get
             {
@@ -25,7 +26,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public OrganisationUnit[] Get()
         {
-            return datacontroller.GetAllItems();
+            return datacontroller.GetAllItems().ToArray<OrganisationUnit>();
         }
 
 
@@ -33,7 +34,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public OrganisationUnit[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp);
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<OrganisationUnit>();
         }
 
         // GET api/values/5
@@ -59,7 +60,7 @@ namespace Carrick.Web.Controllers
         [HttpPut]
         public OrganisationUnit Update(int id, [FromBody] OrganisationUnit s)
         {
-            return datacontroller.UpdateItem(s);
+            return datacontroller.ModifyItem(s);
         }
 
         [Authorize(Roles = "ScoutAdministrator")]

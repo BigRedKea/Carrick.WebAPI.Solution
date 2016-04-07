@@ -1,10 +1,10 @@
 ﻿using SQLite.Net.Attributes;
 using System;
-using Scout.BusinessLogic.Interfaces;
-namespace ScoutDataModelPortable.Model
+
+namespace Carrick.DataModel
 {
     [Table("ScoutingRole")]
-    public class ScoutingRole : TableBase , IScoutingRole
+    public class ScoutingRole : TableBase
     {
         [MaxLength(16)]
         public String Description { get; set; }

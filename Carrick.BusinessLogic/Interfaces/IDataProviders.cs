@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Carrick.DataModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Scout.BusinessLogic.Interfaces
 {
     public interface IDataProviders
     {
-        IDataProviderInterface<T> GetProvider<T>(Type t);
+        Object GetProvider(Type t);
     }
 }

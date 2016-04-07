@@ -1,10 +1,10 @@
 ﻿namespace ScoutDataModelPortable.DataProviders
 {
     using System;
-    using ScoutDataModelPortable.Model;
-    using Scout.BusinessLogic.Interfaces;
+    using Carrick.DataModel;
+    
 
-    public class ScoutingEventDataProvider : DataProviderBase<IScoutingEvent, ScoutingEvent>
+    public class ScoutingEventDataProvider : DataProviderBase<ScoutingEvent>
     {
         public ScoutingEventDataProvider(ModelDataProvider modelDataProvider) : base(modelDataProvider)
         {
@@ -12,15 +12,5 @@
             resolver = ResolveConflictFavourClient;
         }
 
-        protected override IScoutingEvent InternalFactory()
-        {
-            IScoutingEvent r = new ScoutingEvent();
-            return r;
-        }
-
-        protected override IScoutingEvent Convert(ScoutingEvent item)
-        {
-            return item;
-        }
     }
 }

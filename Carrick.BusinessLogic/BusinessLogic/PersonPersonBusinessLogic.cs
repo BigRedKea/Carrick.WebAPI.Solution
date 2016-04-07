@@ -1,20 +1,21 @@
 ﻿using System;
-using Scout.BusinessLogic.Interfaces;
+using Carrick.DataModel;
+
 
 namespace Scout.BusinessLogic.BusinessLogic
 {
-    public class PersonPersonBusinessLogic : BusinessLogicBase<IPersonPerson>
+    public class PersonPersonBusinessLogic : BusinessLogicBase<PersonPerson>
     {
         internal PersonPersonBusinessLogic(BusinessLogic BL) : base(BL)
         {
         }
 
-        public void LinkScoutParent(IPerson _Scout, IPerson _ScoutParent)
+        public void LinkScoutParent(Person _Scout, Person _ScoutParent)
         {
             throw new NotImplementedException();
         }
 
-        public void BreakParentScoutLink(IPerson scout, IPerson _ScoutParent)
+        public void BreakParentScoutLink(Person scout, Person _ScoutParent)
         {
             throw new NotImplementedException();
         }

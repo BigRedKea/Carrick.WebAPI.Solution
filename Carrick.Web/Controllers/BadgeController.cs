@@ -1,9 +1,10 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.Data.Controllers;
-using Carrick.Data.Model;
+using Carrick.DataModel;
 using System;
 using System.Web.Http;
 using System.Collections.Generic;
+
 
 namespace Carrick.Web.Controllers
 {
@@ -11,7 +12,7 @@ namespace Carrick.Web.Controllers
     public class BadgeController : ApiController
     {
 
-        private BadgeDataController datacontroller
+        private BadgeDataProvider datacontroller
         {
             get
             {
@@ -25,7 +26,7 @@ namespace Carrick.Web.Controllers
         [AllowAnonymous]
         public IEnumerable<Badge> SearchActiveItems(string searchText)
         {
-            return datacontroller.SearchActiveItems(searchText);
+            return datacontroller.SearchActiveItems(searchText, 40);
         }
 
         [Route("api/Badge/new")]

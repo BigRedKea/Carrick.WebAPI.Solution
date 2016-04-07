@@ -1,6 +1,6 @@
 ﻿
 
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 
 Public Class BadgesForm
     Public Sub New()
@@ -12,7 +12,7 @@ Public Class BadgesForm
     Public Sub loaddata()
         FlowLayoutPanel1.Controls.Clear()
         ' Add any initialization after the InitializeComponent() call.
-        For Each b As Badge In BL.Singleton.BadgeBL.GetItems
+        For Each b As Badge In BL.Singleton.BadgeBL.GetAllItems
             Dim buc As New BadgeUserControl
             buc.LoadData(b)
             FlowLayoutPanel1.Controls.Add(buc)

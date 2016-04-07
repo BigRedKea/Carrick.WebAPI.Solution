@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Scout.BusinessLogic.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Scout.BusinessLogic.Interfaces;
+
 
 namespace Scout.BusinessLogic.BusinessLogic
 {

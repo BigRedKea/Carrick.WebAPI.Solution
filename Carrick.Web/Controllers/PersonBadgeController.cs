@@ -1,7 +1,8 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.Data.Controllers;
-using Carrick.Data.Model;
+using Carrick.DataModel;
 using System;
+using System.Linq;
 using System.Web.Http;
 
 namespace Carrick.Web.Controllers
@@ -11,7 +12,7 @@ namespace Carrick.Web.Controllers
     public class PersonBadgeController : ApiController
     {
 
-        private PersonBadgeDataController datacontroller
+        private PersonBadgeDataProvider datacontroller
         {
             get
             {
@@ -25,7 +26,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public PersonBadge[] Get()
         {
-            return datacontroller.GetAllItems();
+            return datacontroller.GetAllItems().ToArray<PersonBadge>();
         }
 
 
@@ -33,7 +34,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public PersonBadge[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp);
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<PersonBadge>();
         }
 
         // GET api/values/5
@@ -59,7 +60,7 @@ namespace Carrick.Web.Controllers
         [HttpPut]
         public PersonBadge Update(int id, [FromBody] PersonBadge s)
         {
-            return datacontroller.UpdateItem(s);
+            return datacontroller.ModifyItem(s);
         }
 
 

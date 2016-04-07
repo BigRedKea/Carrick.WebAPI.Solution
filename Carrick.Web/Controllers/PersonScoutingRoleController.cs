@@ -2,8 +2,9 @@
 {
     using Carrick.BusinessLogic;
     using Carrick.Data.Controllers;
-    using Carrick.Data.Model;
+    using Carrick.DataModel;
     using System;
+    using System.Linq;
     using System.Web.Http;
 
     [Authorize]
@@ -11,7 +12,7 @@
     public class PersonScoutingRoleController : ApiController
         {
 
-        private PersonScoutingRoleDataController datacontroller
+        private PersonScoutingRoleDataProvider datacontroller
         {
             get
             {
@@ -25,7 +26,7 @@
         [HttpGet]
         public PersonScoutingRole[] Get()
         {
-            return datacontroller.GetAllItems();
+            return datacontroller.GetAllItems().ToArray<PersonScoutingRole>();
         }
 
 
@@ -33,7 +34,7 @@
         [HttpGet]
         public PersonScoutingRole[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp);
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<PersonScoutingRole>();
         }
 
         // GET api/values/5
@@ -61,7 +62,7 @@
         [HttpPut]
         public PersonScoutingRole Update(int id, [FromBody] PersonScoutingRole s)
         {
-            return datacontroller.UpdateItem(s);
+            return datacontroller.ModifyItem(s);
         }
 
         // DELETE api/values/5

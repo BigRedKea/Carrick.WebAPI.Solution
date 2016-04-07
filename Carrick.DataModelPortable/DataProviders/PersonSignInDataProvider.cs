@@ -1,10 +1,10 @@
 ﻿namespace ScoutDataModelPortable.DataProviders
 {
     using System;
-    using ScoutDataModelPortable.Model;
-    using Scout.BusinessLogic.Interfaces;
+    using Carrick.DataModel;
+    
 
-    public class PersonSignInDataProvider : DataProviderBase<IPersonSignIn, PersonSignIn>
+    public class PersonSignInDataProvider : DataProviderBase<PersonSignIn>
     {
         public PersonSignInDataProvider(ModelDataProvider modelDataProvider) : base(modelDataProvider)
         {
@@ -12,15 +12,5 @@
             resolver = ResolveConflictFavourClient;
         }
 
-        protected override IPersonSignIn InternalFactory()
-        {
-            IPersonSignIn r = new PersonSignIn();
-            return r;
-        }
-
-        protected override IPersonSignIn Convert(PersonSignIn item)
-        {
-            return item;
-        }
     }
 }

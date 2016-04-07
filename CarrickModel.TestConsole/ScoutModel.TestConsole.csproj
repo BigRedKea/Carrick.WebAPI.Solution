@@ -153,6 +153,10 @@
       <Project>{2ca11240-74ba-4e83-850b-6cce2a9bc086}</Project>
       <Name>ScoutMobile.Portable</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Carrick.DataModel\Carrick.DataModel.csproj">
+      <Project>{ff5a4710-9075-4ecd-aa0f-153bc2a6becd}</Project>
+      <Name>Carrick.DataModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="sqlite3.dll">

@@ -1,13 +1,13 @@
 ﻿Imports Scout.BusinessLogic.BusinessLogic
 Imports Scout.BusinessLogic.CompositeObjects
 Imports Scout.BusinessLogic.Interfaces
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 
 
 Public Class OrganisationLoginUserControl
-    Private _Patrol As IOrganisationUnit
+    Private _Patrol As OrganisationUnit
 
-    Public Sub New(org As IOrganisationUnit)
+    Public Sub New(org As OrganisationUnit)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -24,7 +24,7 @@ Public Class OrganisationLoginUserControl
 
         AddHandler BL.Singleton.OrganisationUnitBL.PersonAddedEvent, Sub(sender As Object, e As PersonAddedEventArgs)
                                                                          If e.OrganisationUnit.Equals(_Patrol) Then
-                                                                             AddPersonControl(e.Person)
+                                                                             ' AddPersonControl(e.Person)
                                                                          End If
                                                                      End Sub
 

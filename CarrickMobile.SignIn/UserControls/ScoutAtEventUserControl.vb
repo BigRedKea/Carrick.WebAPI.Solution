@@ -1,11 +1,10 @@
 ﻿Imports Scout.BusinessLogic.Interfaces
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
+Imports Scout.BusinessLogic.CompositeObjects
 
 Partial Public Class ScoutAtEventUserControl
 
-    Private _Event As IScoutingEvent
-
-    Public Property PersonScoutingEvent As IPersonScoutingEvent
+    Public Property PersonScoutingEvent As PersonScoutingEventComposite
 
     Public Sub New()
 
@@ -24,7 +23,7 @@ Partial Public Class ScoutAtEventUserControl
 
         SetSaveEnabled(False)
 
-        For Each itm As ScoutingEvent In BL.Singleton.ScoutingEventBL.GetItems()
+        For Each itm As ScoutingEvent In BL.Singleton.ScoutingEventBL.GetAllItems()
             ComboBox1.Items.Add(itm)
         Next
 
@@ -32,17 +31,16 @@ Partial Public Class ScoutAtEventUserControl
 
     Event RemoveLinkedEntity(sender As Object, e As EventArgs)
 
-    Public Sub LoadData(p As IPersonScoutingEvent)
+    Public Sub LoadData(p As PersonScoutingEventComposite)
         Debug.WriteLine(p.ToString)
         _PersonScoutingEvent = p
 
-        _Event = BL.Singleton.ScoutingEventBL.GetScoutingEvent(p)
-        Me.EventUserControl1.LoadData(_Event)
+        Me.EventUserControl1.LoadData(p)
 
         With _PersonScoutingEvent
 
-            If _PersonScoutingEvent.NightsUnderCanvas.HasValue Then
-                NightsUnderCanvasTextBox.Text = _PersonScoutingEvent.NightsUnderCanvas.Value.ToString
+            If _PersonScoutingEvent.PersonScoutingEvent.NightsUnderCanvas.HasValue Then
+                NightsUnderCanvasTextBox.Text = _PersonScoutingEvent.PersonScoutingEvent.NightsUnderCanvas.Value.ToString
             Else
                 NightsUnderCanvasTextBox.BackColor = Color.Yellow
             End If

@@ -1,19 +1,21 @@
 ﻿
 namespace ScoutDataModelPortable.DataProviders
 {
-    using Scout.BusinessLogic.Interfaces;
-    using ScoutDataModelPortable.Model;
+    
+    using Carrick.DataModel;
     using ScoutDataModelPortable.Web;
     using SQLite.Net;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    public abstract class DataProviderBase<T,Z> : IDataProviderInterface<T> where T : IDataTable where Z: TableBase
+    //: IDataProviderInterface<T> where T : TableBase
+
+    public abstract class DataProviderBase<T> :IClientDataProvider  where T: TableBase, new()
 
     {
         protected ModelDataProvider modelDataProvider;
         protected WebAPIHelper<T> helper;
-        protected Dictionary<Int32, T> Items = new DataCollection<T>();
+        protected Dictionary<Int32, T> Items = new Dictionary<Int32, T>();
         protected ResolveConflictDelegate<T> resolver;
 
         internal DataProviderBase(ModelDataProvider modelDataProvider)
@@ -104,12 +106,12 @@ namespace ScoutDataModelPortable.DataProviders
 
         protected internal void DropTable()
         {
-            modelDataProvider.GetLocalConnection().DropTable<Z>();
+            modelDataProvider.GetLocalConnection().DropTable<T>();
         }
 
         protected internal void CreateTable()
         {
-            modelDataProvider.GetLocalConnection().CreateTable<Z>();
+            modelDataProvider.GetLocalConnection().CreateTable<T>();
         }
 
         public static ResolveConflictOption ResolveConflictFavourClient(T clientitem, T serveritem)
@@ -142,7 +144,7 @@ namespace ScoutDataModelPortable.DataProviders
         protected internal DateTime? GetLatestUpdateDatetime()
         {
             DateTime? lastupdatetime = null;
-            foreach (IDataTable s in Items.Values)
+            foreach (T s in Items.Values)
             {
                 if (s.RowLastUpdated.HasValue)
                 {
@@ -170,19 +172,18 @@ namespace ScoutDataModelPortable.DataProviders
             Items.Add(sr.LocalId , sr);
         }
 
-        protected internal void LoadLocalData()
+        public void LoadLocalData()
         {
             Items.Clear();
             CreateTable(); // If it doesn't exist
 
-            foreach (Z s in GetTable())
+            foreach (T s in GetTable())
             {
                 SQLiteNetExtensions.Extensions.ReadOperations.GetChildren(modelDataProvider.GetLocalConnection(), s);
-                Items.Add(s.LocalId, Convert(s));
+                Items.Add(s.LocalId, s);
             }
         }
 
-        protected abstract T Convert(Z item);
 
         private T GetItem(Guid? uniqueId)
         {
@@ -258,9 +259,9 @@ namespace ScoutDataModelPortable.DataProviders
             UpdateLocalItem(sr);
         }
 
-        protected internal TableQuery<Z> GetTable()
+        protected internal TableQuery<T> GetTable()
         {
-            return modelDataProvider.GetLocalConnection().Table<Z>();
+            return modelDataProvider.GetLocalConnection().Table<T>();
         }
 
 
@@ -269,57 +270,11 @@ namespace ScoutDataModelPortable.DataProviders
             return typeof(T);
         }
 
-        void IDataProviderInterface.Initialise()
+
+
+        T CreateItem()
         {
-            Initialise();
-        }
-
-        void IDataProviderInterface.Sync()
-        {
-            Sync();
-        }
-
-        void IDataProviderInterface<T>.InsertItem(T item)
-        {
-            InsertItem(item);
-        }
-
-        void IDataProviderInterface<T>.ModifyItem(T item)
-        {
-            ModifyItem(item);
-        }
-
-        void IDataProviderInterface<T>.DeleteItem(T item)
-        {
-            DeleteItem(item);
-        }
-
-        Type IDataProviderInterface.GetDataType()
-        {
-           return GetDataType();
-        }
-
-        T IDataProviderInterface<T>.GetItem(int id)
-        {
-            return GetItem(id);
-        }
-
-        IEnumerable<T> IDataProviderInterface<T>.GetItems()
-        {
-            return GetItems();
-        }
-
-        void IDataProviderInterface.LoadLocalData()
-        {
-            LoadLocalData();
-        }
-
-        protected abstract T InternalFactory();
-
-
-        T IDataProviderInterface<T>.Factory() 
-        {
-            return InternalFactory();
+            return new T();
         }
     }
 }

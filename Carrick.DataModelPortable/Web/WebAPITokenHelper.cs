@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using ScoutDataModelPortable.Model;
+using Carrick.DataModel;
 using System;
 using System.Globalization;
 using System.Net.Http;

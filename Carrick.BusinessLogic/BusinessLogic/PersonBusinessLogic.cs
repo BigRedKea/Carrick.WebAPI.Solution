@@ -1,37 +1,37 @@
 ﻿using Scout.BusinessLogic.CompositeObjects;
-using Scout.BusinessLogic.Interfaces;
+using Carrick.DataModel;
 using System;
 using System.Collections.Generic;
 
 namespace Scout.BusinessLogic.BusinessLogic
 {
-    public class PersonBusinessLogic : BusinessLogicBase<IPerson>
+    public class PersonBusinessLogic : BusinessLogicBase<Person>
     {
         internal PersonBusinessLogic(BusinessLogic BL) :base (BL)
         {
         }
 
-        public IEnumerable<IPerson> GetPersonsInOrganisation(IOrganisationUnit org)
+        public IEnumerable<Person> GetPersonsInOrganisation(OrganisationUnit org)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IPersonScoutingEvent> GetPersonsAtEvent(IScoutingEvent itm)
+        public IEnumerable<PersonScoutingEvent> GetPersonsAtEvent(ScoutingEvent itm)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IPerson> GetParents(IPerson s)
+        public IEnumerable<Person> GetParents(Person s)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IPerson> GetParents()
+        public IEnumerable<Person> GetParents()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IPerson> GetActiveScouts()
+        public IEnumerable<Person> GetActiveScouts()
         {
             throw new NotImplementedException();
         }
@@ -41,17 +41,17 @@ namespace Scout.BusinessLogic.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public IPerson GetPerson(IPersonBadge itm)
+        public Person GetPerson(PersonBadge itm)
         {
             throw new NotImplementedException();
         }
 
-        public bool IsSignedIn(IPerson person)
+        public bool IsSignedIn(Person person)
         {
             throw new NotImplementedException();
         }
 
-        public void SignedIn(IPerson person, bool Value)
+        public void SignedIn(Person person, bool Value)
         {
             throw new NotImplementedException();
         }

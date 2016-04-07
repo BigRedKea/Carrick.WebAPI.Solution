@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScoutDataModelPortable.Model
+namespace Carrick.DataModel
 {
     class DataCollection<T> : Dictionary<Int32,T>
     {

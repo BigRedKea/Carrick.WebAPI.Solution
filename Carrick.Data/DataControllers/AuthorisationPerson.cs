@@ -3,7 +3,7 @@
 namespace Carrick.Data.Controllers
 {
     using System;
-    using Carrick.Data.Model;
+    using Carrick.DataModel;
 
     public class AuthorisationPerson : Authorisation<Person>
     {

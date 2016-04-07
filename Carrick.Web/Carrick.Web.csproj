@@ -262,10 +262,10 @@
     <Compile Include="Areas\RouteDebugger\RouteDebuggerAreaRegistration.cs" />
     <Compile Include="Areas\RouteDebugger\RouteDebuggerConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\PersonBadgeController.cs" />
     <Compile Include="Controllers\PersonOrganisationUnitController.cs" />
     <Compile Include="Controllers\PersonScoutingEventController.cs" />
     <Compile Include="Controllers\OrganisationUnitController.cs" />
+    <Compile Include="Controllers\PersonBadgeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BadgeController.cs" />
     <Compile Include="Controllers\Residence.cs" />
@@ -383,6 +383,14 @@
     <Content Include="Scripts\jquery-2.2.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Carrick.BusinessLogic\Carrick.BusinessLogic.csproj">
+      <Project>{b88df5aa-ad6a-493e-986f-62bf41dee512}</Project>
+      <Name>Carrick.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carrick.DataModel\Carrick.DataModel.csproj">
+      <Project>{ff5a4710-9075-4ecd-aa0f-153bc2a6becd}</Project>
+      <Name>Carrick.DataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Carrick.Data\Carrick.Data.csproj">
       <Project>{b6bce6f5-8bba-42e4-971b-01d42a0ecfcd}</Project>
       <Name>Carrick.Data</Name>

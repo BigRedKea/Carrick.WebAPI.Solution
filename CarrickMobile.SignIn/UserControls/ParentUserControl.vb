@@ -1,11 +1,11 @@
 ﻿Imports Scout.BusinessLogic.Interfaces
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 
 
 Public Class ParentUserControl
 
-    Public Property ScoutParent As IPerson
-    Public Property Scout As IPerson
+    Public Property ScoutParent As Person
+    Public Property Scout As Person
 
     Public Sub New()
 
@@ -44,7 +44,7 @@ Public Class ParentUserControl
                                    End Sub
         End With
 
-        For Each itm As Person In BL.Singleton.PersonBL.GetItems
+        For Each itm As Person In BL.Singleton.PersonBL.GetAllItems
             ComboBox1.Items.Add(itm)
         Next
 
@@ -87,7 +87,7 @@ Public Class ParentUserControl
 
     Private Sub BreakLinkButton_Click(sender As Object, e As EventArgs) Handles BreakLinkButton.Click
         BL.Singleton.PersonPersonBL.BreakParentScoutLink(Scout, _ScoutParent)
-        LoadData(BL.Singleton.PersonBL.Factory)
+        LoadData(BL.Singleton.PersonBL.CreateItem)
         ComboBox1.SelectedItem = Nothing
     End Sub
 

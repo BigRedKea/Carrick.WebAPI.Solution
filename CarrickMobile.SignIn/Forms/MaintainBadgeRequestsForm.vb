@@ -3,7 +3,7 @@ Option Explicit On
 
 Imports Scout.BusinessLogic.CompositeObjects
 Imports Scout.BusinessLogic.Interfaces
-Imports ScoutDataModelPortable.Model
+Imports Carrick.DataModel
 
 Public Class MaintainBadgeRequestsForm
     Public Enum eBadgeFilter
