@@ -1,8 +1,8 @@
 ﻿namespace ScoutDataModelPortable.DataProviders
 {
     using System;
+    using SQLite.Net;
     using Carrick.DataModel;
-    
 
     public class ScoutingEventDataProvider : DataProviderBase<ScoutingEvent>
     {
@@ -11,6 +11,5 @@
             CreateWebAPIHelper("/api/ScoutingEvent");
             resolver = ResolveConflictFavourClient;
         }
-
     }
 }

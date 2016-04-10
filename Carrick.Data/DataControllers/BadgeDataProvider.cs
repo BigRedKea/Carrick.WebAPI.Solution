@@ -9,20 +9,15 @@
 
         internal BadgeDataProvider(Repository r) : base(r, r.DataModel.Badges)
         {
+            defaultOrder = (Badge t) => t.BadgeSort;
         }
 
-        public override IEnumerable<Badge> GetAllItems()
-        {
-            IEnumerable<Badge> p = _GetAllItems().OrderBy(x => x.BadgeSort);
-
-            return CopyData(p, AuthorisationGet);
-        }
 
         public IEnumerable<Badge> SearchActiveItems(string searchText, int Limit)
         {
             searchText = searchText ?? "";
 
-            IEnumerable<Badge> p = _GetActiveItems().OrderBy(x => x.BadgeSort)
+            IEnumerable<Badge> p = _GetActiveItems().OrderBy(x => x.BadgeName)
                     .Where(x => x.BadgeName.Contains(searchText) ||
                     x.BadgeLevel.Contains(searchText)
             )
@@ -31,13 +26,6 @@
             return CopyData(p, AuthorisationGet);
         }
 
-
-        public override IEnumerable<Badge> GetActiveItems()
-        {
-            IEnumerable<Badge> p = _GetActiveItems().OrderBy(x => x.BadgeSort);
-
-            return CopyData(p, AuthorisationGet);
-        }
 
         protected internal override Badge TransferSpecificProperties( Badge original, ref Badge destination, Authorisation <Badge> Authorisation = null)
         {

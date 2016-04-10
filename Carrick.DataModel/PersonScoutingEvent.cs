@@ -7,8 +7,10 @@ namespace Carrick.DataModel
     public partial class PersonScoutingEvent :TableBase
     {
         public int? ScoutingEventId { get; set; }
+        public Guid? ScoutingEventGuid { get; set; }
 
         public int? PersonId { get; set; }
+        public Guid? PersonGuid { get; set; }
 
         public DateTime? RegistrationDate { get; set; }
 
@@ -22,6 +24,22 @@ namespace Carrick.DataModel
         public int? NightsUnderCanvas { get; set; }
 
         public double? KilometersTravelled { get; set; }
-        public object ScoutingEventGuid { get; set; }
+
+
+        public RelationshipKey ScoutingEventKey()
+        {
+            RelationshipKey key = new RelationshipKey();
+            key.Id = ScoutingEventId;
+            key.RowGuid = ScoutingEventGuid;
+            return key;
+        }
+
+        public RelationshipKey PersonKey()
+        {
+            RelationshipKey key = new RelationshipKey();
+            key.Id = PersonId;
+            key.RowGuid = PersonGuid;
+            return key;
+        }
     }
 }

@@ -7,13 +7,19 @@ namespace Carrick.DataModel
     public partial class PersonSignIn :TableBase
     {
 
-        public long? PersonId { get; set; }
+        public int? PersonId { get; set; }
+        public Guid PersonGuid { get; set; }
 
         public DateTime? SignInTimeStamp { get; set; }
 
         [MaxLength(50)]
         [StringLength(50)]
         public string SignInStatus { get; set; }
-        public object PersonGuid { get; set; }
+
+        public DateTime? SignOutTimeStamp { get; set; }
+
+        [MaxLength(50)]
+        [StringLength(50)]
+        public string SignOutStatus { get; set; }
     }
 }

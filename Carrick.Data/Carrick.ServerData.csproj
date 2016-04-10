@@ -64,7 +64,6 @@
     <Compile Include="DataControllers\AuthorisationPerson.cs" />
     <Compile Include="DataControllers\BadgeDataProvider.cs" />
     <Compile Include="DataControllers\EventLocationDataProvider.cs" />
-    <Compile Include="DataControllers\IClientDataProvider.cs" />
     <Compile Include="DataControllers\OrganisationUnitDataProvider.cs" />
     <Compile Include="DataControllers\LocationDataProvider.cs" />
     <Compile Include="DataControllers\PersonScoutingEventDataProvider.cs" />

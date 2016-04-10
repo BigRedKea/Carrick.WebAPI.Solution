@@ -21,7 +21,7 @@ namespace Carrick.BusinessLogic.BusinessLogic
             DataProvider = (IDataProviderInterface<T>) _BL.DataProviders.GetProvider(typeof(T));
         }
 
-        public T GetItem(Int32 id)
+        public T GetItem(int id)
         {
             return DataProvider.GetItem(id);
         }

@@ -1,15 +1,16 @@
 ﻿
 namespace Carrick.ServerData.Controllers
 {
-    using Carrick.DataModel;
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Data.Entity;
-    using Carrick.BusinessLogic.Interfaces;
-    using DataControllers;
 
-    public abstract class GenericDataProvider<T>: IDataProviderInterface<T> where T : TableBase, new()
+    using Carrick.DataModel;
+    using Carrick.BusinessLogic.Interfaces;
+    using System.Linq.Expressions;
+    public abstract class GenericDataProvider<T> : IDataProviderInterface<T> where T : TableBase, new()
     {
         internal protected Repository Repository;
         protected DbSet<T> dataset;
@@ -24,15 +25,17 @@ namespace Carrick.ServerData.Controllers
             {
                 Repository = r;
                 this.dataset = dataset;
+                defaultOrder = (T t) => t.Id;
             }
-                        catch (Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Failed to Initialise GenericDataController", ex);
             }
-        
+
         }
 
-        private  T _GetItem(int id)
+
+        private T _GetItem(int id)
         {
             T p = dataset.Where(x => x.Id == id).FirstOrDefault();
             dataset.Where(x => x.Id == id).FirstOrDefault();
@@ -58,15 +61,17 @@ namespace Carrick.ServerData.Controllers
 
         public virtual T GetActiveItem(int id)
         {
-            T p = _GetActiveItems().Where(x =>(x.Id == id)).FirstOrDefault();
+            T p = _GetActiveItems().Where(x => (x.Id == id)).FirstOrDefault();
             T copy = new T();
             CopyData(p, ref copy, AuthorisationGet);
             return copy;
         }
 
-        public virtual IEnumerable<T> GetActiveItems()
+        public Func<T, object> defaultOrder{get; set; }
+        
+        public virtual IEnumerable<T> GetActiveItems ()
         {
-            IEnumerable<T> p = _GetActiveItems();
+            IEnumerable<T> p = _GetActiveItems().OrderBy(defaultOrder);
             IEnumerable<T> copy = CopyData(p, AuthorisationGet);
             return copy;
         }
@@ -85,7 +90,7 @@ namespace Carrick.ServerData.Controllers
         public virtual IEnumerable<T> GetAllItems()
         {
             IEnumerable<T> p = dataset;
-            IEnumerable<T> copy = CopyData(p, AuthorisationGet);
+            IEnumerable<T> copy = CopyData(p, AuthorisationGet).OrderBy(defaultOrder);
             return copy;
         }
 

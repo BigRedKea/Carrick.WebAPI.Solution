@@ -1,8 +1,8 @@
 ﻿namespace ScoutDataModelPortable.DataProviders
 {
     using System;
+    using SQLite.Net;
     using Carrick.DataModel;
-    
 
     public class PersonPersonDataProvider : DataProviderBase<PersonPerson>
     {
@@ -11,12 +11,5 @@
             CreateWebAPIHelper("/api/personperson");
             resolver = ResolveConflictFavourClient;
         }
-
-        //protected override PersonPerson InternalFactory()
-        //{
-        //    PersonPerson r = new PersonPerson();
-        //    return r;
-        //}
-
     }
 }

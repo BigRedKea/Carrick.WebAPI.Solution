@@ -1,8 +1,8 @@
 ﻿namespace ScoutDataModelPortable.DataProviders
 {
     using System;
+    using SQLite.Net;
     using Carrick.DataModel;
-    
 
     public class ScoutingRoleDataProvider: DataProviderBase <ScoutingRole>
     {
@@ -11,6 +11,5 @@
             CreateWebAPIHelper("/api/scoutingrole");
             resolver = ResolveConflictFavourClient;
         }
-
     }
 }

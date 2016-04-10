@@ -15,7 +15,7 @@ namespace ScoutDataModelPortable.DataProviders
     {
         protected ModelDataProvider modelDataProvider;
         protected WebAPIHelper<T> helper;
-        protected Dictionary<Int32, T> Items = new Dictionary<Int32, T>();
+        protected Dictionary<int, T> Items = new Dictionary<int, T>();
         protected ResolveConflictDelegate<T> resolver;
 
         internal DataProviderBase(ModelDataProvider modelDataProvider)
@@ -124,14 +124,14 @@ namespace ScoutDataModelPortable.DataProviders
             return ResolveConflictOption.FavourServer;
         }
 
-        private T GetItem(Int32 id)
+        private T GetItem(int id)
         {
             T s;
             Items.TryGetValue(id, out s);
             return s;
         }
 
-        public Dictionary <Int32,T>.ValueCollection  GetItems()
+        public Dictionary <int,T>.ValueCollection  GetItems()
         {
             return Items.Values;
         }

@@ -2,7 +2,6 @@
 {
     using Carrick.DataModel;
 
-
     public class EventLocationDataProvider : GenericDataProvider<EventLocation>
     {
         internal EventLocationDataProvider(Repository r) : base(r, r.DataModel.EventLocations)

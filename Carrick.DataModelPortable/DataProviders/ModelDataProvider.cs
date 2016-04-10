@@ -1,16 +1,17 @@
 ﻿
 namespace ScoutDataModelPortable.DataProviders
 {
-    using System.Collections.Generic;
-    using SQLite.Net;
+
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Net.Http;
-    using Web;
     using System.Net.Http.Headers;
-    using DataProviders;
+    using SQLite.Net;
+    using Web;
+
     using Carrick.BusinessLogic.Interfaces;
-    using Carrick.DataModel;
+
     public class ModelDataProvider :IDataProviders
     {
         
@@ -36,8 +37,11 @@ namespace ScoutDataModelPortable.DataProviders
             this.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", t.Token);
 
             AddDataProvider(new BadgeDataProvider(this));
-            AddDataProvider(new PersonBadgeDataProvider(this));
+            AddDataProvider(new EventLocationDataProvider(this));
+            AddDataProvider(new LocationDataProvider(this));
             AddDataProvider(new OrganisationUnitDataProvider(this));
+            AddDataProvider(new PersonBadgeDataProvider(this));
+            AddDataProvider(new PersonDataProvider(this));
             AddDataProvider(new PersonOrganisationUnitDataProvider(this));
             AddDataProvider(new PersonPersonDataProvider(this));
             AddDataProvider(new PersonResidenceDataProvider(this));
@@ -47,7 +51,7 @@ namespace ScoutDataModelPortable.DataProviders
             AddDataProvider(new ResidenceDataProvider(this));
             AddDataProvider(new ScoutingEventDataProvider(this));
             AddDataProvider(new ScoutingRoleDataProvider(this));
-            AddDataProvider(new PersonDataProvider(this));
+            
         }
 
         private void AddDataProvider(IClientDataProvider obj)
