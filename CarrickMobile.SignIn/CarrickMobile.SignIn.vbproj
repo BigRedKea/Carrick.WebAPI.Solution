@@ -366,11 +366,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Carrick.BusinessLogic\Carrick.BusinessLogic.csproj">
       <Project>{b88df5aa-ad6a-493e-986f-62bf41dee512}</Project>
-      <Name>Scout.BusinessLogic</Name>
+      <Name>Carrick.BusinessLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Carrick.DataModelPortable\CarrickMobile.Portable.csproj">
+    <ProjectReference Include="..\Carrick.DataModelPortable\Carrick.ClientData.Portable.csproj">
       <Project>{2CA11240-74BA-4E83-850B-6CCE2A9BC086}</Project>
-      <Name>ScoutMobile.Portable</Name>
+      <Name>Carrick.ClientData.Portable</Name>
     </ProjectReference>
     <ProjectReference Include="..\Carrick.DataModel\Carrick.DataModel.csproj">
       <Project>{ff5a4710-9075-4ecd-aa0f-153bc2a6becd}</Project>

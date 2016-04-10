@@ -1,4 +1,4 @@
-namespace Carrick.Data
+namespace Carrick.ServerData
 {
     using System;
     using System.Data.Entity;

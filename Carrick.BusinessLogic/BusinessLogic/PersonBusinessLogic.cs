@@ -1,9 +1,9 @@
-﻿using Scout.BusinessLogic.CompositeObjects;
+﻿using Carrick.BusinessLogic.CompositeObjects;
 using Carrick.DataModel;
 using System;
 using System.Collections.Generic;
 
-namespace Scout.BusinessLogic.BusinessLogic
+namespace Carrick.BusinessLogic.BusinessLogic
 {
     public class PersonBusinessLogic : BusinessLogicBase<Person>
     {

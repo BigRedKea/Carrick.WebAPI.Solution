@@ -1,7 +1,7 @@
 ﻿namespace Carrick.Web.Controllers
 {
     using Carrick.BusinessLogic;
-    using Carrick.Data.Controllers;
+    using Carrick.ServerData.Controllers;
     using Carrick.DataModel;
     using System;
     using System.Web.Http;

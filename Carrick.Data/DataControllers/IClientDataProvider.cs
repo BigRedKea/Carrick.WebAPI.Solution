@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Carrick.Data.DataControllers
+namespace Carrick.ServerData.DataControllers
 {
     internal interface IClientDataProvider
     {

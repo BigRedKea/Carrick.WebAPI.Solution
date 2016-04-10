@@ -3,7 +3,7 @@ using Carrick.DataModel;
 using System;
 using System.Collections.Generic;
 
-namespace Scout.BusinessLogic.Interfaces
+namespace Carrick.BusinessLogic.Interfaces
 {
 
 

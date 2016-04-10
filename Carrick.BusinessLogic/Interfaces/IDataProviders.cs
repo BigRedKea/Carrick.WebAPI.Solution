@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scout.BusinessLogic.Interfaces
+namespace Carrick.BusinessLogic.Interfaces
 {
     public interface IDataProviders
     {

@@ -1,5 +1,5 @@
-﻿Imports Scout.BusinessLogic.CompositeObjects
-Imports Scout.BusinessLogic.Interfaces
+﻿Imports Carrick.BusinessLogic.CompositeObjects
+Imports Carrick.BusinessLogic.Interfaces
 Imports Carrick.DataModel
 
 Public Class ScoutingEventNightsUserControl

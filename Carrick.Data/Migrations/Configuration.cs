@@ -1,18 +1,18 @@
-namespace Carrick.Data.Migrations
+namespace Carrick.ServerData.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Carrick.Data.CarrickEntityDataModel>
+    internal sealed class Configuration : DbMigrationsConfiguration<Carrick.ServerData.CarrickEntityDataModel>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Carrick.Data.CarrickEntityDataModel context)
+        protected override void Seed(Carrick.ServerData.CarrickEntityDataModel context)
         {
             //  This method will be called after migrating to the latest version.
 

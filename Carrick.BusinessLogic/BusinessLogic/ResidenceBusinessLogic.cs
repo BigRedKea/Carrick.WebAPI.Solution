@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Carrick.DataModel;
 
-namespace Scout.BusinessLogic.BusinessLogic
+namespace Carrick.BusinessLogic.BusinessLogic
 {
     public class ResidenceBusinessLogic : BusinessLogicBase<Residence>
     {

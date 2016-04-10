@@ -4,7 +4,7 @@ Imports System.Net
 
 Imports Microsoft.Office.Interop.Outlook
 Imports Carrick.DataModel
-Imports Scout.BusinessLogic.Interfaces
+Imports Carrick.BusinessLogic.Interfaces
 
 Public Class MailToForm
     Public Sub New()

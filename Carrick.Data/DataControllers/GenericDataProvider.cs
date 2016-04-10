@@ -1,12 +1,12 @@
 ﻿
-namespace Carrick.Data.Controllers
+namespace Carrick.ServerData.Controllers
 {
     using Carrick.DataModel;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Data.Entity;
-    using Scout.BusinessLogic.Interfaces;
+    using Carrick.BusinessLogic.Interfaces;
     using DataControllers;
 
     public abstract class GenericDataProvider<T>: IDataProviderInterface<T> where T : TableBase, new()

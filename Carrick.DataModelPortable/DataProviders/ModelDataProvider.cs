@@ -9,7 +9,7 @@ namespace ScoutDataModelPortable.DataProviders
     using Web;
     using System.Net.Http.Headers;
     using DataProviders;
-    using Scout.BusinessLogic.Interfaces;
+    using Carrick.BusinessLogic.Interfaces;
     using Carrick.DataModel;
     public class ModelDataProvider :IDataProviders
     {

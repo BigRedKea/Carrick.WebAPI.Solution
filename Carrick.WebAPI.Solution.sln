@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carrick.Data", "Carrick.Data\Carrick.Data.csproj", "{B6BCE6F5-8BBA-42E4-971B-01D42A0ECFCD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carrick.ServerData", "Carrick.Data\Carrick.ServerData.csproj", "{B6BCE6F5-8BBA-42E4-971B-01D42A0ECFCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carrick.Web", "Carrick.Web\Carrick.Web.csproj", "{4FE11666-99F1-4424-AAEB-34E0CEB9DF15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carrick.BusinessLogic", "Carrick.BusinessLogic\Carrick.BusinessLogic.csproj", "{B88DF5AA-AD6A-493E-986F-62BF41DEE512}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarrickMobile.Portable", "Carrick.DataModelPortable\CarrickMobile.Portable.csproj", "{2CA11240-74BA-4E83-850B-6CCE2A9BC086}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carrick.ClientData.Portable", "Carrick.DataModelPortable\Carrick.ClientData.Portable.csproj", "{2CA11240-74BA-4E83-850B-6CCE2A9BC086}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CarrickMobile.SignIn", "CarrickMobile.SignIn\CarrickMobile.SignIn.vbproj", "{9072672C-417E-4344-8B99-1FFF6052D9FE}"
 EndProject

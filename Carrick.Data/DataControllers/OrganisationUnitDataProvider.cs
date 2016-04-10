@@ -1,4 +1,4 @@
-﻿namespace Carrick.Data.Controllers
+﻿namespace Carrick.ServerData.Controllers
 {
     using Carrick.DataModel;
     public class OrganisationUnitDataProvider : GenericDataProvider<OrganisationUnit>

@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Scout.BusinessLogic.BusinessLogic
+namespace Carrick.BusinessLogic.BusinessLogic
 {
 
     using Carrick.DataModel;

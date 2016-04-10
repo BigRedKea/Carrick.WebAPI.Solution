@@ -2,7 +2,7 @@
 Imports System.Web.UI
 Imports System.Text
 Imports Carrick.DataModel
-Imports Scout.BusinessLogic.Interfaces
+Imports Carrick.BusinessLogic.Interfaces
 
 Public Class ExportPersonToHTML
 

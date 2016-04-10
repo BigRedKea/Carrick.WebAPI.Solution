@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scout.BusinessLogic.Interfaces
+namespace Carrick.BusinessLogic.Interfaces
 {
     public interface IGenericDataRepository<T> where T : class
     {

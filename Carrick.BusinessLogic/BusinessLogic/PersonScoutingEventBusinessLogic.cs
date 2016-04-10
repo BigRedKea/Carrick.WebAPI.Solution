@@ -1,10 +1,10 @@
 ﻿using System;
 
 using System.Collections.Generic;
-using Scout.BusinessLogic.CompositeObjects;
+using Carrick.BusinessLogic.CompositeObjects;
 using Carrick.DataModel;
 
-namespace Scout.BusinessLogic.BusinessLogic
+namespace Carrick.BusinessLogic.BusinessLogic
 {
     public class PersonScoutingEventBusinessLogic: BusinessLogicBase<PersonScoutingEvent>
     {

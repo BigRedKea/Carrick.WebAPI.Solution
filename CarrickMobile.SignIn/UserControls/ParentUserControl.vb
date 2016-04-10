@@ -1,4 +1,4 @@
-﻿Imports Scout.BusinessLogic.Interfaces
+﻿Imports Carrick.BusinessLogic.Interfaces
 Imports Carrick.DataModel
 
 

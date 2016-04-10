@@ -391,9 +391,9 @@
       <Project>{ff5a4710-9075-4ecd-aa0f-153bc2a6becd}</Project>
       <Name>Carrick.DataModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Carrick.Data\Carrick.Data.csproj">
+    <ProjectReference Include="..\Carrick.Data\Carrick.ServerData.csproj">
       <Project>{b6bce6f5-8bba-42e4-971b-01d42a0ecfcd}</Project>
-      <Name>Carrick.Data</Name>
+      <Name>Carrick.ServerData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

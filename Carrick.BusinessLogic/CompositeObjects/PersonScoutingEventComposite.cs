@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scout.BusinessLogic.CompositeObjects
+namespace Carrick.BusinessLogic.CompositeObjects
 {
 
     using Carrick.DataModel;

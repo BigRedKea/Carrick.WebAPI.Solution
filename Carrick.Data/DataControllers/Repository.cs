@@ -1,9 +1,9 @@
 ﻿
-namespace Carrick.Data.Controllers
+namespace Carrick.ServerData.Controllers
 {
-    using Carrick.Data;
+    using Carrick.ServerData;
     using Carrick.DataModel;
-    using Scout.BusinessLogic.Interfaces;
+    using Carrick.BusinessLogic.Interfaces;
     using System;
 
     public class Repository : IDataProviders

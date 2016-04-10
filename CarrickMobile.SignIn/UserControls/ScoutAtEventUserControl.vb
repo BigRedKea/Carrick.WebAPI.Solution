@@ -1,6 +1,6 @@
-﻿Imports Scout.BusinessLogic.Interfaces
+﻿Imports Carrick.BusinessLogic.Interfaces
 Imports Carrick.DataModel
-Imports Scout.BusinessLogic.CompositeObjects
+Imports Carrick.BusinessLogic.CompositeObjects
 
 Partial Public Class ScoutAtEventUserControl
 

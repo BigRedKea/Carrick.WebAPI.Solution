@@ -1,4 +1,4 @@
-﻿using Scout.BusinessLogic.BusinessLogic;
+﻿using Carrick.BusinessLogic.BusinessLogic;
 
 using ScoutDataModelPortable.DataProviders;
 using Carrick.DataModel;

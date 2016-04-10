@@ -1,4 +1,4 @@
-﻿namespace Scout.BusinessLogic.BusinessLogic
+﻿namespace Carrick.BusinessLogic.BusinessLogic
 {
     using System;
     

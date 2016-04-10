@@ -1,4 +1,4 @@
-﻿namespace Carrick.Data.Controllers
+﻿namespace Carrick.ServerData.Controllers
 {
     using System;
     using Carrick.DataModel;

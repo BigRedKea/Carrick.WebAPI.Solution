@@ -2,8 +2,8 @@
 Imports System.Web.UI
 Imports System.Text
 Imports Carrick.DataModel
-Imports Scout.BusinessLogic.Interfaces
-Imports Scout.BusinessLogic.CompositeObjects
+Imports Carrick.BusinessLogic.Interfaces
+Imports Carrick.BusinessLogic.CompositeObjects
 
 Public Class EmailEventsHTML
 

@@ -3,7 +3,7 @@ Imports System.IO
 Imports System.Xml.Serialization
 Imports ScoutDataModelPortable
 Imports Carrick.DataModel
-Imports Scout.BusinessLogic.Interfaces
+Imports Carrick.BusinessLogic.Interfaces
 
 Public Class MainForm
     Public Sub New()
@@ -70,7 +70,7 @@ Public Class MainForm
         If Not BL.Singleton.LeaderModeEnabled Then
             Dim frm As New PasswordForm
             frm.ShowDialog()
-            If frm.Password <> "Magpie" Then
+            If frm.Password <> "*********" Then
                 Exit Sub
             End If
         End If

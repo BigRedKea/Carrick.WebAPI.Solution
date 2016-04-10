@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Carrick.DataModel;
 
-namespace Scout.BusinessLogic.CompositeObjects
+namespace Carrick.BusinessLogic.CompositeObjects
 {
     public class PersonBadgeComposite
     {
