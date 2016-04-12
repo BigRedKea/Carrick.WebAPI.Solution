@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Carrick.BusinessLogic.Interfaces;
-using Carrick.DataModel;
+
 
 namespace Carrick.BusinessLogic.BusinessLogic
 {
-    public class BusinessLogicBase<T> where T : TableBase
+    public class BusinessLogicBase<T> where T : ITableBase
     {
         protected BusinessLogic _BL;
 

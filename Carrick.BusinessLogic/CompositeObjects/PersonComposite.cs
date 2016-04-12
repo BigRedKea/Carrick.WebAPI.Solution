@@ -1,17 +1,13 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Carrick.DataModel;
+using Carrick.BusinessLogic.Interfaces;
 
 namespace Carrick.BusinessLogic.CompositeObjects
 {
     public class PersonComposite
     {
-        public Person Person { get; set; }
-        public OrganisationUnit Organisation { get; set; }
+        public IPerson Person { get; set; }
+        public IOrganisationUnit Organisation { get; set; }
 
         public TimeSpan? Age()
         {
@@ -36,7 +32,7 @@ namespace Carrick.BusinessLogic.CompositeObjects
         }
 
 
-        OrganisationUnit Patrol()
+       IOrganisationUnit Patrol()
         {
             throw new NotImplementedException();
         }
@@ -75,12 +71,12 @@ namespace Carrick.BusinessLogic.CompositeObjects
             throw new NotImplementedException();
         }
 
-        public PersonSignIn GetLatestSignIn(Person p)
+        public IPersonSignIn GetLatestSignIn(IPerson p)
         {
             throw new NotImplementedException();
         }
 
-        public void SignIn(Person p)
+        public void SignIn(IPerson p)
         {
             EventArgs e = new EventArgs();
             PersonSignedInEventHandler handler = PersonSignedInEvent;
@@ -90,7 +86,7 @@ namespace Carrick.BusinessLogic.CompositeObjects
             }
         }
 
-        public void SignOut(Person p)
+        public void SignOut(IPerson p)
         {
             EventArgs e = new EventArgs();
             PersonSignedOutEventHandler handler = PersonSignedOutEvent;

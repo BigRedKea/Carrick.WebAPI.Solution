@@ -1,5 +1,5 @@
 ﻿using Carrick.BusinessLogic.BusinessLogic;
-
+using Carrick.BusinessLogic.Interfaces;
 using Carrick.ClientData.DataProviders;
 using Carrick.DataModel;
 using System;
@@ -29,7 +29,7 @@ namespace ScoutModel.TestConsole
         }
         public void loadtestdata1()
         {
-            ScoutingRole sr = ScoutingRoleBL.GetItem(12);
+            IScoutingRole sr = ScoutingRoleBL.GetItem(12);
 
             if (sr != null)
             {
@@ -37,7 +37,7 @@ namespace ScoutModel.TestConsole
                 ScoutingRoleBL.ModifyItem(sr);
             }
 
-            ScoutingRole sr2 = ScoutingRoleBL.CreateItem();
+            IScoutingRole sr2 = ScoutingRoleBL.CreateItem();
             sr2.Description = "Tester2";
             ScoutingRoleBL.InsertItem(sr2);
         }
@@ -50,12 +50,12 @@ namespace ScoutModel.TestConsole
 
             //_controller.ScoutingRoleController.InsertItem(sr);
 
-            Person james = PersonBL.CreateItem();
+            IPerson james = PersonBL.CreateItem();
             james.PreferredName = "James";
             james.Surname = "Noonan";
             PersonBL.InsertItem(james);
 
-            Person newPerson = PersonBL.CreateItem();
+            IPerson newPerson = PersonBL.CreateItem();
             newPerson.PreferredName = "Logan";
             PersonBL.InsertItem(newPerson);
 

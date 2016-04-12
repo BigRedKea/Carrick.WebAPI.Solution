@@ -3,9 +3,10 @@ namespace Carrick.DataModel
 
 {
     using System;
-    using SQLite.Net.Attributes;
 
-    public class EventLocation : TableBase
+    using BusinessLogic.Interfaces;
+
+    public class EventLocation : TableBase, IEventLocation
     {
         public int LocationId { get; set; }
         public Guid? LocationGuid { get; set; }
@@ -18,17 +19,17 @@ namespace Carrick.DataModel
         public DateTime? FinishDateTime { get; set; }
 
 
-        public RelationshipKey LocationKey()
+        public IRelationshipKey LocationKey()
         {
-            RelationshipKey key = new RelationshipKey();
+            IRelationshipKey key = new RelationshipKey();
             key.Id = LocationId;
             key.RowGuid = LocationGuid;
             return key;
         }
 
-        public RelationshipKey ScoutingEventKey()
+        public IRelationshipKey ScoutingEventKey()
         {
-            RelationshipKey key = new RelationshipKey();
+            IRelationshipKey key = new RelationshipKey();
             key.Id = ScoutingEventId;
             key.RowGuid = ScoutingEventGuid;
             return key;

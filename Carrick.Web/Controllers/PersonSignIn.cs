@@ -2,11 +2,11 @@
 {
     using Carrick.BusinessLogic;
     using Carrick.ServerData.Controllers;
-    using Carrick.DataModel;
+    using Carrick.Server.DataModel;
     using System;
     using System.Linq;
     using System.Web.Http;
-
+    using BusinessLogic.Interfaces;
     [Authorize]
     [RequireHttps]
     public class PersonSignInController : ApiController
@@ -24,23 +24,23 @@
         // GET api/values
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonSignIn[] Get()
+        public IPersonSignIn[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<PersonSignIn>(); ;
+            return datacontroller.GetAllItems().ToArray<IPersonSignIn>(); ;
         }
 
 
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonSignIn[] Get(DateTime updatetimestamp)
+        public IPersonSignIn[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<PersonSignIn>();
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IPersonSignIn>();
         }
 
         // GET api/values/5
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonSignIn Get(int id)
+        public IPersonSignIn Get(int id)
         {
             return datacontroller.GetItem(id);
         }
@@ -49,7 +49,7 @@
         // POST api/values
         [AcceptVerbs("POST")]
         [HttpPost]
-        public PersonSignIn Insert([FromBody]PersonSignIn s)
+        public IPersonSignIn Insert([FromBody]IPersonSignIn s)
         {
             return datacontroller.InsertItem(s);
         }
@@ -58,7 +58,7 @@
         // PUT api/values/5
         [AcceptVerbs("PUT")]
         [HttpPut]
-        public PersonSignIn Update(int id, [FromBody] PersonSignIn s)
+        public IPersonSignIn Update(int id, [FromBody] IPersonSignIn s)
         {
             return datacontroller.ModifyItem(s);
         }

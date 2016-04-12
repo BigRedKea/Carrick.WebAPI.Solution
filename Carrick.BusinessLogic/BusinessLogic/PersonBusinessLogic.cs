@@ -1,37 +1,38 @@
 ﻿using Carrick.BusinessLogic.CompositeObjects;
-using Carrick.DataModel;
+using Carrick.BusinessLogic.Interfaces;
+
 using System;
 using System.Collections.Generic;
 
 namespace Carrick.BusinessLogic.BusinessLogic
 {
-    public class PersonBusinessLogic : BusinessLogicBase<Person>
+    public class PersonBusinessLogic : BusinessLogicBase<IPerson>
     {
         internal PersonBusinessLogic(BusinessLogic BL) :base (BL)
         {
         }
 
-        public IEnumerable<Person> GetPersonsInOrganisation(OrganisationUnit org)
+        public IEnumerable<IPerson> GetPersonsInOrganisation(IOrganisationUnit org)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PersonScoutingEvent> GetPersonsAtEvent(ScoutingEvent itm)
+        public IEnumerable<IPersonScoutingEvent> GetPersonsAtEvent(IScoutingEvent itm)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Person> GetParents(Person s)
+        public IEnumerable<IPerson> GetParents(IPerson s)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Person> GetParents()
+        public IEnumerable<IPerson> GetParents()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Person> GetActiveScouts()
+        public IEnumerable<IPerson> GetActiveScouts()
         {
             throw new NotImplementedException();
         }
@@ -41,17 +42,17 @@ namespace Carrick.BusinessLogic.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public Person GetPerson(PersonBadge itm)
+        public IPerson GetPerson(IPersonBadge itm)
         {
             throw new NotImplementedException();
         }
 
-        public bool IsSignedIn(Person person)
+        public bool IsSignedIn(IPerson person)
         {
             throw new NotImplementedException();
         }
 
-        public void SignedIn(Person person, bool Value)
+        public void SignedIn(IPerson person, bool Value)
         {
             throw new NotImplementedException();
         }

@@ -1,10 +1,11 @@
 
 namespace Carrick.DataModel
 {
+    using BusinessLogic.Interfaces;
     using SQLite.Net.Attributes;
 
     [Table("Badge")]
-    public partial class Badge : TableBase
+    public partial class Badge : TableBase, IBadge
     {
 
         [MaxLength(256)]

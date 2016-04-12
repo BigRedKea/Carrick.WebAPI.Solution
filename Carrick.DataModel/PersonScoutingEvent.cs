@@ -1,10 +1,11 @@
 namespace Carrick.DataModel
 {
+    using BusinessLogic.Interfaces;
     using SQLite.Net.Attributes;
     using System;
-    
+
     [Table("PersonScoutingEvent")]
-    public partial class PersonScoutingEvent :TableBase
+    public partial class PersonScoutingEvent :TableBase, IPersonScoutingEvent
     {
         public int? ScoutingEventId { get; set; }
         public Guid? ScoutingEventGuid { get; set; }
@@ -26,17 +27,17 @@ namespace Carrick.DataModel
         public double? KilometersTravelled { get; set; }
 
 
-        public RelationshipKey ScoutingEventKey()
+        public IRelationshipKey ScoutingEventKey()
         {
-            RelationshipKey key = new RelationshipKey();
+            IRelationshipKey key = new RelationshipKey();
             key.Id = ScoutingEventId;
             key.RowGuid = ScoutingEventGuid;
             return key;
         }
 
-        public RelationshipKey PersonKey()
+        public IRelationshipKey PersonKey()
         {
-            RelationshipKey key = new RelationshipKey();
+            IRelationshipKey key = new RelationshipKey();
             key.Id = PersonId;
             key.RowGuid = PersonGuid;
             return key;

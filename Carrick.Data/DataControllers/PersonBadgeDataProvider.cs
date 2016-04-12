@@ -1,15 +1,16 @@
 ﻿namespace Carrick.ServerData.Controllers
 {
-    using Carrick.DataModel;
+    using BusinessLogic.Interfaces;
+    using Carrick.Server.DataModel;
 
-    public class PersonBadgeDataProvider : GenericDataProvider<PersonBadge>
+    public class PersonBadgeDataProvider : GenericDataProvider<IPersonBadge, PersonBadge>
     {
 
         internal PersonBadgeDataProvider(Repository r) : base(r, r.DataModel.PersonBadges)
         {
         }
 
-        protected internal override PersonBadge TransferSpecificProperties( PersonBadge original, ref PersonBadge destination, Authorisation<PersonBadge> Authorisation = null)
+        protected internal override IPersonBadge TransferSpecificProperties( IPersonBadge original, ref IPersonBadge destination, Authorisation<IPersonBadge> Authorisation = null)
         {
             //AuthorisationPerson ap = (AuthorisationPerson)Authorisation;
             if (destination == null) { destination = new PersonBadge(); }
@@ -27,7 +28,7 @@
             return destination;
         }
 
-        public Person GetPerson(PersonBadge PersonBadge)
+        public IPerson GetPerson(IPersonBadge PersonBadge)
         {
             if (PersonBadge.PersonId.HasValue)
             {
@@ -36,7 +37,7 @@
             return null;
         }
 
-        public Badge GetBadge(PersonBadge PersonBadge)
+        public IBadge GetBadge(IPersonBadge PersonBadge)
         {
             if (PersonBadge.BadgeId.HasValue) {
                 return Repository.BadgeDataController.GetItem(PersonBadge.BadgeId.Value);
@@ -44,7 +45,7 @@
             return null;
         }
 
-        public Person GetLeaderAssigned(PersonBadge PersonBadge)
+        public IPerson GetLeaderAssigned(IPersonBadge PersonBadge)
         {
             if (PersonBadge.LeaderAssignedId.HasValue)
             {
@@ -53,13 +54,24 @@
             return null;
         }
 
-        public Person GetAuthorisedBy(PersonBadge PersonBadge)
+        public IPerson GetAuthorisedBy(PersonBadge PersonBadge)
         {
             if (PersonBadge.AuthorisedById.HasValue)
             {
                 return Repository.PersonDataController.GetItem(PersonBadge.AuthorisedById.Value);
             }
             return null;
+        }
+
+
+        public override PersonBadge Convert(IPersonBadge z)
+        {
+            return (PersonBadge)z;
+        }
+
+        public override IPersonBadge Convert(PersonBadge z)
+        {
+            return z;
         }
 
     }

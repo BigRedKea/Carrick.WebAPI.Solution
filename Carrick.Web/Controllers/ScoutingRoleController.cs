@@ -1,9 +1,10 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.ServerData.Controllers;
-using Carrick.DataModel;
+using Carrick.Server.DataModel;
 using System;
 using System.Linq;
 using System.Web.Http;
+using Carrick.BusinessLogic.Interfaces;
 
 namespace Carrick.Web.Controllers
 {
@@ -23,23 +24,23 @@ namespace Carrick.Web.Controllers
         // GET api/values
         [AcceptVerbs("GET")]
         [HttpGet]
-        public ScoutingRole[] Get()
+        public IScoutingRole[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<ScoutingRole>();
+            return datacontroller.GetAllItems().ToArray<IScoutingRole>();
         }
 
 
         [AcceptVerbs("GET")]
         [HttpGet]
-        public ScoutingRole[] Get(DateTime updatetimestamp)
+        public IScoutingRole[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<ScoutingRole>();
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IScoutingRole>();
         }
 
         // GET api/values/5
         [AcceptVerbs("GET")]
         [HttpGet]
-        public ScoutingRole Get(int id)
+        public IScoutingRole Get(int id)
         {
             return datacontroller.GetItem(id);
         }
@@ -49,7 +50,7 @@ namespace Carrick.Web.Controllers
         [Authorize(Roles = "ScoutAdministrator")]
         [AcceptVerbs("POST")]
         [HttpPost]
-        public ScoutingRole Insert([FromBody]ScoutingRole s)
+        public IScoutingRole Insert([FromBody] IScoutingRole s)
         {
             return datacontroller.InsertItem(s);
         }
@@ -59,7 +60,7 @@ namespace Carrick.Web.Controllers
         [Authorize(Roles = "ScoutAdministrator")]
         [AcceptVerbs("PUT")]
         [HttpPut]
-        public ScoutingRole Update(int id, [FromBody] ScoutingRole s)
+        public IScoutingRole Update(int id, [FromBody] IScoutingRole s)
         {
             return datacontroller.ModifyItem(s);
         }
@@ -68,7 +69,7 @@ namespace Carrick.Web.Controllers
         [Authorize(Roles = "ScoutAdministrator")]
         [AcceptVerbs("DELETE")]
         [HttpDelete]
-        public ScoutingRole Delete(int id)
+        public IScoutingRole Delete(int id)
         {
             return datacontroller.DeleteItem(id);
         }

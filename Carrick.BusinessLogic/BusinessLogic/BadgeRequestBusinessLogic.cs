@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 
 using Carrick.BusinessLogic.CompositeObjects;
-using Carrick.DataModel;
+using Carrick.BusinessLogic.Interfaces;
 
 namespace Carrick.BusinessLogic.BusinessLogic
 {
 
-    public class BadgeRequestBusinessLogic : BusinessLogicBase<PersonBadge>
+    public class BadgeRequestBusinessLogic : BusinessLogicBase<IPersonBadge>
     {
         internal BadgeRequestBusinessLogic(BusinessLogic BL) :base (BL)
         {
@@ -18,7 +18,7 @@ namespace Carrick.BusinessLogic.BusinessLogic
             throw new NotImplementedException();
         }
 
-        private PersonBadgeComposite CreateBadgeRequestComposite(PersonBadge br)
+        private PersonBadgeComposite CreateBadgeRequestComposite(IPersonBadge br)
         {
             PersonBadgeComposite brc = new PersonBadgeComposite()
             {
@@ -35,7 +35,7 @@ namespace Carrick.BusinessLogic.BusinessLogic
         {
             List<PersonBadgeComposite> brs = new List<PersonBadgeComposite>();
 
-            foreach (PersonBadge br in GetAllItems())
+            foreach (IPersonBadge br in GetAllItems())
             {
                 if (br.PresentedDateTime == null && br.AuthorisedById == null)
                 {
@@ -45,11 +45,11 @@ namespace Carrick.BusinessLogic.BusinessLogic
             return brs;
         }
 
-        public IEnumerable<PersonBadgeComposite> GetBadgesToPresent(Person p)
+        public IEnumerable<PersonBadgeComposite> GetBadgesToPresent(IPerson p)
         {
             List<PersonBadgeComposite> brs = new List<PersonBadgeComposite>();
 
-            foreach (PersonBadge br in GetAllItems())
+            foreach (IPersonBadge br in GetAllItems())
             {
                 if (br.PresentedDateTime == null && !(br.AuthorisedById ==null))
                 {
@@ -61,10 +61,10 @@ namespace Carrick.BusinessLogic.BusinessLogic
 
         public IEnumerable<PersonBadgeComposite> GetBadgesToPresentToPersonsPresent()
         {
-            IEnumerable<Person> persons = _BL.PersonBL.GetAllItems();
+            IEnumerable<IPerson> persons = _BL.PersonBL.GetAllItems();
             List<PersonBadgeComposite> brs = new List<PersonBadgeComposite>();
 
-            foreach (Person s in persons)
+            foreach (IPerson s in persons)
             {
                 if (_BL.PersonBL.IsSignedIn(s))
                 {
@@ -89,12 +89,12 @@ namespace Carrick.BusinessLogic.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PersonBadgeComposite> GetBadgeRequestsforPerson(Person person)
+        public IEnumerable<PersonBadgeComposite> GetBadgeRequestsforPerson(IPerson person)
         {
             {
                 List<PersonBadgeComposite> brs = new List<PersonBadgeComposite>();
 
-                foreach (PersonBadge br in GetAllItems())
+                foreach (IPersonBadge br in GetAllItems())
                 {
                     if (br.PresentedDateTime == null && !(br.AuthorisedById == null))
                     {
@@ -110,7 +110,7 @@ namespace Carrick.BusinessLogic.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public PersonBadgeComposite RequestBadge(Person Person, Badge Badge)
+        public PersonBadgeComposite RequestBadge(IPerson Person, IBadge Badge)
         {
             PersonBadgeComposite br = new PersonBadgeComposite();
             br.Badge = Badge;

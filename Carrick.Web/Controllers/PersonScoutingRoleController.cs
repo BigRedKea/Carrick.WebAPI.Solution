@@ -2,11 +2,11 @@
 {
     using Carrick.BusinessLogic;
     using Carrick.ServerData.Controllers;
-    using Carrick.DataModel;
+    using Carrick.Server.DataModel;
     using System;
     using System.Linq;
     using System.Web.Http;
-
+    using BusinessLogic.Interfaces;
     [Authorize]
     [RequireHttps]
     public class PersonScoutingRoleController : ApiController
@@ -24,23 +24,23 @@
         // GET api/values
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonScoutingRole[] Get()
+        public IPersonScoutingRole[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<PersonScoutingRole>();
+            return datacontroller.GetAllItems().ToArray<IPersonScoutingRole>();
         }
 
 
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonScoutingRole[] Get(DateTime updatetimestamp)
+        public IPersonScoutingRole[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<PersonScoutingRole>();
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IPersonScoutingRole>();
         }
 
         // GET api/values/5
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonScoutingRole Get(int id)
+        public IPersonScoutingRole Get(int id)
         {
             return datacontroller.GetItem(id);
         }
@@ -50,7 +50,7 @@
         [Authorize(Roles = "ScoutAdministrator")]
         [AcceptVerbs("POST")]
         [HttpPost]
-        public PersonScoutingRole Insert([FromBody]PersonScoutingRole s)
+        public IPersonScoutingRole Insert([FromBody] IPersonScoutingRole s)
         {
             return datacontroller.InsertItem(s);
         }
@@ -60,7 +60,7 @@
         [Authorize(Roles = "ScoutAdministrator")]
         [AcceptVerbs("PUT")]
         [HttpPut]
-        public PersonScoutingRole Update(int id, [FromBody] PersonScoutingRole s)
+        public IPersonScoutingRole Update(int id, [FromBody] IPersonScoutingRole s)
         {
             return datacontroller.ModifyItem(s);
         }

@@ -2,7 +2,7 @@
 namespace Carrick.ServerData.Controllers
 {
     using Carrick.ServerData;
-    using Carrick.DataModel;
+    using Carrick.Server.DataModel;
     using Carrick.BusinessLogic.Interfaces;
     using System;
 
@@ -86,7 +86,7 @@ namespace Carrick.ServerData.Controllers
                 return _OrganisationUnitDataController;
             }
         }
-        
+
         public PersonScoutingEventDataProvider PersonScoutingEventDataController
         {
             get

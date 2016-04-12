@@ -1,10 +1,12 @@
 ﻿namespace Carrick.ServerData.Controllers
 {
-    using Carrick.DataModel;
+
     using System.Linq;
     using System;
     using System.Collections.Generic;
-    public class PersonDataProvider : GenericDataProvider<Person>
+    using Carrick.Server.DataModel;
+    using BusinessLogic.Interfaces;
+    public class PersonDataProvider : GenericDataProvider<IPerson, Person>
     {
         internal PersonDataProvider(Repository r) : base(r, r.DataModel.People)
         {
@@ -28,10 +30,10 @@
             }
         }
 
-        protected internal override Person TransferSpecificProperties( Person original, ref Person destination, Authorisation<Person> Authorisation)
+        protected internal override IPerson TransferSpecificProperties(IPerson original, ref IPerson destination, Authorisation<IPerson> Authorisation)
         {
             AuthorisationPerson ap = (AuthorisationPerson)Authorisation;
-            if (destination == null) destination = new Person();
+            if (destination == null) destination = CreateItem();
 
             destination.PreferredName = original.PreferredName;
             destination.Surname = original.Surname;
@@ -67,21 +69,31 @@
             return destination;
         }
 
-        public override IEnumerable<Person> GetActiveItems()
+        public override IEnumerable<IPerson> GetActiveItems()
         {
             return base.GetActiveItems().Where(x => (x.IsDeleted == false)
                     && (x.DateLeftOrganisation == null));
         }
 
-        public IEnumerable<Person> GetChildren(Person p)
+        public IEnumerable<IPerson> GetChildren(IPerson p)
         {
             return Repository.PersonPersonDataController.GetRelatedAPersons(p, 1);
         }
 
-        public IEnumerable<Person> GetParents(Person p)
+        public IEnumerable<IPerson> GetParents(IPerson p)
         {
             return Repository.PersonPersonDataController.GetRelatedBPersons(p, 1);
         }
 
+
+        public override Person Convert(IPerson z)
+        {
+            return (Person)z;
+        }
+
+        public override IPerson Convert(Person z)
+        {
+            return z;
+        }
     }
 }

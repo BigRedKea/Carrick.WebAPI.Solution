@@ -2,22 +2,22 @@
 
 using System.Collections.Generic;
 using Carrick.BusinessLogic.CompositeObjects;
-using Carrick.DataModel;
+using Carrick.BusinessLogic.Interfaces;
 
 namespace Carrick.BusinessLogic.BusinessLogic
 {
-    public class ScoutingEventBusinessLogic : BusinessLogicBase<ScoutingEvent>
+    public class ScoutingEventBusinessLogic : BusinessLogicBase<IScoutingEvent>
     {
         internal ScoutingEventBusinessLogic(BusinessLogic BL) : base(BL)
         {
         }
 
-        public IEnumerable<PersonScoutingEventComposite> GetScoutingEvents(Person p)
+        public IEnumerable<PersonScoutingEventComposite> GetScoutingEvents(IPerson p)
         {
             throw new NotImplementedException();
         }
 
-        public ScoutingEvent GetScoutingEvent(PersonScoutingEventComposite p)
+        public IScoutingEvent GetScoutingEvent(PersonScoutingEventComposite p)
         {
             throw new NotImplementedException();
         }

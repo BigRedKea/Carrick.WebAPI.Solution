@@ -274,19 +274,19 @@
     <Compile Include="Areas\RouteDebugger\RouteDebuggerAreaRegistration.cs" />
     <Compile Include="Areas\RouteDebugger\RouteDebuggerConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\PersonOrganisationUnitController.cs" />
-    <Compile Include="Controllers\PersonScoutingEventController.cs" />
-    <Compile Include="Controllers\OrganisationUnitController.cs" />
-    <Compile Include="Controllers\PersonBadgeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BadgeController.cs" />
-    <Compile Include="Controllers\Residence.cs" />
-    <Compile Include="Controllers\PersonSignIn.cs" />
-    <Compile Include="Controllers\PersonScoutingRoleController.cs" />
-    <Compile Include="Controllers\PersonResidenceController.cs" />
-    <Compile Include="Controllers\PersonPersonController.cs" />
-    <Compile Include="Controllers\ScoutingEventController.cs" />
+    <Compile Include="Controllers\OrganisationUnitController.cs" />
+    <Compile Include="Controllers\PersonBadgeController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\PersonOrganisationUnitController.cs" />
+    <Compile Include="Controllers\PersonPersonController.cs" />
+    <Compile Include="Controllers\PersonResidenceController.cs" />
+    <Compile Include="Controllers\PersonScoutingEventController.cs" />
+    <Compile Include="Controllers\PersonScoutingRoleController.cs" />
+    <Compile Include="Controllers\PersonSignIn.cs" />
+    <Compile Include="Controllers\Residence.cs" />
+    <Compile Include="Controllers\ScoutingEventController.cs" />
     <Compile Include="Controllers\ScoutingRoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -294,6 +294,14 @@
     <Compile Include="Migrations\201603150054513_InitialCreate.cs" />
     <Compile Include="Migrations\201603150054513_InitialCreate.Designer.cs">
       <DependentUpon>201603150054513_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604120101400_CarrickDatabase.cs" />
+    <Compile Include="Migrations\201604120101400_CarrickDatabase.Designer.cs">
+      <DependentUpon>201604120101400_CarrickDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604120106547_Initial.cs" />
+    <Compile Include="Migrations\201604120106547_Initial.Designer.cs">
+      <DependentUpon>201604120106547_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -399,10 +407,6 @@
       <Project>{b88df5aa-ad6a-493e-986f-62bf41dee512}</Project>
       <Name>Carrick.BusinessLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Carrick.DataModel\Carrick.DataModel.csproj">
-      <Project>{ff5a4710-9075-4ecd-aa0f-153bc2a6becd}</Project>
-      <Name>Carrick.DataModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Carrick.Data\Carrick.ServerData.csproj">
       <Project>{b6bce6f5-8bba-42e4-971b-01d42a0ecfcd}</Project>
       <Name>Carrick.ServerData</Name>
@@ -411,6 +415,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201603150054513_InitialCreate.resx">
       <DependentUpon>201603150054513_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604120101400_CarrickDatabase.resx">
+      <DependentUpon>201604120101400_CarrickDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604120106547_Initial.resx">
+      <DependentUpon>201604120106547_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

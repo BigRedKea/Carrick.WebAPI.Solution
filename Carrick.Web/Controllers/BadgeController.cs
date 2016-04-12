@@ -1,10 +1,13 @@
-﻿using Carrick.BusinessLogic;
-using Carrick.ServerData.Controllers;
-using Carrick.DataModel;
+﻿
 using System;
 using System.Web.Http;
 using System.Collections.Generic;
 using System.Linq;
+
+using Carrick.BusinessLogic;
+using Carrick.ServerData.Controllers;
+using Carrick.Server.DataModel;
+using Carrick.BusinessLogic.Interfaces;
 
 namespace Carrick.Web.Controllers
 {
@@ -24,14 +27,14 @@ namespace Carrick.Web.Controllers
         [Route("api/Badge/search")]
         [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<Badge> SearchActiveItems(string searchText)
+        public IEnumerable<IBadge> SearchActiveItems(string searchText)
         {
             return datacontroller.SearchActiveItems(searchText, 40);
         }
 
         [Route("api/Badge/new")]
         [HttpGet]
-        public Badge NewItem()
+        public IBadge NewItem()
         {
             return new Badge();
         }
@@ -40,23 +43,23 @@ namespace Carrick.Web.Controllers
         // GET api/values
         [AcceptVerbs("GET")]
         [HttpGet]
-        public Badge[] Get()
+        public IBadge[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<Badge>();
+            return datacontroller.GetAllItems().ToArray<IBadge>();
         }
 
 
         [AcceptVerbs("GET")]
         [HttpGet]
-        public Badge[] Get(DateTime updatetimestamp)
+        public IBadge[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<Badge>();
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IBadge>();
         }
 
         // GET api/values/5
         [AcceptVerbs("GET")]
         [HttpGet]
-        public Badge Get(int id)
+        public IBadge Get(int id)
         {
             return datacontroller.GetItem(id);
         }
@@ -64,7 +67,7 @@ namespace Carrick.Web.Controllers
         [Route("api/Badge/detail/{id}")]
         [HttpGet]
         [AllowAnonymous]
-        public Badge GetDetail(int Id)
+        public IBadge GetDetail(int Id)
         {
             return datacontroller.GetItem(Id);
         }
@@ -72,7 +75,7 @@ namespace Carrick.Web.Controllers
         [Authorize(Roles = "ScoutAdministrator")]
         [Route("api/Badge/Save")]
         [HttpPost]
-        public Badge SaveItem(Badge itm)
+        public IBadge SaveItem(IBadge itm)
         {
             return datacontroller.SaveItem(itm);
         }

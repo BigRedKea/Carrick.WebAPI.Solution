@@ -1,17 +1,17 @@
 ﻿using System;
 
 using System.Collections.Generic;
-using Carrick.DataModel;
+using Carrick.BusinessLogic.Interfaces;
 
 namespace Carrick.BusinessLogic.BusinessLogic
 {
-    public class ResidenceBusinessLogic : BusinessLogicBase<Residence>
+    public class ResidenceBusinessLogic : BusinessLogicBase<IResidence>
     {
         internal ResidenceBusinessLogic(BusinessLogic BL) : base(BL)
         {
         }
 
-        public IEnumerable<Residence> GetResidences(Person s)
+        public IEnumerable<IResidence> GetResidences(IPerson s)
         {
             throw new NotImplementedException();
         }

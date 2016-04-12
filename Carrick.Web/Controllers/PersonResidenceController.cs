@@ -2,11 +2,11 @@
 {
     using Carrick.BusinessLogic;
     using Carrick.ServerData.Controllers;
-    using Carrick.DataModel;
+    using Carrick.Server.DataModel;
     using System;
     using System.Linq;
     using System.Web.Http;
-
+    using BusinessLogic.Interfaces;
     [Authorize]
     [RequireHttps]
     public class PersonResidenceController : ApiController
@@ -24,23 +24,23 @@
         // GET api/values
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonResidence[] Get()
+        public IPersonResidence[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<PersonResidence>();
+            return datacontroller.GetAllItems().ToArray<IPersonResidence>();
         }
 
 
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonResidence[] Get(DateTime updatetimestamp)
+        public IPersonResidence[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<PersonResidence>();
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IPersonResidence>();
         }
 
         // GET api/values/5
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonResidence Get(int id)
+        public IPersonResidence Get(int id)
         {
             return datacontroller.GetItem(id);
         }
@@ -49,7 +49,7 @@
         // POST api/values
         [AcceptVerbs("POST")]
         [HttpPost]
-        public PersonResidence Insert([FromBody]PersonResidence s)
+        public IPersonResidence Insert([FromBody]IPersonResidence s)
         {
             return datacontroller.InsertItem(s);
         }
@@ -58,7 +58,7 @@
         // PUT api/values/5
         [AcceptVerbs("PUT")]
         [HttpPut]
-        public PersonResidence Update(int id, [FromBody] PersonResidence s)
+        public IPersonResidence Update(int id, [FromBody] IPersonResidence s)
         {
             return datacontroller.ModifyItem(s);
         }

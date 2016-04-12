@@ -2,11 +2,11 @@
 {
     using Carrick.BusinessLogic;
     using Carrick.ServerData.Controllers;
-    using Carrick.DataModel;
+    using Carrick.Server.DataModel;
     using System;
     using System.Linq;
     using System.Web.Http;
-
+    using BusinessLogic.Interfaces;
     [Authorize]
     [RequireHttps]
     public class PersonController : ApiController
@@ -24,23 +24,23 @@
         // GET api/values
         [AcceptVerbs("GET")]
         [HttpGet]
-        public Person[] Get()
+        public IPerson[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<Person>();
+            return datacontroller.GetAllItems().ToArray<IPerson>();
         }
 
 
         [AcceptVerbs("GET")]
         [HttpGet]
-        public Person[] Get(DateTime updatetimestamp)
+        public IPerson[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<Person>();
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IPerson>();
         }
 
         // GET api/values/5
         [AcceptVerbs("GET")]
         [HttpGet]
-        public Person Get(int id)
+        public IPerson Get(int id)
         {
             return datacontroller.GetItem(id);
         }
@@ -49,7 +49,7 @@
         // POST api/values
         [AcceptVerbs("POST")]
         [HttpPost]
-        public Person Insert([FromBody]Person s)
+        public IPerson Insert([FromBody]IPerson s)
         {
             return datacontroller.InsertItem(s);
         }
@@ -58,7 +58,7 @@
         // PUT api/values/5
         [AcceptVerbs("PUT")]
         [HttpPut]
-        public Person Update(int id, [FromBody] Person s)
+        public IPerson Update(int id, [FromBody] IPerson s)
         {
             return datacontroller.ModifyItem(s);
         }

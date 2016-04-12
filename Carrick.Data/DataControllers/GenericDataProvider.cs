@@ -7,25 +7,26 @@ namespace Carrick.ServerData.Controllers
     using System.Linq;
     using System.Data.Entity;
 
-    using Carrick.DataModel;
+    using Carrick.Server.DataModel;
     using Carrick.BusinessLogic.Interfaces;
     using System.Linq.Expressions;
-    public abstract class GenericDataProvider<T> : IDataProviderInterface<T> where T : TableBase, new()
+
+    public abstract class GenericDataProvider<T, Z> : IDataProviderInterface<T> where T : ITableBase where Z : TableBase, new() 
     {
         internal protected Repository Repository;
-        protected DbSet<T> dataset;
+        protected DbSet<Z> dataset;
 
 
         protected internal Authorisation<T> AuthorisationGet;
         protected internal Authorisation<T> AuthorisationUpdate;
 
-        internal GenericDataProvider(Repository r, DbSet<T> dataset)
+        internal GenericDataProvider(Repository r, DbSet<Z> dataset)
         {
             try
             {
                 Repository = r;
                 this.dataset = dataset;
-                defaultOrder = (T t) => t.Id;
+                defaultOrder = (Z t) => t.Id;
             }
             catch (Exception ex)
             {
@@ -34,47 +35,56 @@ namespace Carrick.ServerData.Controllers
 
         }
 
+        public abstract T Convert(Z z);
 
-        private T _GetItem(int id)
+        public abstract Z Convert(T z);
+
+
+        private Z _GetItem(int id)
         {
-            T p = dataset.Where(x => x.Id == id).FirstOrDefault();
-            dataset.Where(x => x.Id == id).FirstOrDefault();
+            Z p = dataset.Where(x => x.Id == id).FirstOrDefault();
             return p;
         }
 
-        private T _GetItemFromLocalId(int LocalId)
+        private Z _GetItemFromLocalId(int LocalId)
         {
-            T p = dataset.Where(x => x.LocalId == LocalId).FirstOrDefault();
+            Z p = dataset.Where(x => x.LocalId == LocalId).FirstOrDefault();
             return p;
         }
+
+        private Z _GetItem(Guid? RowGuid)
+        {
+            Z p = dataset.Where(x => x.RowGuid.ToString() == RowGuid.ToString()).FirstOrDefault();
+
+            return p;
+        }
+
 
         public virtual T GetItem(int id)
         {
-            T copy = new T();
-            CopyData(_GetItem(id), ref copy, AuthorisationGet);
+            T copy = CreateItem();
+            CopyData(Convert(_GetItem(id)), ref copy, AuthorisationGet);
             return copy;
         }
 
 
         public virtual T GetItemFromLocalId(int localid)
         {
-            T copy = new T();
-            CopyData(_GetItemFromLocalId(localid), ref copy, AuthorisationGet);
+            T copy = CreateItem();
+            CopyData(Convert(_GetItemFromLocalId(localid)), ref copy, AuthorisationGet);
             return copy;
         }
 
 
         public T GetItem(Guid? RowGuid)
         {
-            T p = dataset.Where(x => x.RowGuid.ToString() == RowGuid.ToString()).FirstOrDefault();
-            dataset.Where(x => x.RowGuid.ToString() == RowGuid.ToString()).FirstOrDefault();
-            T copy = new T();
-            CopyData(p, ref copy, AuthorisationGet);
+            T copy = CreateItem();
+            CopyData(Convert(_GetItem(RowGuid)), ref copy, AuthorisationGet);
             return copy;
         }
 
 
-        public T GetItem(RelationshipKey key)
+        public T GetItem(IRelationshipKey key)
         {
             if (key.Id.HasValue )
             {
@@ -90,44 +100,42 @@ namespace Carrick.ServerData.Controllers
             }
             else
             {
-                return null;
+                return default(T);
             }
         }
 
-       
-
         public virtual T GetActiveItem(int id)
         {
-            T p = _GetActiveItems().Where(x => (x.Id == id)).FirstOrDefault();
-            T copy = new T();
-            CopyData(p, ref copy, AuthorisationGet);
+            Z p = _GetActiveItems().Where(x => (x.Id == id)).FirstOrDefault();
+            T copy = CreateItem();
+            CopyData(Convert(p), ref copy, AuthorisationGet);
             return copy;
         }
 
-        public Func<T, object> defaultOrder{get; set; }
+        public Func<Z, object> defaultOrder{get; set; }
         
         public virtual IEnumerable<T> GetActiveItems ()
         {
-            IEnumerable<T> p = _GetActiveItems().OrderBy(defaultOrder);
+            IEnumerable<Z> p = _GetActiveItems().OrderBy(defaultOrder);
             IEnumerable<T> copy = CopyData(p, AuthorisationGet);
             return copy;
         }
 
 
-        protected IQueryable<T> _GetActiveItems()
+        protected IQueryable<Z> _GetActiveItems()
         {
             return dataset.Where(x => (x.IsDeleted == false));
         }
 
-        protected IQueryable<T> _GetAllItems()
+        protected IQueryable<Z> _GetAllItems()
         {
             return dataset;
         }
 
         public virtual IEnumerable<T> GetAllItems()
         {
-            IEnumerable<T> p = dataset;
-            IEnumerable<T> copy = CopyData(p, AuthorisationGet).OrderBy(defaultOrder);
+            IEnumerable<Z> p = dataset.OrderBy(defaultOrder);
+            IEnumerable<T> copy = CopyData(p, AuthorisationGet);
             return copy;
         }
 
@@ -145,13 +153,13 @@ namespace Carrick.ServerData.Controllers
             return destination;
         }
 
-        protected internal IEnumerable<T> CopyData(IEnumerable<T> original, Authorisation<T> a)
+        protected internal IEnumerable<T> CopyData(IEnumerable<Z> original, Authorisation<T> a)
         {
             IList<T> retval = new List<T>();
-            foreach (T itm in original)
+            foreach (Z itm in original)
             {
-                T r = new T();
-                CopyData(itm, ref r, a);
+                T r = CreateItem();
+                CopyData(Convert(itm), ref r, a);
                 retval.Add(r);
             }
             return retval;
@@ -212,15 +220,15 @@ namespace Carrick.ServerData.Controllers
                 item.RowCreated = DateTime.UtcNow;
                 }
 
-            T r = dataset.Add(item);
+            Z r = dataset.Add(Convert(item));
             Repository.DataModel.SaveChanges();
 
-            return GetDataStoredResponse(r);
+            return GetDataStoredResponse(Convert(r));
         }
 
         public T ModifyItem(T item)
         {
-            T itmtoupdate = _GetItem(item.Id);
+            T itmtoupdate = GetItem(item.Id);
             
             CopyData(item, ref itmtoupdate, AuthorisationUpdate);
 
@@ -243,7 +251,7 @@ namespace Carrick.ServerData.Controllers
 
         public T CreateItem()
         {
-            T item = new T();
+            T item = Convert(new Z());
             item.RowGuid = Guid.NewGuid();
             return item;
         }

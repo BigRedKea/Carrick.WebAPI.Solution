@@ -1,3 +1,4 @@
+using Carrick.BusinessLogic.Interfaces;
 using SQLite.Net.Attributes;
 using System;
 
@@ -6,7 +7,7 @@ namespace Carrick.DataModel
     
 
     [Table("PersonBadge")]
-    public partial class PersonBadge : TableBase
+    public partial class PersonBadge : TableBase, IPersonBadge
     {
 
         public int? BadgeId { get; set; }
@@ -27,33 +28,33 @@ namespace Carrick.DataModel
 
         public bool? BadgeMissingFromOrder { get; set; }
 
-        public RelationshipKey BadgeKey()
+        public IRelationshipKey BadgeKey()
         {
-            RelationshipKey key = new RelationshipKey();
+            IRelationshipKey key = new RelationshipKey();
             key.Id = BadgeId;
             key.RowGuid = BadgeGuid;
             return key;
         }
 
-        public RelationshipKey PersonKey()
+        public IRelationshipKey PersonKey()
         {
-            RelationshipKey key = new RelationshipKey();
+            IRelationshipKey key = new RelationshipKey();
             key.Id = PersonId;
             key.RowGuid = PersonGuid;
             return key;
         }
 
-        public RelationshipKey LeaderAssignedKey()
+        public IRelationshipKey LeaderAssignedKey()
         {
-            RelationshipKey key = new RelationshipKey();
+            IRelationshipKey key = new RelationshipKey();
             key.Id = LeaderAssignedId;
             key.RowGuid = LeaderAssignedGuid;
             return key;
         }
 
-        public RelationshipKey AuthorisedByKey()
+        public IRelationshipKey AuthorisedByKey()
         {
-            RelationshipKey key = new RelationshipKey();
+            IRelationshipKey key = new RelationshipKey();
             key.Id = AuthorisedById;
             key.RowGuid = AuthorisedByGuid;
             return key;

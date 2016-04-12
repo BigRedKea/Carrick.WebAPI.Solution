@@ -1,18 +1,19 @@
 ﻿namespace Carrick.ServerData.Controllers
 {
-    using Carrick.DataModel;
+    using BusinessLogic.Interfaces;
+    using Carrick.Server.DataModel;
 
-    public class ResidenceDataProvider : GenericDataProvider<Residence>
+    public class ResidenceDataProvider : GenericDataProvider<IResidence, Residence>
     {
 
         internal ResidenceDataProvider(Repository r) : base(r, r.DataModel.Residences)
         {
         }
 
-        protected internal override Residence TransferSpecificProperties(Residence original, ref Residence destination, Authorisation<Residence> Authorisation = null)
+        protected internal override IResidence TransferSpecificProperties(IResidence original, ref IResidence destination, Authorisation<IResidence> Authorisation = null)
         {
             //AuthorisationPerson ap = (AuthorisationPerson)Authorisation;
-            if (destination == null) { destination = new Residence(); }
+            if (destination == null) { destination = CreateItem(); }
 
             destination.ResidencePhone = original.ResidencePhone;
             destination.ResidenceAddressLine1 = original.ResidenceAddressLine1;
@@ -21,6 +22,17 @@
             destination.PostCode = original.PostCode;
 
             return destination;
+        }
+
+
+        public override Residence Convert(IResidence z)
+        {
+            return (Residence)z;
+        }
+
+        public override IResidence Convert(Residence z)
+        {
+            return z;
         }
     }
 }

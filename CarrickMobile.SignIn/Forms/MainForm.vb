@@ -11,9 +11,9 @@ Public Class MainForm
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Dim OrganisationUnits As List(Of OrganisationUnit) = BL.Singleton.OrganisationUnitBL.GetOrganisationsSortedLargestToSmallest
+        Dim OrganisationUnits As List(Of IOrganisationUnit) = BL.Singleton.OrganisationUnitBL.GetOrganisationsSortedLargestToSmallest
 
-        For Each p As OrganisationUnit In OrganisationUnits
+        For Each p As IOrganisationUnit In OrganisationUnits
             Dim ctl As New OrganisationLoginUserControl(p)
             Me.FlowLayoutPanel1.Controls.Add(ctl)
         Next

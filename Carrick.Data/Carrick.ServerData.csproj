@@ -64,24 +64,41 @@
     <Compile Include="DataControllers\AuthorisationPerson.cs" />
     <Compile Include="DataControllers\BadgeDataProvider.cs" />
     <Compile Include="DataControllers\EventLocationDataProvider.cs" />
-    <Compile Include="DataControllers\OrganisationUnitDataProvider.cs" />
     <Compile Include="DataControllers\LocationDataProvider.cs" />
-    <Compile Include="DataControllers\PersonScoutingEventDataProvider.cs" />
-    <Compile Include="DataControllers\ScoutingEventDataProvider.cs" />
-    <Compile Include="DataControllers\ResidenceDataProvider.cs" />
-    <Compile Include="DataControllers\PersonScoutingRoleDataProvider.cs" />
-    <Compile Include="DataControllers\PersonResidenceDataProviderr.cs" />
-    <Compile Include="DataControllers\PersonPersonDataProvider.cs" />
-    <Compile Include="DataControllers\PersonOrganisationUnitDataProvider.cs" />
-    <Compile Include="DataControllers\PersonSignInDataProvider.cs" />
+    <Compile Include="DataControllers\OrganisationUnitDataProvider.cs" />
+    <Compile Include="DataControllers\PersonBadgeDataProvider.cs" />
     <Compile Include="DataControllers\PersonDataProvider.cs" />
+    <Compile Include="DataControllers\PersonOrganisationUnitDataProvider.cs" />
+    <Compile Include="DataControllers\PersonPersonDataProvider.cs" />
+    <Compile Include="DataControllers\PersonResidenceDataProviderr.cs" />
+    <Compile Include="DataControllers\PersonScoutingEventDataProvider.cs" />
+    <Compile Include="DataControllers\PersonScoutingRoleDataProvider.cs" />
+    <Compile Include="DataControllers\PersonSignInDataProvider.cs" />
+    <Compile Include="DataControllers\Repository.cs" />
     <Compile Include="DataControllers\GenericDataProvider.cs" />
+    <Compile Include="DataControllers\ResidenceDataProvider.cs" />
+    <Compile Include="DataControllers\ScoutingEventDataProvider.cs" />
+    <Compile Include="DataControllers\ScoutingRoleDataProvider.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="CarrickEntityDataModel.cs" />
-    <Compile Include="DataControllers\PersonBadgeDataProvider.cs" />
-    <Compile Include="DataControllers\ScoutingRoleDataProvider.cs" />
+    <Compile Include="Model\Badge.cs" />
+    <Compile Include="Model\EventLocation.cs" />
+    <Compile Include="Model\Location.cs" />
+    <Compile Include="Model\OrganisationUnit.cs" />
+    <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\PersonBadge.cs" />
+    <Compile Include="Model\PersonOrganisationUnit.cs" />
+    <Compile Include="Model\PersonPerson.cs" />
+    <Compile Include="Model\PersonResidence.cs" />
+    <Compile Include="Model\PersonScoutingEvent.cs" />
+    <Compile Include="Model\PersonScoutingRole.cs" />
+    <Compile Include="Model\PersonSignIn.cs" />
+    <Compile Include="Model\RelationshipKey.cs" />
+    <Compile Include="Model\Residence.cs" />
+    <Compile Include="Model\ScoutingEvent.cs" />
+    <Compile Include="Model\ScoutingRole.cs" />
+    <Compile Include="Model\TableBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataControllers\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -94,10 +111,6 @@
     <ProjectReference Include="..\Carrick.BusinessLogic\Carrick.BusinessLogic.csproj">
       <Project>{b88df5aa-ad6a-493e-986f-62bf41dee512}</Project>
       <Name>Carrick.BusinessLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Carrick.DataModel\Carrick.DataModel.csproj">
-      <Project>{ff5a4710-9075-4ecd-aa0f-153bc2a6becd}</Project>
-      <Name>Carrick.DataModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

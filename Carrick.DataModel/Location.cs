@@ -3,9 +3,9 @@ namespace Carrick.DataModel
 {
     using System;
     using SQLite.Net.Attributes;
+    using BusinessLogic.Interfaces;
 
-
-    public class Location: TableBase
+    public class Location: TableBase, ILocation
     {
         [MaxLength(50)]
         public string LocationName { get; set; }

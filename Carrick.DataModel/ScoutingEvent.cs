@@ -1,14 +1,14 @@
 namespace  Carrick.DataModel
 {
+    using BusinessLogic.Interfaces;
     using SQLite.Net.Attributes;
     using System;
-    
+
     [Table("ScoutingEvent")]
-    public partial class ScoutingEvent : TableBase
+    public partial class ScoutingEvent : TableBase, IScoutingEvent
     {
 
         [MaxLength(128)]
-        [StringLength(128)]
         public string EventName { get; set; }
 
         public DateTime? StartDateTime { get; set; }

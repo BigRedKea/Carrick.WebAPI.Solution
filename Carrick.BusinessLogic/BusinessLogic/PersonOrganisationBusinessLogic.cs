@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Carrick.BusinessLogic.Interfaces;
+using System;
 
 
 namespace Carrick.BusinessLogic.BusinessLogic
 {
 
-    using Carrick.DataModel;
 
-    public class PersonOrganisationUnitBusinessLogic: BusinessLogicBase<PersonOrganisationUnit>
+    public class PersonOrganisationUnitBusinessLogic: BusinessLogicBase<IPersonOrganisationUnit>
     {
         internal PersonOrganisationUnitBusinessLogic(BusinessLogic BL) :base (BL)
         {
         }
 
-        public void ChangeOrganisation(Person _Scout, OrganisationUnit selectedItem)
+        public void ChangeOrganisation(IPerson _Scout, IOrganisationUnit selectedItem)
         {
             throw new NotImplementedException();
         }

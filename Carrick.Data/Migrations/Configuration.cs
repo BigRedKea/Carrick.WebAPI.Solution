@@ -9,7 +9,7 @@ namespace Carrick.ServerData.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Carrick.ServerData.CarrickEntityDataModel context)

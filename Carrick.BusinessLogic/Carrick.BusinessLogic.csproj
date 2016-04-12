@@ -34,13 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\Carrick.DataModel\Carrick.DataModel.csproj">
-      <Project>{ff5a4710-9075-4ecd-aa0f-153bc2a6becd}</Project>
-      <Name>Carrick.DataModel</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="BusinessLogic\BadgeBusinessLogic.cs" />
     <Compile Include="BusinessLogic\BadgeRequestBusinessLogic.cs" />
     <Compile Include="BusinessLogic\BusinessLogic.cs" />
@@ -59,9 +52,26 @@
     <Compile Include="CompositeObjects\PersonBadgeComposite.cs" />
     <Compile Include="CompositeObjects\PersonComposite.cs" />
     <Compile Include="CompositeObjects\PersonScoutingEventComposite.cs" />
+    <Compile Include="Interfaces\IBadge.cs" />
+    <Compile Include="Interfaces\IEventLocation.cs" />
     <Compile Include="Interfaces\IDataProviders.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IDataProviderInterface.cs" />
+    <Compile Include="Interfaces\IRelationshipKey.cs" />
+    <Compile Include="Interfaces\ITableBase.cs" />
+    <Compile Include="Interfaces\ILocation.cs" />
+    <Compile Include="Interfaces\IOrganisationUnit.cs" />
+    <Compile Include="Interfaces\IPerson.cs" />
+    <Compile Include="Interfaces\IPersonBadge.cs" />
+    <Compile Include="Interfaces\IPersonOrganisationUnit.cs" />
+    <Compile Include="Interfaces\IPersonPerson.cs" />
+    <Compile Include="Interfaces\IPersonResidence.cs" />
+    <Compile Include="Interfaces\IPersonScoutingEvent.cs" />
+    <Compile Include="Interfaces\IPersonScoutingRole.cs" />
+    <Compile Include="Interfaces\IPersonSignIn.cs" />
+    <Compile Include="Interfaces\IResidence.cs" />
+    <Compile Include="Interfaces\IScoutingEvent.cs" />
+    <Compile Include="Interfaces\IScoutingRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

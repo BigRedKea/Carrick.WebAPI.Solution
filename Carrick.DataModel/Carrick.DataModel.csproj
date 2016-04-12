@@ -52,7 +52,6 @@
     <Compile Include="Residence.cs" />
     <Compile Include="ScoutingEvent.cs" />
     <Compile Include="ScoutingRole.cs" />
-    <Compile Include="StringLengthAttribute.cs" />
     <Compile Include="TableBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +79,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Carrick.BusinessLogic\Carrick.BusinessLogic.csproj">
+      <Project>{b88df5aa-ad6a-493e-986f-62bf41dee512}</Project>
+      <Name>Carrick.BusinessLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,9 +1,10 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.ServerData.Controllers;
-using Carrick.DataModel;
+using Carrick.Server.DataModel;
 using System;
 using System.Linq;
 using System.Web.Http;
+using Carrick.BusinessLogic.Interfaces;
 
 namespace Carrick.Web.Controllers
 {
@@ -24,23 +25,23 @@ namespace Carrick.Web.Controllers
         // GET api/values
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonOrganisationUnit[] Get()
+        public IPersonOrganisationUnit[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<PersonOrganisationUnit>();
+            return datacontroller.GetAllItems().ToArray<IPersonOrganisationUnit>();
         }
 
 
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonOrganisationUnit[] Get(DateTime updatetimestamp)
+        public IPersonOrganisationUnit[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<PersonOrganisationUnit>();
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IPersonOrganisationUnit>();
         }
 
         // GET api/values/5
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonOrganisationUnit Get(int id)
+        public IPersonOrganisationUnit Get(int id)
         {
             return datacontroller.GetItem(id);
         }
@@ -49,7 +50,7 @@ namespace Carrick.Web.Controllers
         // POST api/values
         [AcceptVerbs("POST")]
         [HttpPost]
-        public PersonOrganisationUnit Insert([FromBody]PersonOrganisationUnit s)
+        public IPersonOrganisationUnit Insert([FromBody]IPersonOrganisationUnit s)
         {
             return datacontroller.InsertItem(s);
         }
@@ -58,7 +59,7 @@ namespace Carrick.Web.Controllers
         // PUT api/values/5
         [AcceptVerbs("PUT")]
         [HttpPut]
-        public PersonOrganisationUnit Update(int id, [FromBody] PersonOrganisationUnit s)
+        public IPersonOrganisationUnit Update(int id, [FromBody] IPersonOrganisationUnit s)
         {
             return datacontroller.ModifyItem(s);
         }
@@ -66,7 +67,7 @@ namespace Carrick.Web.Controllers
         // DELETE api/values/5
         [AcceptVerbs("DELETE")]
         [HttpDelete]
-        public PersonOrganisationUnit Delete(int id)
+        public IPersonOrganisationUnit Delete(int id)
         {
             return datacontroller.DeleteItem(id);
         }

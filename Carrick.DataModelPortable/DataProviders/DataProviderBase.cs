@@ -8,9 +8,10 @@ namespace Carrick.ClientData.DataProviders
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using BusinessLogic.Interfaces;    //: IDataProviderInterface<T> where T : TableBase
+    using BusinessLogic.Interfaces;   
     using System.Linq;
-    public abstract class DataProviderBase<T> : IDataProviderInterface<T>, IClientDataProvider where T: TableBase, new()
+
+    public abstract class DataProviderBase<T,Z> : IDataProviderInterface<T>, IClientDataProvider where T : ITableBase where Z : TableBase, new()
 
     {
         protected ModelDataProvider modelDataProvider;
@@ -154,7 +155,7 @@ namespace Carrick.ClientData.DataProviders
 
 
 
-        public T GetItem(RelationshipKey key)
+        public T GetItem(IRelationshipKey key)
         {
             if (key.Id.HasValue)
             {
@@ -170,7 +171,7 @@ namespace Carrick.ClientData.DataProviders
             }
             else
             {
-                return null;
+                return default(T);
             }
         }
 
@@ -182,7 +183,7 @@ namespace Carrick.ClientData.DataProviders
 
         protected internal void  CreateWebAPIHelper( String relativelocation)
         {
-            helper = new WebAPIHelper<T>(modelDataProvider.client, "=api/" + relativelocation);
+            helper = new WebAPIHelper<T>(modelDataProvider.client, "api/" + relativelocation);
         }
 
         protected internal DateTime? GetLatestUpdateDatetime()
@@ -222,13 +223,16 @@ namespace Carrick.ClientData.DataProviders
             Items.Clear();
             CreateTable(); // If it doesn't exist
 
-            foreach (T s in GetTable())
+            foreach (Z s in GetTable())
             {
                 SQLiteNetExtensions.Extensions.ReadOperations.GetChildren(modelDataProvider.GetLocalConnection(), s);
-                Items.Add(s.LocalId, s);
+                Items.Add(s.LocalId, Convert(s));
             }
         }
 
+        public abstract T Convert(Z z);
+
+        public abstract Z Convert(T z);
 
         public T GetItem(Guid? uniqueId)
         {
@@ -306,9 +310,9 @@ namespace Carrick.ClientData.DataProviders
             return itm;
         }
 
-        protected internal TableQuery<T> GetTable()
+        protected internal TableQuery<Z> GetTable()
         {
-            return modelDataProvider.GetLocalConnection().Table<T>();
+            return modelDataProvider.GetLocalConnection().Table<Z>();
         }
 
 
@@ -320,7 +324,7 @@ namespace Carrick.ClientData.DataProviders
 
         public T CreateItem()
         {
-            return new T();
+            return Convert(new Z());
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.ServerData.Controllers;
-using Carrick.DataModel;
+using Carrick.Server.DataModel;
 using System;
 using System.Linq;
 using System.Web.Http;
+using Carrick.BusinessLogic.Interfaces;
 
 namespace Carrick.Web.Controllers
 {
@@ -24,23 +25,23 @@ namespace Carrick.Web.Controllers
         // GET api/values
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonBadge[] Get()
+        public IPersonBadge[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<PersonBadge>();
+            return datacontroller.GetAllItems().ToArray<IPersonBadge>();
         }
 
 
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonBadge[] Get(DateTime updatetimestamp)
+        public IPersonBadge[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<PersonBadge>();
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IPersonBadge>();
         }
 
         // GET api/values/5
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonBadge Get(int id)
+        public IPersonBadge Get(int id)
         {
             return datacontroller.GetItem(id);
         }
@@ -49,7 +50,7 @@ namespace Carrick.Web.Controllers
         // POST api/values
         [AcceptVerbs("POST")]
         [HttpPost]
-        public PersonBadge Insert([FromBody]PersonBadge s)
+        public IPersonBadge Insert([FromBody]IPersonBadge s)
         {
             return datacontroller.InsertItem(s);
         }
@@ -58,7 +59,7 @@ namespace Carrick.Web.Controllers
         // PUT api/values/5
         [AcceptVerbs("PUT")]
         [HttpPut]
-        public PersonBadge Update(int id, [FromBody] PersonBadge s)
+        public IPersonBadge Update(int id, [FromBody] IPersonBadge s)
         {
             return datacontroller.ModifyItem(s);
         }

@@ -2,10 +2,10 @@ namespace Carrick.DataModel
 {
     using System;
     using SQLite.Net.Attributes;
-    
-    
+    using BusinessLogic.Interfaces;
+
     [Table("PersonPerson")]
-    public partial class PersonPerson : TableBase
+    public partial class PersonPerson : TableBase, IPersonPerson
     {
         public int? PersonAId { get; set; }
         public Guid? PersonAGuid { get; set; }
@@ -17,17 +17,17 @@ namespace Carrick.DataModel
 
         public bool RelationshipCanShareData { get; set; }
 
-        public RelationshipKey PersonAKey()
+        public IRelationshipKey PersonAKey()
         {
-            RelationshipKey key = new RelationshipKey();
+            IRelationshipKey key = new RelationshipKey();
             key.Id = PersonAId;
             key.RowGuid = PersonAGuid;
             return key;
         }
 
-        public RelationshipKey PersonBKey()
+        public IRelationshipKey PersonBKey()
         {
-            RelationshipKey key = new RelationshipKey();
+            IRelationshipKey key = new RelationshipKey();
             key.Id = PersonBId;
             key.RowGuid = PersonBGuid;
             return key;

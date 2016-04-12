@@ -3,17 +3,17 @@
 namespace Carrick.ServerData.Controllers
 {
     using System;
-    using Carrick.DataModel;
-
-    public class AuthorisationPerson : Authorisation<Person>
+    using Carrick.Server.DataModel;
+    using BusinessLogic.Interfaces;
+    public class AuthorisationPerson : Authorisation<IPerson>
     {
         internal AuthorisationPerson(Guid? PersonRequestingAccessKey, bool ReadRequested = false, bool WriteRequested = false, bool DeleteRequested = false)
             :base(PersonRequestingAccessKey, ReadRequested , WriteRequested, DeleteRequested)
         {
 
         }
-
-        public bool CanAccessDateOfBirth(Person p)
+        
+        public bool CanAccessDateOfBirth(IPerson p)
         {
             bool retval = false;
             if (!retval && IsMe(p))
@@ -28,7 +28,7 @@ namespace Carrick.ServerData.Controllers
             return retval;
         }
 
-        public bool CanAccessMedical(Person p)
+        public bool CanAccessMedical(IPerson p)
         {
             bool retval = false;
             if (!retval && IsMe(p))
@@ -43,7 +43,7 @@ namespace Carrick.ServerData.Controllers
             return retval;
         }
 
-        public bool CanAccessMembership(Person p)
+        public bool CanAccessMembership(IPerson p)
         {
             bool retval = false;
             if (!retval && IsMe(p) && !WriteRequested)
@@ -58,7 +58,7 @@ namespace Carrick.ServerData.Controllers
             return retval;
         }
 
-        public bool CanAccessContactInfo(Person p)
+        public bool CanAccessContactInfo(IPerson p)
         {
             bool retval = false;
 

@@ -1,9 +1,10 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.ServerData.Controllers;
-using Carrick.DataModel;
+using Carrick.Server.DataModel;
 using System;
 using System.Linq;
 using System.Web.Http;
+using Carrick.BusinessLogic.Interfaces;
 
 namespace Carrick.Web.Controllers
 {
@@ -24,23 +25,23 @@ namespace Carrick.Web.Controllers
         // GET api/values
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonScoutingEvent[] Get()
+        public IPersonScoutingEvent[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<PersonScoutingEvent>();
+            return datacontroller.GetAllItems().ToArray<IPersonScoutingEvent>();
         }
 
 
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonScoutingEvent[] Get(DateTime updatetimestamp)
+        public IPersonScoutingEvent[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<PersonScoutingEvent>();
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IPersonScoutingEvent>();
         }
 
         // GET api/values/5
         [AcceptVerbs("GET")]
         [HttpGet]
-        public PersonScoutingEvent Get(int id)
+        public IPersonScoutingEvent Get(int id)
         {
             return datacontroller.GetItem(id);
         }
@@ -49,7 +50,7 @@ namespace Carrick.Web.Controllers
         // POST api/values
         [AcceptVerbs("POST")]
         [HttpPost]
-        public PersonScoutingEvent Insert([FromBody]PersonScoutingEvent s)
+        public IPersonScoutingEvent Insert([FromBody] IPersonScoutingEvent s)
         {
             return datacontroller.InsertItem(s);
         }
@@ -58,7 +59,7 @@ namespace Carrick.Web.Controllers
         // PUT api/values/5
         [AcceptVerbs("PUT")]
         [HttpPut]
-        public PersonScoutingEvent Update(int id, [FromBody] PersonScoutingEvent s)
+        public IPersonScoutingEvent Update(int id, [FromBody] IPersonScoutingEvent s)
         {
             return datacontroller.ModifyItem(s);
         }

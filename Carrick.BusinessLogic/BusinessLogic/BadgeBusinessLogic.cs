@@ -1,10 +1,11 @@
 ﻿
 using System;
-using Carrick.DataModel;
+
+using Carrick.BusinessLogic.Interfaces;
 
 namespace Carrick.BusinessLogic.BusinessLogic
 {
-    public class BadgeBusinessLogic :BusinessLogicBase <Badge>
+    public class BadgeBusinessLogic :BusinessLogicBase <IBadge>
     {
 
         internal BadgeBusinessLogic(BusinessLogic BL) :base (BL)
@@ -12,7 +13,7 @@ namespace Carrick.BusinessLogic.BusinessLogic
 
         }
 
-        public Badge GetBadge(PersonBadge br)
+        public IBadge GetBadge(IPersonBadge br)
         {
             if (br != null)
             {

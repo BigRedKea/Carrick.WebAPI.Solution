@@ -1,13 +1,15 @@
 ﻿namespace Carrick.ServerData.Controllers
 {
-    using Carrick.DataModel;
-    public class OrganisationUnitDataProvider : GenericDataProvider<OrganisationUnit>
+    using BusinessLogic.Interfaces;
+    using Carrick.Server.DataModel;
+
+    public class OrganisationUnitDataProvider : GenericDataProvider<IOrganisationUnit, OrganisationUnit>
     {
         internal OrganisationUnitDataProvider(Repository r) : base(r, r.DataModel.OrganisationUnits)
         {
         }
 
-        protected internal override OrganisationUnit TransferSpecificProperties(OrganisationUnit original, ref OrganisationUnit destination, Authorisation<OrganisationUnit> Authorisation = null)
+        protected internal override IOrganisationUnit TransferSpecificProperties(IOrganisationUnit original, ref IOrganisationUnit destination, Authorisation<IOrganisationUnit> Authorisation = null)
         {
             //AuthorisationPerson ap = (AuthorisationPerson)Authorisation;
             if (destination == null) { destination = new OrganisationUnit(); }
@@ -17,6 +19,16 @@
             destination.Description = original.Description;
 
             return destination;
+        }
+
+        public override OrganisationUnit Convert(IOrganisationUnit z)
+        {
+            return (OrganisationUnit)z;
+        }
+
+        public override IOrganisationUnit Convert(OrganisationUnit z)
+        {
+            return z;
         }
     }
 }

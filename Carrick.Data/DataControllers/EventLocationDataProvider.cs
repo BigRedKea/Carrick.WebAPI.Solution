@@ -1,14 +1,15 @@
 ﻿namespace Carrick.ServerData.Controllers
 {
-    using Carrick.DataModel;
+    using BusinessLogic.Interfaces;
+    using Carrick.Server.DataModel;
 
-    public class EventLocationDataProvider : GenericDataProvider<EventLocation>
+    public class EventLocationDataProvider : GenericDataProvider<IEventLocation, EventLocation>
     {
         internal EventLocationDataProvider(Repository r) : base(r, r.DataModel.EventLocations)
         {
         }
 
-        protected internal override EventLocation TransferSpecificProperties(EventLocation original, ref EventLocation destination, Authorisation<EventLocation> Authorisation = null)
+        protected internal override IEventLocation TransferSpecificProperties(IEventLocation original, ref IEventLocation destination, Authorisation<IEventLocation> Authorisation = null)
         {
             //AuthorisationPerson ap = (AuthorisationPerson)Authorisation;
             if (destination == null) { destination = new EventLocation(); }
@@ -20,6 +21,17 @@
             destination.StartDateTime = original.StartDateTime;
             destination.FinishDateTime = original.FinishDateTime;
             return destination;
+        }
+
+
+        public override EventLocation Convert(IEventLocation z)
+        {
+            return (EventLocation)z;
+        }
+
+        public override IEventLocation Convert(EventLocation z)
+        {
+            return z;
         }
 
     }

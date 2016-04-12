@@ -1,33 +1,20 @@
 ﻿namespace Carrick.ServerData.Controllers
 {
-    using Carrick.DataModel;
     using System.Collections.Generic;
     using System.Linq;
-    public class ScoutingEventDataProvider : GenericDataProvider<ScoutingEvent>
+    using Carrick.Server.DataModel;
+    using BusinessLogic.Interfaces;
+    public class ScoutingEventDataProvider : GenericDataProvider<IScoutingEvent, ScoutingEvent>
     {
         internal ScoutingEventDataProvider(Repository r) : base(r, r.DataModel.ScoutingEvents)
         {
+            defaultOrder = (x => x.StartDateTime);
         }
 
-        public override IEnumerable<ScoutingEvent> GetActiveItems()
-        {
-            IEnumerable<ScoutingEvent> p = dataset.Where(x => (x.IsDeleted == false)).OrderBy(x => x.StartDateTime);
-            IEnumerable<ScoutingEvent> copy = CopyData(p, AuthorisationGet);
-            return copy;
-        }
-
-        public override IEnumerable<ScoutingEvent> GetAllItems()
-        {
-            IEnumerable<ScoutingEvent> p = dataset.OrderBy(x => x.StartDateTime.HasValue).ThenBy(x => x.StartDateTime);
-            IEnumerable<ScoutingEvent> copy = CopyData(p, AuthorisationGet);
-            return copy;
-        }
-
-
-        protected internal override ScoutingEvent TransferSpecificProperties(ScoutingEvent original, ref ScoutingEvent destination, Authorisation<ScoutingEvent> Authorisation = null)
+        protected internal override IScoutingEvent TransferSpecificProperties(IScoutingEvent original, ref IScoutingEvent destination, Authorisation<IScoutingEvent> Authorisation = null)
         {
             //AuthorisationPerson ap = (AuthorisationPerson)Authorisation;
-            if (destination == null) { destination = new ScoutingEvent();  }
+            if (destination == null) { destination = CreateItem();  }
             destination.EventName = original.EventName;
             destination.StartDateTime = original.StartDateTime;
             destination.FinishDateTime = original.FinishDateTime;
@@ -37,6 +24,16 @@
             destination.NominalKmWalked = original.NominalKmWalked;
 
             return destination;
+        }
+
+        public override ScoutingEvent Convert(IScoutingEvent z)
+        {
+            return (ScoutingEvent)z;
+        }
+
+        public override IScoutingEvent Convert(ScoutingEvent z)
+        {
+            return z;
         }
     }
 }

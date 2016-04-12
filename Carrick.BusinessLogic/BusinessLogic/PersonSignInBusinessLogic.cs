@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Carrick.BusinessLogic.Interfaces;
+using System;
 
-using Carrick.DataModel;
 
 namespace Carrick.BusinessLogic.BusinessLogic
 {
-    public class PersonSignInBusinessLogic : BusinessLogicBase<PersonSignIn>
+    public class PersonSignInBusinessLogic : BusinessLogicBase<IPersonSignIn>
     {
         internal PersonSignInBusinessLogic(BusinessLogic BL) : base(BL)
         {

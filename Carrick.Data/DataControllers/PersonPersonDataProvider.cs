@@ -1,17 +1,19 @@
 ﻿
 namespace Carrick.ServerData.Controllers
 {
-    using Carrick.DataModel;
     using System.Collections.Generic;
     using System.Linq;
-    public class PersonPersonDataProvider : GenericDataProvider<PersonPerson>
+
+    using Carrick.Server.DataModel;
+    using BusinessLogic.Interfaces;
+    public class PersonPersonDataProvider : GenericDataProvider<IPersonPerson, PersonPerson>
     {
 
         internal PersonPersonDataProvider(Repository r) : base(r, r.DataModel.PersonPersons)
         {
         }
 
-        protected internal override PersonPerson TransferSpecificProperties(PersonPerson original,ref PersonPerson destination, Authorisation<PersonPerson> Authorisation = null)
+        protected internal override IPersonPerson TransferSpecificProperties(IPersonPerson original,ref IPersonPerson destination, Authorisation<IPersonPerson> Authorisation = null)
         {
             //AuthorisationPerson ap = (AuthorisationPerson)Authorisation;
             if (destination == null) { new PersonPerson();  }
@@ -25,13 +27,13 @@ namespace Carrick.ServerData.Controllers
             return destination;
         }
 
-        public Person[] GetRelatedAPersons(Person p, int PersonRelationshipTypeId)
+        public IPerson[] GetRelatedAPersons(IPerson p, int PersonRelationshipTypeId)
         {
-            List<Person> retval = new List<Person>();
-            PersonPerson[] itms = GetActiveItems().Where(x => (x.PersonBId == p.Id
-                    && x.PersonRelationshipTypeId == PersonRelationshipTypeId)).ToArray<PersonPerson>();
+            List<IPerson> retval = new List<IPerson>();
+            IPersonPerson[] itms = GetActiveItems().Where(x => (x.PersonBId == p.Id
+                    && x.PersonRelationshipTypeId == PersonRelationshipTypeId)).ToArray<IPersonPerson>();
 
-            foreach (PersonPerson r in itms)
+            foreach (IPersonPerson r in itms)
             {
                 if (r.PersonAId.HasValue)
                 {
@@ -42,13 +44,13 @@ namespace Carrick.ServerData.Controllers
             return retval.ToArray();
         }
 
-        public Person[] GetRelatedBPersons(Person p, int PersonRelationshipTypeId)
+        public IPerson[] GetRelatedBPersons(IPerson p, int PersonRelationshipTypeId)
         {
-            List<Person> retval = new List<Person>();
-            PersonPerson[] itms = GetActiveItems().Where(x => (x.PersonAId == p.Id
-                    && x.PersonRelationshipTypeId == PersonRelationshipTypeId)).ToArray<PersonPerson>();
+            List<IPerson> retval = new List<IPerson>();
+            IPersonPerson[] itms = GetActiveItems().Where(x => (x.PersonAId == p.Id
+                    && x.PersonRelationshipTypeId == PersonRelationshipTypeId)).ToArray<IPersonPerson>();
 
-            foreach (PersonPerson r in itms)
+            foreach (IPersonPerson r in itms)
             {
                 if (r.PersonBId.HasValue)
                 {
@@ -59,6 +61,14 @@ namespace Carrick.ServerData.Controllers
             return retval.ToArray();
         }
 
+        public override PersonPerson Convert(IPersonPerson z)
+        {
+            return (PersonPerson)z;
+        }
 
+        public override IPersonPerson Convert(PersonPerson z)
+        {
+            return z;
+        }
     }
 }

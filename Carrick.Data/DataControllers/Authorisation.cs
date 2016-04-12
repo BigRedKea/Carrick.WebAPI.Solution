@@ -1,8 +1,8 @@
 ﻿namespace Carrick.ServerData.Controllers
 {
     using System;
-    using Carrick.DataModel;
-
+    using Carrick.Server.DataModel;
+    using BusinessLogic.Interfaces;
     public class Authorisation<T>
     {
         protected bool WriteRequested = false;
@@ -21,7 +21,7 @@
         }
 
 
-        protected bool IsMe(Person p)
+        protected bool IsMe(IPerson p)
         {
             if (PersonRequestingAccessKey.HasValue)
                 if (PersonRequestingAccessKey.Value.ToString() == p.RowGuid.Value.ToString())
@@ -31,12 +31,12 @@
             return false;
         }
 
-        protected bool IsParentOf(Person p)
+        protected bool IsParentOf(IPerson p)
         {
             return false;
         }
 
-        protected bool IsAdultLeaderOf(Person p)
+        protected bool IsAdultLeaderOf(IPerson p)
         {
             return false;
         }

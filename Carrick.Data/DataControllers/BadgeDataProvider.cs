@@ -1,10 +1,11 @@
 ﻿namespace Carrick.ServerData.Controllers
 {
-    using Carrick.DataModel;
+    using Carrick.Server.DataModel;
     using System.Linq;
     using System;
     using System.Collections.Generic;
-    public class BadgeDataProvider : GenericDataProvider<Badge>
+    using BusinessLogic.Interfaces;
+    public class BadgeDataProvider : GenericDataProvider<IBadge, Badge>
     {
 
         internal BadgeDataProvider(Repository r) : base(r, r.DataModel.Badges)
@@ -12,8 +13,17 @@
             defaultOrder = (Badge t) => t.BadgeSort;
         }
 
+        public override Badge Convert(IBadge z)
+        {
+            return (Badge)z;
+        }
 
-        public IEnumerable<Badge> SearchActiveItems(string searchText, int Limit)
+        public override IBadge Convert(Badge z)
+        {
+            return z;
+        }
+
+        public IEnumerable<IBadge> SearchActiveItems(string searchText, int Limit)
         {
             searchText = searchText ?? "";
 
@@ -27,7 +37,7 @@
         }
 
 
-        protected internal override Badge TransferSpecificProperties( Badge original, ref Badge destination, Authorisation <Badge> Authorisation = null)
+        protected internal override IBadge TransferSpecificProperties(IBadge original, ref IBadge destination, Authorisation <IBadge> Authorisation = null)
         {
             if (destination == null) { destination = new Badge(); }
             destination.BadgeName = original.BadgeName;

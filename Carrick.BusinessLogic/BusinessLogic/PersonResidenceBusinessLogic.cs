@@ -1,20 +1,21 @@
 ﻿using System;
-using Carrick.DataModel;
+
+using Carrick.BusinessLogic.Interfaces;
 
 namespace Carrick.BusinessLogic.BusinessLogic
 {
-    public class PersonResidenceBusinessLogic : BusinessLogicBase<PersonResidence>
+    public class PersonResidenceBusinessLogic : BusinessLogicBase<IPersonResidence>
     {
         internal PersonResidenceBusinessLogic(BusinessLogic BL) : base(BL)
         {
         }
 
-        public void LinkPersonResidence(Person _Person, Residence r)
+        public void LinkPersonResidence(IPerson _Person, IResidence r)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdatePersonResidence(Person _Person, int id, Residence r)
+        public void UpdatePersonResidence(IPerson _Person, int id, IResidence r)
         {
             throw new NotImplementedException();
         }

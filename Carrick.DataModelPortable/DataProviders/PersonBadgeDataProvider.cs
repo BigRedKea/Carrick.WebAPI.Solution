@@ -3,13 +3,23 @@
     using System;
     using SQLite.Net;
     using Carrick.DataModel;
-
-    public class PersonBadgeDataProvider : DataProviderBase<PersonBadge>
+    using BusinessLogic.Interfaces;
+    public class PersonBadgeDataProvider : DataProviderBase<IPersonBadge, PersonBadge>
     {
         public PersonBadgeDataProvider(ModelDataProvider modelDataProvider) : base(modelDataProvider)
         {
             CreateWebAPIHelper("badgerequest");
             resolver = ResolveConflictFavourClient;
+        }
+
+        public override PersonBadge Convert(IPersonBadge z)
+        {
+            return (PersonBadge)z;
+        }
+
+        public override IPersonBadge Convert(PersonBadge z)
+        {
+            return z;
         }
     }
 }

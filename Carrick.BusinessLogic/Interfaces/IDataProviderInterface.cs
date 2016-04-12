@@ -1,5 +1,5 @@
 ﻿
-using Carrick.DataModel;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Linq;
 namespace Carrick.BusinessLogic.Interfaces
 {
 
-    public interface IDataProviderInterface<T> where T : TableBase
+    public interface IDataProviderInterface<T> where T : ITableBase
     {
         //void Initialise();
 
@@ -27,7 +27,7 @@ namespace Carrick.BusinessLogic.Interfaces
 
         T GetItem(Guid? uniqueId);
 
-        T GetItem(RelationshipKey key);
+        T GetItem(IRelationshipKey key);
 
         T CreateItem();
 
