@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace ScoutDataModelPortable.DataProviders
+namespace Carrick.ClientData.DataProviders
 {
     internal interface IClientDataProvider
     {

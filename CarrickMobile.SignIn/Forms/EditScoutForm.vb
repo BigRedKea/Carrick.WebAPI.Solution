@@ -1,6 +1,5 @@
 ﻿Imports Carrick.BusinessLogic.CompositeObjects
 Imports Carrick.BusinessLogic.Interfaces
-Imports ScoutDataModelPortable
 Imports Carrick.DataModel
 
 Public Class EditScoutForm

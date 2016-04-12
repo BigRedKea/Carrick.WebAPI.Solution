@@ -4,7 +4,7 @@ using Carrick.DataModel;
 using System;
 using System.Web.Http;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace Carrick.Web.Controllers
 {
@@ -34,6 +34,31 @@ namespace Carrick.Web.Controllers
         public Badge NewItem()
         {
             return new Badge();
+        }
+
+
+        // GET api/values
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        public Badge[] Get()
+        {
+            return datacontroller.GetAllItems().ToArray<Badge>();
+        }
+
+
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        public Badge[] Get(DateTime updatetimestamp)
+        {
+            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<Badge>();
+        }
+
+        // GET api/values/5
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        public Badge Get(int id)
+        {
+            return datacontroller.GetItem(id);
         }
 
         [Route("api/Badge/detail/{id}")]

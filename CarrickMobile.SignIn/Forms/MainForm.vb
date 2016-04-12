@@ -1,7 +1,6 @@
 ﻿Imports System.Xml
 Imports System.IO
 Imports System.Xml.Serialization
-Imports ScoutDataModelPortable
 Imports Carrick.DataModel
 Imports Carrick.BusinessLogic.Interfaces
 

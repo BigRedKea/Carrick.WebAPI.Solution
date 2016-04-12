@@ -1,6 +1,6 @@
 ﻿using Carrick.BusinessLogic.BusinessLogic;
 
-using ScoutDataModelPortable.DataProviders;
+using Carrick.ClientData.DataProviders;
 using Carrick.DataModel;
 using System;
 

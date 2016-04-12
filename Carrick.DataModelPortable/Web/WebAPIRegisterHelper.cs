@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Net;
 using System.Text;
 
-namespace ScoutDataModelPortable.Web
+namespace Carrick.ClientData.Web
 {
     public class WebAPIRegisterHelper
     {

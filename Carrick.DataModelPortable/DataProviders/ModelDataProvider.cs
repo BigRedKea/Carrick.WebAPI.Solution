@@ -1,5 +1,5 @@
 ﻿
-namespace ScoutDataModelPortable.DataProviders
+namespace Carrick.ClientData.DataProviders
 {
 
     using System;
@@ -8,7 +8,7 @@ namespace ScoutDataModelPortable.DataProviders
     using System.Net.Http;
     using System.Net.Http.Headers;
     using SQLite.Net;
-    using Web;
+    using Carrick.ClientData.Web;
 
     using Carrick.BusinessLogic.Interfaces;
 

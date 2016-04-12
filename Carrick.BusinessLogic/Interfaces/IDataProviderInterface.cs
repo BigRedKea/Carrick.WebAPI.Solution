@@ -2,10 +2,10 @@
 using Carrick.DataModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Carrick.BusinessLogic.Interfaces
 {
-
 
     public interface IDataProviderInterface<T> where T : TableBase
     {
@@ -24,6 +24,10 @@ namespace Carrick.BusinessLogic.Interfaces
         T DeleteItem(T item);
 
         T GetItem(int id);
+
+        T GetItem(Guid? uniqueId);
+
+        T GetItem(RelationshipKey key);
 
         T CreateItem();
 

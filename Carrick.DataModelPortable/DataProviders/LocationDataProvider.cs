@@ -1,14 +1,14 @@
-﻿namespace ScoutDataModelPortable.DataProviders  
+﻿namespace Carrick.ClientData.DataProviders  
 {
     using System;
     using SQLite.Net;
     using Carrick.DataModel;
 
-    public class LocationDataProvider : DataProviderBase<EventLocation>
+    public class LocationDataProvider : DataProviderBase<Location>
     {
         public LocationDataProvider(ModelDataProvider modelDataProvider) : base(modelDataProvider)
         {
-            CreateWebAPIHelper("/api/eventlocation");
+            CreateWebAPIHelper("location");
             resolver = ResolveConflictFavourClient;
         }
     }

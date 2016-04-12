@@ -1,16 +1,16 @@
 ﻿
-namespace ScoutDataModelPortable.DataProviders
+namespace Carrick.ClientData.DataProviders
 {
-    
+
     using Carrick.DataModel;
-    using ScoutDataModelPortable.Web;
+    using Carrick.ClientData.Web;
     using SQLite.Net;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    //: IDataProviderInterface<T> where T : TableBase
-
-    public abstract class DataProviderBase<T> :IClientDataProvider  where T: TableBase, new()
+    using BusinessLogic.Interfaces;    //: IDataProviderInterface<T> where T : TableBase
+    using System.Linq;
+    public abstract class DataProviderBase<T> : IDataProviderInterface<T>, IClientDataProvider where T: TableBase, new()
 
     {
         protected ModelDataProvider modelDataProvider;
@@ -124,11 +124,27 @@ namespace ScoutDataModelPortable.DataProviders
             return ResolveConflictOption.FavourServer;
         }
 
-        private T GetItem(int id)
+        public T GetItem(int id)
         {
             T s;
             Items.TryGetValue(id, out s);
             return s;
+        }
+
+
+        public IEnumerable<T> GetActiveItems()
+        {
+            return Items.Values.Where(x => (x.IsDeleted == false));
+        }
+
+        public IEnumerable<T> GetAllItems()
+        {
+            return _GetAllItems();
+        }
+
+        protected IEnumerable<T> _GetAllItems()
+        {
+            return Items.Values;
         }
 
         public Dictionary <int,T>.ValueCollection  GetItems()
@@ -136,9 +152,37 @@ namespace ScoutDataModelPortable.DataProviders
             return Items.Values;
         }
 
+
+
+        public T GetItem(RelationshipKey key)
+        {
+            if (key.Id.HasValue)
+            {
+                return GetItem(key.Id.Value);
+            }
+            else if (key.RowGuid.HasValue)
+            {
+                return GetItem(key.RowGuid);
+            }
+            else if (key.LocalId.HasValue)
+            {
+                return _GetItemFromLocalId(key.LocalId.Value);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private T _GetItemFromLocalId(int LocalId)
+        {
+            T p = Items.Values.Where(x => x.LocalId  == LocalId).FirstOrDefault();
+            return p;
+        }
+
         protected internal void  CreateWebAPIHelper( String relativelocation)
         {
-            helper = new WebAPIHelper<T>(modelDataProvider.client, relativelocation);
+            helper = new WebAPIHelper<T>(modelDataProvider.client, "=api/" + relativelocation);
         }
 
         protected internal DateTime? GetLatestUpdateDatetime()
@@ -159,13 +203,14 @@ namespace ScoutDataModelPortable.DataProviders
             return lastupdatetime;
         }
 
-        private void InsertItem(T sr)
+        public T InsertItem(T itm)
         {
-            modelDataProvider.GetLocalConnection().Insert(sr);
-            Items.Add(sr.LocalId, sr);
+            modelDataProvider.GetLocalConnection().Insert(itm);
+            Items.Add(itm.LocalId, itm);
+            return itm;
         }
 
-        protected internal void UpdateLocalItem(T sr)
+         internal void UpdateLocalItem(T sr)
         {
             modelDataProvider.GetLocalConnection().Update(sr);
             Items.Remove(sr.LocalId);
@@ -185,7 +230,7 @@ namespace ScoutDataModelPortable.DataProviders
         }
 
 
-        private T GetItem(Guid? uniqueId)
+        public T GetItem(Guid? uniqueId)
         {
             if (uniqueId.HasValue)
             { 
@@ -246,17 +291,19 @@ namespace ScoutDataModelPortable.DataProviders
             UpdateLocalItem(serveritem);
         }
 
-        public void ModifyItem(T sr)
+        public T ModifyItem(T itm)
         {
-            sr.IsDirty = true;
-            UpdateLocalItem(sr);
+            itm.IsDirty = true;
+            UpdateLocalItem(itm);
+            return itm;
         }
 
-        public void DeleteItem(T sr)
+        public T DeleteItem(T itm)
         {
-            sr.IsDeleted = true;
-            sr.IsDirty = true;
-            UpdateLocalItem(sr);
+            itm.IsDeleted = true;
+            itm.IsDirty = true;
+            UpdateLocalItem(itm);
+            return itm;
         }
 
         protected internal TableQuery<T> GetTable()
@@ -271,8 +318,7 @@ namespace ScoutDataModelPortable.DataProviders
         }
 
 
-
-        T CreateItem()
+        public T CreateItem()
         {
             return new T();
         }

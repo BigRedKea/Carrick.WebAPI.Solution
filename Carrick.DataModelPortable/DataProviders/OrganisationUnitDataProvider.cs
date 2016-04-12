@@ -1,4 +1,4 @@
-﻿namespace ScoutDataModelPortable.DataProviders  
+﻿namespace Carrick.ClientData.DataProviders  
 {
     using System;
     using SQLite.Net;
@@ -8,7 +8,7 @@
     {
         public OrganisationUnitDataProvider(ModelDataProvider modelDataProvider) : base(modelDataProvider)
         {
-            CreateWebAPIHelper("/api/organisationunit");
+            CreateWebAPIHelper("organisationunit");
             resolver = ResolveConflictFavourClient;
         }
     }

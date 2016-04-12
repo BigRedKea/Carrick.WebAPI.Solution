@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace ScoutDataModelPortable.Web
+namespace Carrick.ClientData.Web
 {
     public class WebAPITokenHelper
     {

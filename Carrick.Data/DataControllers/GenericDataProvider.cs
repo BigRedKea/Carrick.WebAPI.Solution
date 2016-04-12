@@ -42,6 +42,12 @@ namespace Carrick.ServerData.Controllers
             return p;
         }
 
+        private T _GetItemFromLocalId(int LocalId)
+        {
+            T p = dataset.Where(x => x.LocalId == LocalId).FirstOrDefault();
+            return p;
+        }
+
         public virtual T GetItem(int id)
         {
             T copy = new T();
@@ -50,7 +56,15 @@ namespace Carrick.ServerData.Controllers
         }
 
 
-        public virtual T GetItem(Guid RowGuid)
+        public virtual T GetItemFromLocalId(int localid)
+        {
+            T copy = new T();
+            CopyData(_GetItemFromLocalId(localid), ref copy, AuthorisationGet);
+            return copy;
+        }
+
+
+        public T GetItem(Guid? RowGuid)
         {
             T p = dataset.Where(x => x.RowGuid.ToString() == RowGuid.ToString()).FirstOrDefault();
             dataset.Where(x => x.RowGuid.ToString() == RowGuid.ToString()).FirstOrDefault();
@@ -58,6 +72,29 @@ namespace Carrick.ServerData.Controllers
             CopyData(p, ref copy, AuthorisationGet);
             return copy;
         }
+
+
+        public T GetItem(RelationshipKey key)
+        {
+            if (key.Id.HasValue )
+            {
+                return GetItem(key.Id.Value);
+            }
+           else if (key.RowGuid.HasValue )
+            {
+                return GetItem(key.RowGuid);
+            }
+           else if (key.LocalId.HasValue)
+            {
+                return GetItemFromLocalId(key.LocalId.Value);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+       
 
         public virtual T GetActiveItem(int id)
         {

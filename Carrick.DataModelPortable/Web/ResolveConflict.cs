@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScoutDataModelPortable.Web
+namespace Carrick.ClientData.Web
 {
 
         public delegate ResolveConflictOption ResolveConflictDelegate<Z>(Z clientitem, Z serveritem);

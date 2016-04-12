@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace ScoutDataModelPortable.Web
+namespace Carrick.ClientData.Web
 {
     public class WebAPIHelper<T>
     {
@@ -35,7 +35,7 @@ namespace ScoutDataModelPortable.Web
             {
                 
 
-                HttpResponseMessage response = client.GetAsync(client.BaseAddress + relativepath).Result;
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "api/" + relativepath).Result;
                
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -44,7 +44,7 @@ namespace ScoutDataModelPortable.Web
             }
             else
             {
-                HttpResponseMessage response = client.GetAsync(client.BaseAddress + relativepath + Id).Result;
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "api/" + relativepath + Id).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     Z obj = JsonConvert.DeserializeObject<Z>(response.Content.ReadAsStringAsync().Result);
@@ -114,7 +114,7 @@ namespace ScoutDataModelPortable.Web
 
         internal DataStoredResponse Delete(int id)
         {
-            HttpResponseMessage response = client.DeleteAsync(client.BaseAddress.ToString() + '/' + id.ToString()).Result;
+            HttpResponseMessage response = client.DeleteAsync(client.BaseAddress.ToString() + relativepath + id.ToString()).Result;
             return DeserializeObject(response);
         }
     }
