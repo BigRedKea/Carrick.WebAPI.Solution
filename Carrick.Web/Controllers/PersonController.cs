@@ -2,7 +2,6 @@
 {
     using Carrick.BusinessLogic;
     using Carrick.ServerData.Controllers;
-    using Carrick.Server.DataModel;
     using System;
     using System.Linq;
     using System.Web.Http;
@@ -12,12 +11,11 @@
     public class PersonController : ApiController
     {
 
-        private PersonDataProvider datacontroller
+        private PersonBusinessLogic _BL
         {
             get
             {
-                return BusinessModel.Singleton.PersonDataController;
-
+                return BL.Singleton.PersonBL;
             }
         }
 
@@ -26,7 +24,7 @@
         [HttpGet]
         public IPerson[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<IPerson>();
+            return _BL.GetAllItems().ToArray<IPerson>();
         }
 
 
@@ -34,7 +32,7 @@
         [HttpGet]
         public IPerson[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IPerson>();
+            return _BL.GetUpdatedItems(updatetimestamp).ToArray<IPerson>();
         }
 
         // GET api/values/5
@@ -42,7 +40,7 @@
         [HttpGet]
         public IPerson Get(int id)
         {
-            return datacontroller.GetItem(id);
+            return _BL.GetItem(id);
         }
 
 
@@ -51,7 +49,7 @@
         [HttpPost]
         public IPerson Insert([FromBody]IPerson s)
         {
-            return datacontroller.InsertItem(s);
+            return _BL.InsertItem(s);
         }
 
 
@@ -60,7 +58,7 @@
         [HttpPut]
         public IPerson Update(int id, [FromBody] IPerson s)
         {
-            return datacontroller.ModifyItem(s);
+            return _BL.ModifyItem(s);
         }
 
         // DELETE api/values/5
@@ -68,7 +66,7 @@
         [HttpDelete]
         public void Delete(int id)
         {
-            datacontroller.DeleteItem(id);
+            _BL.DeleteItem(id);
         }
     }
 }

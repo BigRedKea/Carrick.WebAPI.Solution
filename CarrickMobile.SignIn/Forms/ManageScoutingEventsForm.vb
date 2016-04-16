@@ -1,14 +1,14 @@
-﻿Imports Carrick.DataModel
+﻿Imports Carrick.BusinessLogic.Interfaces
 
 Public Class ManageScoutingEventsForm
 
-    Private _Event As ScoutingEvent
+    Private _Event As IScoutingEvent
     Private _ScoutControls As New Dictionary(Of Integer, ScoutingEventNightsUserControl)
 
     Public Sub New()
         InitializeComponent()
-        For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
-            For Each s As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
+        For Each org As IOrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
+            For Each s As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
                 Dim chk As New ScoutingEventNightsUserControl
                 'HACK chk.LoadData(s)
                 chk.DisplayMode = ScoutingEventNightsUserControl.eDisplayMode.DisplayPersonName
@@ -17,17 +17,17 @@ Public Class ManageScoutingEventsForm
             Next
         Next
 
-        For Each se As ScoutingEvent In BL.Singleton.ScoutingEventBL.GetAllItems
+        For Each se As IScoutingEvent In BL.Singleton.ScoutingEventBL.GetAllItems
             EventsComboBox.Items.Add(se)
         Next
     End Sub
 
 
     Private Sub EventsComboBox_SelectedValueChanged(sender As Object, e As EventArgs) Handles EventsComboBox.SelectedValueChanged
-        _Event = CType(EventsComboBox.SelectedItem, ScoutingEvent)
+        _Event = CType(EventsComboBox.SelectedItem, IScoutingEvent)
         'ScoutEventUserControl1.LoadData(_Event)
 
-        Dim PersonScoutingEvent As Dictionary(Of Integer, PersonScoutingEvent) = BL.Singleton.PersonScoutingEventBL.GetItemsForEvent(_Event)
+        Dim PersonScoutingEvent As Dictionary(Of Integer, IPersonScoutingEvent) = BL.Singleton.PersonScoutingEventBL.GetItemsForEvent(_Event)
 
         ' HACK For Each itm In _ScoutControls.Values
         '    itm.LoadData(_Event)

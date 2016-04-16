@@ -1,6 +1,5 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.ServerData.Controllers;
-using Carrick.Server.DataModel;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -13,12 +12,11 @@ namespace Carrick.Web.Controllers
     public class PersonScoutingEventController : ApiController
     {
 
-        private PersonScoutingEventDataProvider datacontroller
+        private PersonScoutingEventBusinessLogic _BL
         {
             get
             {
-                return BusinessModel.Singleton.PersonScoutingEventDataController;
-
+                return BL.Singleton.PersonScoutingEventBL;
             }
         }
 
@@ -27,7 +25,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IPersonScoutingEvent[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<IPersonScoutingEvent>();
+            return _BL.GetAllItems().ToArray<IPersonScoutingEvent>();
         }
 
 
@@ -35,7 +33,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IPersonScoutingEvent[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IPersonScoutingEvent>();
+            return _BL.GetUpdatedItems(updatetimestamp).ToArray<IPersonScoutingEvent>();
         }
 
         // GET api/values/5
@@ -43,7 +41,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IPersonScoutingEvent Get(int id)
         {
-            return datacontroller.GetItem(id);
+            return _BL.GetItem(id);
         }
 
 
@@ -52,7 +50,7 @@ namespace Carrick.Web.Controllers
         [HttpPost]
         public IPersonScoutingEvent Insert([FromBody] IPersonScoutingEvent s)
         {
-            return datacontroller.InsertItem(s);
+            return _BL.InsertItem(s);
         }
 
 
@@ -61,7 +59,7 @@ namespace Carrick.Web.Controllers
         [HttpPut]
         public IPersonScoutingEvent Update(int id, [FromBody] IPersonScoutingEvent s)
         {
-            return datacontroller.ModifyItem(s);
+            return _BL.ModifyItem(s);
         }
 
         // DELETE api/values/5
@@ -69,7 +67,7 @@ namespace Carrick.Web.Controllers
         [HttpDelete]
         public void Delete(int id)
         {
-            datacontroller.DeleteItem(id);
+            _BL.DeleteItem(id);
         }
     }
 }

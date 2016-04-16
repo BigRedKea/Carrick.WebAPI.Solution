@@ -1,7 +1,6 @@
 ﻿
 Imports Carrick.BusinessLogic.CompositeObjects
 Imports Carrick.BusinessLogic.Interfaces
-Imports Carrick.DataModel
 
 Public Class PersonLoginUserControl
 

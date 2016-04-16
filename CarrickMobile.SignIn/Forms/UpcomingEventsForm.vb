@@ -1,4 +1,5 @@
-﻿Imports Carrick.DataModel
+﻿Imports Carrick.BusinessLogic.Interfaces
+
 
 Public Class UpcomingEventsForm
     Public Sub New()
@@ -12,7 +13,7 @@ Public Class UpcomingEventsForm
 
     Private _EventControls As Dictionary(Of Integer, ScoutingEventNightsUserControl)
 
-    Public Sub LoadData(s As Person)
+    Public Sub LoadData(s As IPerson)
         With FlowLayoutPanel1
             .Controls.Clear()
             .AutoScroll = True

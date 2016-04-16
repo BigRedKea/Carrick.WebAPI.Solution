@@ -1,6 +1,5 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.ServerData.Controllers;
-using Carrick.Server.DataModel;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -13,12 +12,11 @@ namespace Carrick.Web.Controllers
     public class OrganisationUnitController : ApiController
     {
 
-        private OrganisationUnitDataProvider datacontroller
+        private OrganisationUnitBusinessLogic _BL
         {
             get
             {
-                return BusinessModel.Singleton.OrganisationUnitDataController;
-
+                return BL.Singleton.OrganisationUnitBL;
             }
         }
 
@@ -27,7 +25,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IOrganisationUnit[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<IOrganisationUnit>();
+            return _BL.GetAllItems().ToArray<IOrganisationUnit>();
         }
 
 
@@ -35,7 +33,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IOrganisationUnit[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IOrganisationUnit>();
+            return _BL.GetUpdatedItems(updatetimestamp).ToArray<IOrganisationUnit>();
         }
 
         // GET api/values/5
@@ -43,7 +41,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IOrganisationUnit Get(int id)
         {
-            return datacontroller.GetItem(id);
+            return _BL.GetItem(id);
         }
 
         [Authorize(Roles = "ScoutAdministrator")]
@@ -52,7 +50,7 @@ namespace Carrick.Web.Controllers
         [HttpPost]
         public IOrganisationUnit Insert([FromBody]IOrganisationUnit s)
         {
-            return datacontroller.InsertItem(s);
+            return _BL.InsertItem(s);
         }
 
         [Authorize(Roles = "ScoutAdministrator")]
@@ -61,7 +59,7 @@ namespace Carrick.Web.Controllers
         [HttpPut]
         public IOrganisationUnit Update(int id, [FromBody] IOrganisationUnit s)
         {
-            return datacontroller.ModifyItem(s);
+            return _BL.ModifyItem(s);
         }
 
         [Authorize(Roles = "ScoutAdministrator")]
@@ -70,7 +68,7 @@ namespace Carrick.Web.Controllers
         [HttpDelete]
         public void Delete(int id)
         {
-             datacontroller.DeleteItem(id);
+             _BL.DeleteItem(id);
         }
     }
 }

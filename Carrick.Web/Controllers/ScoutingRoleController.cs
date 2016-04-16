@@ -1,6 +1,5 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.ServerData.Controllers;
-using Carrick.Server.DataModel;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -13,12 +12,12 @@ namespace Carrick.Web.Controllers
     public class ScoutingRoleController : ApiController
     {
 
-        private ScoutingRoleDataController datacontroller
+        private ScoutingRoleBusinessLogic _BL
         {
             get
             {
-                return BusinessModel.Singleton.ScoutingRoleDataController;
-            }         
+                return BL.Singleton.ScoutingRoleBL;
+            }
         }
 
         // GET api/values
@@ -26,7 +25,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IScoutingRole[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<IScoutingRole>();
+            return _BL.GetAllItems().ToArray<IScoutingRole>();
         }
 
 
@@ -34,7 +33,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IScoutingRole[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IScoutingRole>();
+            return _BL.GetUpdatedItems(updatetimestamp).ToArray<IScoutingRole>();
         }
 
         // GET api/values/5
@@ -42,7 +41,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IScoutingRole Get(int id)
         {
-            return datacontroller.GetItem(id);
+            return _BL.GetItem(id);
         }
 
 
@@ -52,7 +51,7 @@ namespace Carrick.Web.Controllers
         [HttpPost]
         public IScoutingRole Insert([FromBody] IScoutingRole s)
         {
-            return datacontroller.InsertItem(s);
+            return _BL.InsertItem(s);
         }
 
 
@@ -62,7 +61,7 @@ namespace Carrick.Web.Controllers
         [HttpPut]
         public IScoutingRole Update(int id, [FromBody] IScoutingRole s)
         {
-            return datacontroller.ModifyItem(s);
+            return _BL.ModifyItem(s);
         }
 
         // DELETE api/values/5
@@ -71,7 +70,7 @@ namespace Carrick.Web.Controllers
         [HttpDelete]
         public IScoutingRole Delete(int id)
         {
-            return datacontroller.DeleteItem(id);
+            return _BL.DeleteItem(id);
         }
     }
 }

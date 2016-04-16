@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Carrick.BusinessLogic.BusinessLogic
+namespace Carrick.BusinessLogic
 {
     public class BusinessLogic
     {
@@ -30,16 +30,16 @@ namespace Carrick.BusinessLogic.BusinessLogic
         }
 
         //BadgeRequest
-        private BadgeRequestBusinessLogic _BadgeRequestBL;
-        public BadgeRequestBusinessLogic BadgeRequestBL
+        private PersonBadgeBusinessLogic _PersonBadgeBL;
+        public PersonBadgeBusinessLogic PersonBadgeBL
         {
             get
             {
-                if (_BadgeRequestBL == null)
+                if (_PersonBadgeBL == null)
                 {
-                    _BadgeRequestBL = new BadgeRequestBusinessLogic(this);
+                    _PersonBadgeBL = new PersonBadgeBusinessLogic(this);
                 }
-                return _BadgeRequestBL;
+                return _PersonBadgeBL;
             }
         }
 

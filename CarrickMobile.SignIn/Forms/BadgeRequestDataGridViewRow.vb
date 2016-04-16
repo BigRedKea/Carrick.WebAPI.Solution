@@ -3,7 +3,7 @@ Option Explicit On
 
 Imports Carrick.BusinessLogic.CompositeObjects
 Imports Carrick.BusinessLogic.Interfaces
-Imports Carrick.DataModel
+
 
 Public Class BadgeRequestDataGridViewRow : Inherits DataGridViewRow
 
@@ -106,14 +106,14 @@ Public Class BadgeRequestDataGridViewRow : Inherits DataGridViewRow
 
 
             LeaderAssignedCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton
-            For Each leader As Person In BL.Singleton.PersonBL.GetAllItems
+            For Each leader As IPerson In BL.Singleton.PersonBL.GetAllItems
                 LeaderAssignedCell.Items.Add(leader.ScoutName)
             Next
             LeaderAssignedCell.Value = BL.Singleton.PersonBL.GetItem(_BadgeRequest.PersonBadge.LeaderAssignedId.Value).ScoutName
 
 
             AuthorisedByCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton
-            For Each leader As Person In BL.Singleton.PersonBL.GetAllItems
+            For Each leader As IPerson In BL.Singleton.PersonBL.GetAllItems
                 AuthorisedByCell.Items.Add(leader.ScoutName)
             Next
             If _BadgeRequest.PersonBadge.AuthorisedById.HasValue Then
@@ -153,17 +153,17 @@ Public Class BadgeRequestDataGridViewRow : Inherits DataGridViewRow
     Sub Presented()
         If CBool(MarkCell.Value) And PresentedCell.Value Is Nothing Then
             PresentedCell.Value = Now.ToLongDateString
-            BL.Singleton.BadgeRequestBL.SetBadgePresented(brc)
+            BL.Singleton.PersonBadgeBL.SetBadgePresented(brc)
 
         End If
     End Sub
 
     Sub Delete()
-        BL.Singleton.BadgeRequestBL.DeleteItem(_BadgeRequest)
+        BL.Singleton.PersonBadgeBL.DeleteItem(_BadgeRequest)
     End Sub
 
     Sub SelectIfScoutPresent()
-        For Each s As Person In BL.Singleton.PersonBL.GetAllItems
+        For Each s As IPerson In BL.Singleton.PersonBL.GetAllItems
 
             'HACK If s.Id = brc.Person.Id And BL.Singleton.PersonSignInBL.GetItem(s.Id).SigninState = True Then
             '    MarkCell.Value = True

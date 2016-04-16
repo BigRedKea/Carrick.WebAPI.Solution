@@ -3,21 +3,20 @@ Imports System.Net.Mime
 Imports System.Net
 
 Imports Microsoft.Office.Interop.Outlook
-Imports Carrick.DataModel
 Imports Carrick.BusinessLogic.Interfaces
 
 Public Class MailToForm
     Public Sub New()
         InitializeComponent()
-        For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
-            For Each s As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
+        For Each org As IOrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
+            For Each s As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
                 Dim chk As New ScoutCheckBox(s)
                 Me.FlowLayoutPanel1.Controls.Add(chk)
             Next
             PatrolsComboBox.Items.Add(org)
         Next
 
-        For Each se As ScoutingEvent In BL.Singleton.ScoutingEventBL.GetAllItems
+        For Each se As IScoutingEvent In BL.Singleton.ScoutingEventBL.GetAllItems
             EventsComboBox.Items.Add(se)
         Next
     End Sub
@@ -26,13 +25,13 @@ Public Class MailToForm
 
         For Each itm As Control In Me.FlowLayoutPanel1.Controls
             If TypeOf (itm) Is ScoutCheckBox AndAlso CType(itm, ScoutCheckBox).Checked Then
-                Dim scout As Person = CType(itm, ScoutCheckBox).Scout
+                Dim scout As IPerson = CType(itm, ScoutCheckBox).Scout
                 Dim s As New SendMailClass
                 s.recipient = ""
 
                 Dim parents As String = ""
 
-                For Each p As Person In BL.Singleton.PersonBL.GetParents(scout)
+                For Each p As IPerson In BL.Singleton.PersonBL.GetParents(scout)
                     If parents.Length = 0 Then
                         parents = parents & p.PreferredName
                     Else
@@ -85,7 +84,7 @@ Public Class MailToForm
     End Sub
 
     Private Sub SelectScoutsAtEventButton_Click(sender As Object, e As EventArgs) Handles SelectPersonsAtEventButton.Click
-        Dim scoutsToSelect As Dictionary(Of Integer, PersonScoutingEvent) = BL.Singleton.PersonBL.GetPersonsAtEvent(CType(EventsComboBox.SelectedItem, ScoutingEvent))
+        Dim scoutsToSelect As Dictionary(Of Integer, IPersonScoutingEvent) = BL.Singleton.PersonBL.GetPersonsAtEvent(CType(EventsComboBox.SelectedItem, IScoutingEvent))
 
         Dim scouts As New List(Of Integer)
 
@@ -99,7 +98,7 @@ Public Class MailToForm
     End Sub
 
     Private Sub UnSelectScoutsAtEventButton_Click(sender As Object, e As EventArgs) Handles EventUnselectButton.Click
-        Dim scoutsToSelect As Dictionary(Of Integer, PersonScoutingEvent) = BL.Singleton.PersonBL.GetPersonsAtEvent(CType(EventsComboBox.SelectedItem, ScoutingEvent))
+        Dim scoutsToSelect As Dictionary(Of Integer, IPersonScoutingEvent) = BL.Singleton.PersonBL.GetPersonsAtEvent(CType(EventsComboBox.SelectedItem, IScoutingEvent))
 
         Dim scouts As New List(Of Integer)
 
@@ -116,7 +115,7 @@ Public Class MailToForm
 
         Dim scouts As New List(Of Integer)
 
-        For Each itm As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(CType(PatrolsComboBox.SelectedItem, OrganisationUnit))
+        For Each itm As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(CType(PatrolsComboBox.SelectedItem, IOrganisationUnit))
             scouts.Add(itm.Id)
         Next
 
@@ -127,7 +126,7 @@ Public Class MailToForm
 
         Dim scouts As New List(Of Integer)
 
-        For Each itm As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(CType(PatrolsComboBox.SelectedItem, OrganisationUnit))
+        For Each itm As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(CType(PatrolsComboBox.SelectedItem, IOrganisationUnit))
             scouts.Add(itm.Id)
         Next
 
@@ -165,12 +164,12 @@ Public Class MailToForm
 
         For Each Sb As ScoutCheckBox In FlowLayoutPanel1.Controls
             If Sb.Checked Then
-                Dim s As Person = Sb.Scout
+                Dim s As IPerson = Sb.Scout
                 If BL.Singleton.PersonBL.GetParents(s).Count = 0 Then
                     MsgBox("Warning ... " & s.FullName & " has no parents defined")
                 End If
 
-                For Each p As Person In BL.Singleton.PersonBL.GetParents(s)
+                For Each p As IPerson In BL.Singleton.PersonBL.GetParents(s)
                     If p.Email <> "" Then
                         If InStr(sParams, p.Email) = 0 Then
                             sParams &= p.Email & ";"
@@ -207,9 +206,9 @@ Public Class MailToForm
 
     Private Class ScoutCheckBox
         Inherits CheckBox
-        Public Property Scout As Person
+        Public Property Scout As IPerson
 
-        Public Sub New(s As Person)
+        Public Sub New(s As IPerson)
             Text = s.FullName
             Width = 150
             _Scout = s

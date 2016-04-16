@@ -1,7 +1,7 @@
-﻿imports Carrick.BusinessLogic.BusinessLogic
+﻿imports Carrick.BusinessLogic
 imports Carrick.BusinessLogic.Interfaces
 imports Carrick.ClientData.DataProviders
-imports Carrick.DataModel
+
 imports System
 
 

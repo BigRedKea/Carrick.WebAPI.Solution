@@ -4,7 +4,7 @@ using Carrick.BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
 
-namespace Carrick.BusinessLogic.BusinessLogic
+namespace Carrick.BusinessLogic
 {
     public class PersonBusinessLogic : BusinessLogicBase<IPerson>
     {
@@ -45,6 +45,13 @@ namespace Carrick.BusinessLogic.BusinessLogic
         public IPerson GetPerson(IPersonBadge itm)
         {
             throw new NotImplementedException();
+        }
+
+        public IPerson GetPerson(int id)
+        {
+            IRelationshipKey key = DataProvider.CreateRelationshipKey();
+            key.Id = id;
+            return DataProvider.GetItem(key);
         }
 
         public bool IsSignedIn(IPerson person)
@@ -92,7 +99,6 @@ namespace Carrick.BusinessLogic.BusinessLogic
 
 
     }
-
 
     public class PersonSignedInEventArgs :EventArgs
     {

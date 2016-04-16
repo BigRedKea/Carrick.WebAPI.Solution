@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using Carrick.BusinessLogic.Interfaces;
 
 
-namespace Carrick.BusinessLogic.BusinessLogic
+namespace Carrick.BusinessLogic
 {
     public class BusinessLogicBase<T> where T : ITableBase
     {
         protected BusinessLogic _BL;
 
-        private IDataProviderInterface<T> DataProvider;
+        public IDataProviderInterface<T> DataProvider;
 
         public BusinessLogicBase(BusinessLogic BL)
         {
@@ -23,7 +23,9 @@ namespace Carrick.BusinessLogic.BusinessLogic
 
         public T GetItem(int id)
         {
-            return DataProvider.GetItem(id);
+            IRelationshipKey key = DataProvider.CreateRelationshipKey();
+            key.Id = id;
+            return DataProvider.GetItem(key);
         }
 
         public IEnumerable<T> GetAllItems()
@@ -36,24 +38,37 @@ namespace Carrick.BusinessLogic.BusinessLogic
             return DataProvider.GetActiveItems();
         }
 
-        public void ModifyItem(T item)
+        public T ModifyItem(T item)
         {
-            DataProvider.ModifyItem(item);
+            return DataProvider.ModifyItem(item);
         }
 
-        public void InsertItem(T item)
+        public T InsertItem(T item)
         {
-            DataProvider.InsertItem(item);
+            return DataProvider.InsertItem(item);
         }
 
-        public void DeleteItem(T item)
+        public T DeleteItem(T item)
         {
-            DataProvider.DeleteItem(item);
+            return DataProvider.DeleteItem(item);
+        }
+
+        public T DeleteItem(int id)
+        {
+            IRelationshipKey key = DataProvider.CreateRelationshipKey();
+            key.Id = id;
+            return DataProvider.DeleteItem(key);
+            
         }
 
         public T CreateItem()
         {
             return DataProvider.CreateItem();
+        }
+
+        public IEnumerable<T> GetUpdatedItems(DateTime d)
+        {
+            throw new NotImplementedException();
         }
 
     }

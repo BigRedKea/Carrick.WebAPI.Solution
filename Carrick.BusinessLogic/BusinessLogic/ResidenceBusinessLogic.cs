@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using Carrick.BusinessLogic.Interfaces;
 
-namespace Carrick.BusinessLogic.BusinessLogic
+namespace Carrick.BusinessLogic
 {
     public class ResidenceBusinessLogic : BusinessLogicBase<IResidence>
     {

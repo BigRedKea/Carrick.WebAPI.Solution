@@ -1,11 +1,10 @@
 ﻿Imports Carrick.BusinessLogic.Interfaces
-Imports Carrick.DataModel
 
 
 Public Class ParentUserControl
 
-    Public Property ScoutParent As Person
-    Public Property Scout As Person
+    Public Property ScoutParent As IPerson
+    Public Property Scout As IPerson
 
     Public Sub New()
 
@@ -44,7 +43,7 @@ Public Class ParentUserControl
                                    End Sub
         End With
 
-        For Each itm As Person In BL.Singleton.PersonBL.GetAllItems
+        For Each itm As IPerson In BL.Singleton.PersonBL.GetAllItems
             ComboBox1.Items.Add(itm)
         Next
 
@@ -52,7 +51,7 @@ Public Class ParentUserControl
 
     Event RemoveLinkedEntity(sender As Object, e As EventArgs)
 
-    Public Sub LoadData(p As Person)
+    Public Sub LoadData(p As IPerson)
         Debug.WriteLine(p.ToString)
         _ScoutParent = p
         With _ScoutParent
@@ -73,14 +72,14 @@ Public Class ParentUserControl
 
     Private Sub ComboBox1_Click(sender As Object, e As EventArgs) Handles ComboBox1.SelectionChangeCommitted
         If ComboBox1.SelectedItem IsNot Nothing Then
-            Dim p As Person = CType(ComboBox1.SelectedItem, Person)
+            Dim p As IPerson = CType(ComboBox1.SelectedItem, IPerson)
             If p Is Nothing Then
                 'Do nothing
             Else
                 BL.Singleton.PersonPersonBL.LinkScoutParent(_Scout, _ScoutParent)
             End If
 
-            LoadData(CType(ComboBox1.SelectedItem, Person))
+            LoadData(CType(ComboBox1.SelectedItem, IPerson))
         End If
     End Sub
 

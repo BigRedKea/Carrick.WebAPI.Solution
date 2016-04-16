@@ -1,10 +1,10 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.ServerData.Controllers;
-using Carrick.Server.DataModel;
 using System;
 using System.Linq;
 using System.Web.Http;
 using Carrick.BusinessLogic.Interfaces;
+using Carrick.BusinessLogic.CompositeObjects;
 
 namespace Carrick.Web.Controllers
 {
@@ -13,21 +13,41 @@ namespace Carrick.Web.Controllers
     public class PersonBadgeController : ApiController
     {
 
-        private PersonBadgeDataProvider datacontroller
+        private PersonBadgeBusinessLogic _BL
         {
             get
             {
-                return BusinessModel.Singleton.PersonBadgeDataController;
-
+                return BL.Singleton.PersonBadgeBL;
             }
         }
 
         // GET api/values
         [AcceptVerbs("GET")]
         [HttpGet]
-        public IPersonBadge[] Get()
+        [AllowAnonymous]
+        [Route("api/personbadge/getallitems")]
+        public IPersonBadge[] GetAllItems()
         {
-            return datacontroller.GetAllItems().ToArray<IPersonBadge>();
+            return _BL.GetAllItems().ToArray<IPersonBadge>();
+        }
+
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("api/personbadge/getactiveitems")]
+        public IPersonBadge[] GetActiveItems()
+        {
+            return _BL.GetActiveItems().ToArray<IPersonBadge>();
+        }
+
+
+        [Route("api/personbadge/getactiveitemsforperson")]
+        [AcceptVerbs("GET")]
+        [AllowAnonymous]
+        [HttpGet]
+        public PersonBadgeComposite[] GetActiveItemsForPerson(int id)
+        {
+            return _BL.GetBadgeRequestsforPerson(id).ToArray<PersonBadgeComposite>();
         }
 
 
@@ -35,7 +55,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IPersonBadge[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IPersonBadge>();
+            return _BL.GetUpdatedItems(updatetimestamp).ToArray<IPersonBadge>();
         }
 
         // GET api/values/5
@@ -43,7 +63,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IPersonBadge Get(int id)
         {
-            return datacontroller.GetItem(id);
+            return _BL.GetItem(id);
         }
 
 
@@ -52,7 +72,7 @@ namespace Carrick.Web.Controllers
         [HttpPost]
         public IPersonBadge Insert([FromBody]IPersonBadge s)
         {
-            return datacontroller.InsertItem(s);
+            return _BL.InsertItem(s);
         }
 
 
@@ -61,7 +81,7 @@ namespace Carrick.Web.Controllers
         [HttpPut]
         public IPersonBadge Update(int id, [FromBody] IPersonBadge s)
         {
-            return datacontroller.ModifyItem(s);
+            return _BL.ModifyItem(s);
         }
 
 
@@ -70,7 +90,7 @@ namespace Carrick.Web.Controllers
         [HttpDelete]
         public void Delete(int id)
         {
-             datacontroller.DeleteItem(id);
+            _BL.DeleteItem(id);
         }
     }
 }

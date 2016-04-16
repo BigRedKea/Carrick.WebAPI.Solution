@@ -60,7 +60,7 @@ namespace Carrick.ClientData.DataProviders
         }
 
 
-        public Object GetProvider(Type t)
+        public IDataProviderInterface GetProvider(Type t)
         {
             IClientDataProvider retval;
             _DataProviders.TryGetValue(t, out retval);

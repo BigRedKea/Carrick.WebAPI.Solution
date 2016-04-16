@@ -1,4 +1,4 @@
-﻿namespace Carrick.BusinessLogic.BusinessLogic
+﻿namespace Carrick.BusinessLogic
 {
     using Interfaces;
     using System;

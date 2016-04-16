@@ -7,13 +7,16 @@ using System.Linq;
 namespace Carrick.BusinessLogic.Interfaces
 {
 
-    public interface IDataProviderInterface<T> where T : ITableBase
+    public interface IDataProviderInterface 
+    {
+        Type GetDataType();
+    }
+
+    public interface IDataProviderInterface<T> : IDataProviderInterface where T : ITableBase
     {
         //void Initialise();
 
         //void Sync();
-
-        Type GetDataType();
 
         //void LoadLocalData();
 
@@ -23,10 +26,6 @@ namespace Carrick.BusinessLogic.Interfaces
 
         T DeleteItem(T item);
 
-        T GetItem(int id);
-
-        T GetItem(Guid? uniqueId);
-
         T GetItem(IRelationshipKey key);
 
         T CreateItem();
@@ -34,5 +33,9 @@ namespace Carrick.BusinessLogic.Interfaces
         IEnumerable<T> GetAllItems();
 
         IEnumerable<T> GetActiveItems();
+        IRelationshipKey CreateRelationshipKey();
+        T DeleteItem(IRelationshipKey key);
+
+        Func<T, object> defaultOrder { get; set; }
     }
 }

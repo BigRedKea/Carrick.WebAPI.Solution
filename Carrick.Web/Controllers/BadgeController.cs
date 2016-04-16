@@ -6,8 +6,8 @@ using System.Linq;
 
 using Carrick.BusinessLogic;
 using Carrick.ServerData.Controllers;
-using Carrick.Server.DataModel;
 using Carrick.BusinessLogic.Interfaces;
+using Carrick.Web.Models;
 
 namespace Carrick.Web.Controllers
 {
@@ -15,11 +15,11 @@ namespace Carrick.Web.Controllers
     public class BadgeController : ApiController
     {
 
-        private BadgeDataProvider datacontroller
+        private BadgeBusinessLogic _BL
         {
             get
             {
-                return BusinessModel.Singleton.BadgeDataController;
+                return BL.Singleton.BadgeBL;
             }
         }
 
@@ -29,23 +29,39 @@ namespace Carrick.Web.Controllers
         [AllowAnonymous]
         public IEnumerable<IBadge> SearchActiveItems(string searchText)
         {
-            return datacontroller.SearchActiveItems(searchText, 40);
+            return _BL.SearchActiveItems(searchText, 40);
         }
 
         [Route("api/Badge/new")]
         [HttpGet]
         public IBadge NewItem()
         {
-            return new Badge();
+            return _BL.CreateItem();
         }
 
 
-        // GET api/values
+        [Route("api/Badge/GetAllItems")]
         [AcceptVerbs("GET")]
         [HttpGet]
-        public IBadge[] Get()
+        public IBadge[] GetAllItems()
         {
-            return datacontroller.GetAllItems().ToArray<IBadge>();
+            return _BL.GetAllItems().ToArray<IBadge>();
+        }
+
+        [Route("api/Badge/GetActiveEnabledItems")]
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        public IBadge[] GetActiveEnabledItems()
+        {
+            return _BL.GetActiveEnabledItems().ToArray<IBadge>();
+        }
+        
+        [Route("api/Badge/GetActiveItems")]
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        public IBadge[] GetActiveItems()
+        {
+            return _BL.GetActiveItems().ToArray<IBadge>();
         }
 
 
@@ -53,7 +69,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IBadge[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IBadge>();
+            return _BL.GetUpdatedItems(updatetimestamp).ToArray<IBadge>();
         }
 
         // GET api/values/5
@@ -61,7 +77,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IBadge Get(int id)
         {
-            return datacontroller.GetItem(id);
+            return _BL.GetItem(id);
         }
 
         [Route("api/Badge/detail/{id}")]
@@ -69,24 +85,25 @@ namespace Carrick.Web.Controllers
         [AllowAnonymous]
         public IBadge GetDetail(int Id)
         {
-            return datacontroller.GetItem(Id);
+            return _BL.GetItem(Id);
         }
 
         [Authorize(Roles = "ScoutAdministrator")]
-        [Route("api/Badge/Save")]
+        [Route("api/badge/update")]
         [HttpPost]
-        public IBadge SaveItem(IBadge itm)
+        public IBadge Update(Object itm)
         {
-            return datacontroller.SaveItem(itm);
+            Badge b = Newtonsoft.Json.JsonConvert.DeserializeObject<Badge>(itm.ToString());
+            return _BL.ModifyItem(b);
         }
 
         [Authorize(Roles = "ScoutAdministrator")]
-        [Route("api/Badge/delete/{id}")]
+        [Route("api/badge/delete/{id}")]
         [AcceptVerbs("DELETE")]
         [HttpPost]
-        public void DeleteItem(int Id)
+        public void DeleteItem(int id)
         {
-            datacontroller.DeleteItem(Id);
+            _BL.DeleteItem(id);
         }
     }
 }

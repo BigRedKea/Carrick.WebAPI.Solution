@@ -2,7 +2,6 @@
 {
     using Carrick.BusinessLogic;
     using Carrick.ServerData.Controllers;
-    using Carrick.Server.DataModel;
     using System;
     using System.Linq;
     using System.Web.Http;
@@ -12,12 +11,11 @@
     public class PersonResidenceController : ApiController
         {
 
-        private PersonResidenceDataProvider datacontroller
+        private PersonResidenceBusinessLogic _BL
         {
             get
             {
-                return BusinessModel.Singleton.PersonResidenceDataController;
-
+                return BL.Singleton.PersonResidenceBL;
             }
         }
 
@@ -26,7 +24,7 @@
         [HttpGet]
         public IPersonResidence[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<IPersonResidence>();
+            return _BL.GetAllItems().ToArray<IPersonResidence>();
         }
 
 
@@ -34,7 +32,7 @@
         [HttpGet]
         public IPersonResidence[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IPersonResidence>();
+            return _BL.GetUpdatedItems(updatetimestamp).ToArray<IPersonResidence>();
         }
 
         // GET api/values/5
@@ -42,7 +40,7 @@
         [HttpGet]
         public IPersonResidence Get(int id)
         {
-            return datacontroller.GetItem(id);
+            return _BL.GetItem(id);
         }
 
 
@@ -51,7 +49,7 @@
         [HttpPost]
         public IPersonResidence Insert([FromBody]IPersonResidence s)
         {
-            return datacontroller.InsertItem(s);
+            return _BL.InsertItem(s);
         }
 
 
@@ -60,7 +58,7 @@
         [HttpPut]
         public IPersonResidence Update(int id, [FromBody] IPersonResidence s)
         {
-            return datacontroller.ModifyItem(s);
+            return _BL.ModifyItem(s);
         }
 
         // DELETE api/values/5
@@ -68,7 +66,7 @@
         [HttpDelete]
         public void Delete(int id)
         {
-            datacontroller.DeleteItem(id);
+            _BL.DeleteItem(id);
         }
     }
 }

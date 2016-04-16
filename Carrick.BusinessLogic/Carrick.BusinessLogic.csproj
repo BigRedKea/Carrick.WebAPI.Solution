@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BusinessLogic\BadgeBusinessLogic.cs" />
-    <Compile Include="BusinessLogic\BadgeRequestBusinessLogic.cs" />
+    <Compile Include="BusinessLogic\PersonBadgeBusinessLogic.cs" />
     <Compile Include="BusinessLogic\BusinessLogic.cs" />
     <Compile Include="BusinessLogic\BusinessLogicBase.cs" />
     <Compile Include="BusinessLogic\OrganisationUnitBusinessLogic.cs" />

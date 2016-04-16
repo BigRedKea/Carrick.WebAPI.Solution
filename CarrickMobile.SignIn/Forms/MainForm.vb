@@ -1,7 +1,6 @@
 ﻿Imports System.Xml
 Imports System.IO
 Imports System.Xml.Serialization
-Imports Carrick.DataModel
 Imports Carrick.BusinessLogic.Interfaces
 
 Public Class MainForm
@@ -146,16 +145,16 @@ Public Class MainForm
 
     Private Sub PlaceOrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PlaceOrderToolStripMenuItem.Click
 
-        BL.Singleton.BadgeRequestBL.AddServiceBadges()
+        BL.Singleton.PersonBadgeBL.AddServiceBadges()
         MsgBox("Service Badges Added")
 
         Dim t As String = ""
-        For Each itm In BL.Singleton.BadgeRequestBL.GetBadgesToOrder
+        For Each itm In BL.Singleton.PersonBadgeBL.GetBadgesToOrder
             t &= vbTab & itm.Person.FullName.ToString & " " & itm.Badge.BadgeName & vbCrLf
         Next
 
         If MsgBox("Place Order for " & vbCrLf & t, MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
-            BL.Singleton.BadgeRequestBL.CreateOrder()
+            BL.Singleton.PersonBadgeBL.CreateOrder()
             MsgBox("Order Placed")
         End If
     End Sub

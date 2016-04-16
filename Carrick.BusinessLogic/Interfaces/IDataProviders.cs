@@ -9,6 +9,6 @@ namespace Carrick.BusinessLogic.Interfaces
 {
     public interface IDataProviders
     {
-        Object GetProvider(Type t);
+        IDataProviderInterface GetProvider(Type t);
     }
 }

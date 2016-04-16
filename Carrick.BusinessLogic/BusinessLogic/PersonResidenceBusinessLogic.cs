@@ -2,7 +2,7 @@
 
 using Carrick.BusinessLogic.Interfaces;
 
-namespace Carrick.BusinessLogic.BusinessLogic
+namespace Carrick.BusinessLogic
 {
     public class PersonResidenceBusinessLogic : BusinessLogicBase<IPersonResidence>
     {

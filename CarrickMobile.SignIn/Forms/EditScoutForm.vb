@@ -1,13 +1,13 @@
 ﻿Imports Carrick.BusinessLogic.CompositeObjects
 Imports Carrick.BusinessLogic.Interfaces
-Imports Carrick.DataModel
+
 
 Public Class EditScoutForm
 
-    Private _Scout As Person
+    Private _Scout As IPerson
     Private bm As Image
 
-    Public Sub New(s As Person)
+    Public Sub New(s As IPerson)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -18,14 +18,14 @@ Public Class EditScoutForm
 
         'Patrol
         With PatrolComboBox
-            For Each p As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
+            For Each p As IOrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
                 .Items.Add(p)
             Next
 
             .DropDownStyle = ComboBoxStyle.DropDown
             'HACK .SelectedItem = s.OrganisationUnit
             AddHandler .SelectionChangeCommitted, Sub(sender As Object, e As EventArgs)
-                                                      BL.Singleton.PersonOrganisationUnitBL.ChangeOrganisation(_Scout, CType(PatrolComboBox.SelectedItem, OrganisationUnit))
+                                                      BL.Singleton.PersonOrganisationUnitBL.ChangeOrganisation(_Scout, CType(PatrolComboBox.SelectedItem, IOrganisationUnit))
                                                   End Sub
             .Enabled = BL.Singleton.LeaderModeEnabled
         End With
@@ -33,7 +33,7 @@ Public Class EditScoutForm
 
         'Scout Leader
         With Me.ScoutLeaderComboBox
-            For Each itm As Person In BL.Singleton.PersonBL.GetAllItems
+            For Each itm As IPerson In BL.Singleton.PersonBL.GetAllItems
                 .Items.Add(itm)
             Next
             .DropDownStyle = ComboBoxStyle.DropDownList
@@ -126,7 +126,7 @@ Public Class EditScoutForm
 
         'Request Badge
         With RequestBadgeComboBox
-            For Each p As Badge In BL.Singleton.BadgeBL.GetAllItems
+            For Each p As IBadge In BL.Singleton.BadgeBL.GetAllItems
                 If p.BadgeEnabled Then
                     .Items.Add(p)
                 End If
@@ -136,7 +136,7 @@ Public Class EditScoutForm
             '.SelectedItem = s.Rank
             AddHandler .SelectionChangeCommitted, Sub(sender As Object, e As EventArgs)
                                                       RefreshScreen()
-                                                      PictureBox1.Image = (New ImageHelper).Convert(CType(RequestBadgeComboBox.SelectedItem, Badge).BadgeImage)
+                                                      PictureBox1.Image = (New ImageHelper).Convert(CType(RequestBadgeComboBox.SelectedItem, IBadge).BadgeImage)
 
                                                   End Sub
             '.Enabled = DataRepository.Singleton.LeaderModeEnabled
@@ -146,8 +146,8 @@ Public Class EditScoutForm
         With RequestBadgeButton
             .Enabled = False
             AddHandler .Click, Sub(sender As Object, e As EventArgs)
-                                   Dim br As PersonBadgeComposite = BL.Singleton.BadgeRequestBL.RequestBadge(_Scout, CType(RequestBadgeComboBox.SelectedItem, Badge))
-                                   br.PersonBadge.LeaderAssignedId = CType(ScoutLeaderComboBox.SelectedItem, Person).Id
+                                   Dim br As PersonBadgeComposite = BL.Singleton.PersonBadgeBL.RequestBadge(_Scout, CType(RequestBadgeComboBox.SelectedItem, IBadge))
+                                   br.PersonBadge.LeaderAssignedId = CType(ScoutLeaderComboBox.SelectedItem, IPerson).Id
                                    AddBadge(br)
                                    ScoutLeaderComboBox.SelectedItem = Nothing
                                    RequestBadgeComboBox.SelectedItem = Nothing
@@ -157,7 +157,7 @@ Public Class EditScoutForm
 
         BadgeRequestDataGridViewRow.SetupDataGrid(DataGridView1)
 
-        For Each itm As PersonBadgeComposite In BL.Singleton.BadgeRequestBL.GetBadgeRequestsforPerson(_Scout)
+        For Each itm As PersonBadgeComposite In BL.Singleton.PersonBadgeBL.GetBadgeRequestsforPerson(_Scout)
             AddBadge(itm)
         Next
 
@@ -170,7 +170,7 @@ Public Class EditScoutForm
             .RowStyles.Clear()
             .Controls.Clear()
             .AutoScroll = True
-            For Each itm As Person In BL.Singleton.PersonBL.GetParents(_Scout)
+            For Each itm As IPerson In BL.Singleton.PersonBL.GetParents(_Scout)
                 Dim t As New ParentUserControl
                 t.LoadData(itm)
                 t.Scout = _Scout

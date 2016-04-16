@@ -1,6 +1,5 @@
 ﻿Imports Carrick.BusinessLogic.CompositeObjects
 Imports Carrick.BusinessLogic.Interfaces
-Imports Carrick.DataModel
 
 Public Class ScoutingEventNightsUserControl
     Private _sae As PersonScoutingEventComposite

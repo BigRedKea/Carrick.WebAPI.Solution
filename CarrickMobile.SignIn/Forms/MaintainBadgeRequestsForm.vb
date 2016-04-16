@@ -3,7 +3,7 @@ Option Explicit On
 
 Imports Carrick.BusinessLogic.CompositeObjects
 Imports Carrick.BusinessLogic.Interfaces
-Imports Carrick.DataModel
+
 
 Public Class MaintainBadgeRequestsForm
     Public Enum eBadgeFilter
@@ -30,11 +30,11 @@ Public Class MaintainBadgeRequestsForm
 
         Select Case BadgeFilter
             Case eBadgeFilter.AllBadgesForActiveScouts
-                brs = BL.Singleton.BadgeRequestBL.GetBadgeRequestsForActiveScouts
+                brs = BL.Singleton.PersonBadgeBL.GetBadgeRequestsForActiveScouts
             Case eBadgeFilter.BadgesToAuthorise
-                brs = BL.Singleton.BadgeRequestBL.GetBadgesToAuthorise
-            Case eBadgeFilter.BadgesToPresent
-                brs = BL.Singleton.BadgeRequestBL.GetBadgesToPresentToPersonsPresent
+                brs = BL.Singleton.PersonBadgeBL.GetBadgesToAuthorise
+                'Case eBadgeFilter.BadgesToPresent
+                'brs = BL.Singleton.BadgeRequestBL.GetBadgesToPresentToPersonsPresent
             Case Else
                 Throw New NotImplementedException
         End Select

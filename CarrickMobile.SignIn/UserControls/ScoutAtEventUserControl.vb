@@ -1,5 +1,4 @@
 ﻿Imports Carrick.BusinessLogic.Interfaces
-Imports Carrick.DataModel
 Imports Carrick.BusinessLogic.CompositeObjects
 
 Partial Public Class ScoutAtEventUserControl
@@ -23,7 +22,7 @@ Partial Public Class ScoutAtEventUserControl
 
         SetSaveEnabled(False)
 
-        For Each itm As ScoutingEvent In BL.Singleton.ScoutingEventBL.GetAllItems()
+        For Each itm As IScoutingEvent In BL.Singleton.ScoutingEventBL.GetAllItems()
             ComboBox1.Items.Add(itm)
         Next
 
@@ -85,7 +84,7 @@ Partial Public Class ScoutAtEventUserControl
 
     Private Sub ComboBox1_Click(sender As Object, e As EventArgs) Handles ComboBox1.SelectionChangeCommitted
         If ComboBox1.SelectedItem IsNot Nothing Then
-            Dim p As ScoutingEvent = CType(ComboBox1.SelectedItem, ScoutingEvent)
+            Dim p As IScoutingEvent = CType(ComboBox1.SelectedItem, IScoutingEvent)
             'If p Is Nothing Then
             '    'Do nothing
 

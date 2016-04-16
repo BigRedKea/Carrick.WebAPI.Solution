@@ -1,7 +1,7 @@
-﻿using Carrick.BusinessLogic.BusinessLogic;
+﻿using Carrick.BusinessLogic;
 using Carrick.BusinessLogic.Interfaces;
 using Carrick.ClientData.DataProviders;
-using Carrick.DataModel;
+
 using System;
 
 
@@ -45,7 +45,7 @@ namespace ScoutModel.TestConsole
         public void loadtestdata()
         {
 
-            ScoutingRole sr = new ScoutingRole();
+            IScoutingRole sr = ScoutingRoleBL.CreateItem();
             sr.Description = "Test1";
 
             //_controller.ScoutingRoleController.InsertItem(sr);
@@ -89,13 +89,13 @@ namespace ScoutModel.TestConsole
         public void readdata()
         {
             Console.WriteLine("Scouting Role");
-            foreach (ScoutingRole s in ScoutingRoleBL.GetAllItems())
+            foreach (IScoutingRole s in ScoutingRoleBL.GetAllItems())
             {
-                Console.WriteLine(s.LocalId + " " + s.Description);
+                Console.WriteLine(s.Id + " " + s.Description);
             }
 
             Console.WriteLine("People");
-            foreach (Person s in PersonBL.GetAllItems())
+            foreach (IPerson s in PersonBL.GetAllItems())
             {
                 Console.WriteLine(s.PreferredName + ' ' + s.Surname );
                 Console.WriteLine(s.Email);

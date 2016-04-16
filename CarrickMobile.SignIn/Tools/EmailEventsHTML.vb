@@ -1,7 +1,6 @@
 ﻿Imports System.IO
 Imports System.Web.UI
 Imports System.Text
-Imports Carrick.DataModel
 Imports Carrick.BusinessLogic.Interfaces
 Imports Carrick.BusinessLogic.CompositeObjects
 
@@ -37,16 +36,16 @@ Public Class EmailEventsHTML
                     sw.WriteLine("    switch(filter)")
                     sw.WriteLine("        {")
                     sw.WriteLine("            case '':")
-                    For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
-                        For Each sct As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
+                    For Each org As IOrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
+                        For Each sct As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
                             sw.WriteLine("                form.Checkbox" & sct.Id & ".checked = select;")
                         Next
                     Next
                     sw.WriteLine("                break")
 
-                    For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
+                    For Each org As IOrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
                         sw.WriteLine("            case '" & org.Description & "':")
-                        For Each sct As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
+                        For Each sct As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
                             sw.WriteLine("                form.Checkbox" & sct.Id & ".checked = select;")
                         Next
                         sw.WriteLine("                break")
@@ -61,10 +60,10 @@ Public Class EmailEventsHTML
                     sw.WriteLine("    var bodytext = '';")
                     sw.WriteLine("    var newline = '%0D%0A';")
 
-                    For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
-                        For Each sct As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
+                    For Each org As IOrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
+                        For Each sct As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
                             Dim email As String = ""
-                            For Each p As Person In BL.Singleton.PersonBL.GetParents(sct)
+                            For Each p As IPerson In BL.Singleton.PersonBL.GetParents(sct)
                                 email = email & Trim(p.Email) & ";"
                             Next
 
@@ -80,8 +79,8 @@ Public Class EmailEventsHTML
 
                     sw.WriteLine("    if (form.BccScoutsCheckBox.checked)")
                     sw.WriteLine("    {")
-                    For Each org As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
-                        For Each sct As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
+                    For Each org As IOrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
+                        For Each sct As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
                             Dim email As String = Trim(sct.Email)
 
                             If email.Length > 0 Then
@@ -145,12 +144,12 @@ Public Class EmailEventsHTML
                     sw.WriteLine("     </table>")
                     sw.WriteLine("     <br />")
 
-                    For Each ptl As OrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
+                    For Each ptl As IOrganisationUnit In BL.Singleton.OrganisationUnitBL.GetAllItems
                         sw.WriteLine("     <h4> " & ptl.Description & " </h4>")
                         sw.WriteLine("     <input type=""button"" value=""Select"" onclick=""selectscout(this.form, '" & ptl.Description & "', true)"">")
                         sw.WriteLine("     <input type=""button"" value=""Unselect"" onclick=""selectscout(this.form, '" & ptl.Description & "', false)"">")
                         sw.WriteLine("     <table width=""200"" style=""border:1px solid black;width:200pt"">")
-                        For Each sct As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(ptl)
+                        For Each sct As IPerson In BL.Singleton.PersonBL.GetPersonsInOrganisation(ptl)
                             sw.WriteLine("         <tr>")
 
                             Dim ckd As String = ""

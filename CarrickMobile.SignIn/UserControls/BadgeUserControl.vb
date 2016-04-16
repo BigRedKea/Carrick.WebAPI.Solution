@@ -1,16 +1,15 @@
 ﻿Imports Carrick.BusinessLogic.Interfaces
-Imports Carrick.DataModel
 
 
 Public Class BadgeUserControl
 
-    Private _Badge As Badge
+    Private _Badge As IBadge
 
     Public Sub New()
         InitializeComponent()
     End Sub
 
-    Public Sub LoadData(b As Badge)
+    Public Sub LoadData(b As IBadge)
         _Badge = b
         Me.PictureBox1.Image = (New ImageHelper).Convert(b.BadgeImage)
         Me.NameTextBox.Text = b.BadgeName

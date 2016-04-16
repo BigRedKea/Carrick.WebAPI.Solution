@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Carrick.BusinessLogic.Interfaces;
+using System;
 
 
 namespace Carrick.ClientData.DataProviders
 {
-    internal interface IClientDataProvider
+    internal interface IClientDataProvider : IDataProviderInterface
     {
         void Sync();
 
@@ -11,6 +12,5 @@ namespace Carrick.ClientData.DataProviders
 
         void LoadLocalData();
 
-        Type GetDataType();
     }
 }

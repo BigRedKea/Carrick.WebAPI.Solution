@@ -115,7 +115,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DataRepository.vb" />
+    <Compile Include="Controllers\BL.vb" />
     <Compile Include="Forms\BadgesForm.Designer.vb">
       <DependentUpon>BadgesForm.vb</DependentUpon>
     </Compile>
@@ -371,10 +371,6 @@
     <ProjectReference Include="..\Carrick.DataModelPortable\Carrick.ClientData.Portable.csproj">
       <Project>{2CA11240-74BA-4E83-850B-6CCE2A9BC086}</Project>
       <Name>Carrick.ClientData.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Carrick.DataModel\Carrick.DataModel.csproj">
-      <Project>{ff5a4710-9075-4ecd-aa0f-153bc2a6becd}</Project>
-      <Name>Carrick.DataModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

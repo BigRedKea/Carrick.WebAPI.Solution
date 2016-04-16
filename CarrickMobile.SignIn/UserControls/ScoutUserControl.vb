@@ -1,11 +1,11 @@
 ﻿
 Imports Carrick.BusinessLogic.Interfaces
-Imports Carrick.DataModel
+
 
 Public Class PersonUserControl
-    Private _Person As Person
+    Private _Person As IPerson
 
-    Public ReadOnly Property Person As Person
+    Public ReadOnly Property Person As IPerson
         Get
             Return _Person
         End Get
@@ -64,7 +64,7 @@ Public Class PersonUserControl
 
     Event RemoveLinkedEntity(sender As Object, e As EventArgs)
 
-    Public Sub LoadData(r As Person)
+    Public Sub LoadData(r As IPerson)
         _Person = r
         With _Person
             PreferredNameTextBox.Text = .PreferredName

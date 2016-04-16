@@ -1,7 +1,7 @@
 ﻿using System;
 using Carrick.BusinessLogic.Interfaces;
 
-namespace Carrick.BusinessLogic.BusinessLogic
+namespace Carrick.BusinessLogic
 {
     public class ScoutingRoleBusinessLogic : BusinessLogicBase<IScoutingRole>
     {

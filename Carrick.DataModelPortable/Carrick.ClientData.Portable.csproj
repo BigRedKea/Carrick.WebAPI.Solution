@@ -91,6 +91,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataProviders\DataProviderBase.cs" />
+    <Compile Include="DataProviders\LocalDataProvider.cs" />
     <Compile Include="DataProviders\LocationDataProvider.cs" />
     <Compile Include="DataProviders\IClientDataProvider.cs" />
     <Compile Include="DataProviders\OrganisationUnitDataProvider.cs" />

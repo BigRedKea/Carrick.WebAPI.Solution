@@ -1,13 +1,13 @@
-﻿Imports Carrick.BusinessLogic.BusinessLogic
+﻿imports Carrick.BusinessLogic
 Imports Carrick.BusinessLogic.CompositeObjects
 Imports Carrick.BusinessLogic.Interfaces
-Imports Carrick.DataModel
+
 
 
 Public Class OrganisationLoginUserControl
-    Private _Patrol As OrganisationUnit
+    Private _Patrol As IOrganisationUnit
 
-    Public Sub New(org As OrganisationUnit)
+    Public Sub New(org As IOrganisationUnit)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -52,7 +52,7 @@ Public Class OrganisationLoginUserControl
         Me.Height = Me.TableLayoutPanel1.Controls.Count * ctl.Height + 100
     End Sub
 
-    Private Sub RemovePersonControl(Person As Person)
+    Private Sub RemovePersonControl(Person As IPerson)
         Dim itmToRemove As Control = Nothing
         For Each ctl As PersonLoginUserControl In TableLayoutPanel1.Controls
             If ctl.Person Is Person Then

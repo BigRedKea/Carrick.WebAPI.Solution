@@ -1,9 +1,7 @@
 ﻿namespace Carrick.ClientData.DataProviders  
 {
-    using System;
-    using SQLite.Net;
+    using Carrick.BusinessLogic.Interfaces;
     using Carrick.DataModel;
-    using BusinessLogic.Interfaces;
 
     public class BadgeDataProvider : DataProviderBase<IBadge, Badge>
     {

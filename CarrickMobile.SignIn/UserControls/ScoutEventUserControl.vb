@@ -1,9 +1,9 @@
-﻿Imports Carrick.DataModel
+﻿Imports Carrick.BusinessLogic.Interfaces
 
 
 Public Class ScoutEventUserControl
 
-    Private _Event As ScoutingEvent
+    Private _Event As IScoutingEvent
 
     Public Sub New()
 
@@ -26,7 +26,7 @@ Public Class ScoutEventUserControl
 
     Event RemoveLinkedEntity(sender As Object, e As EventArgs)
 
-    Public Sub LoadData(p As ScoutingEvent)
+    Public Sub LoadData(p As IScoutingEvent)
         Debug.WriteLine(p.ToString)
         _Event = p
 

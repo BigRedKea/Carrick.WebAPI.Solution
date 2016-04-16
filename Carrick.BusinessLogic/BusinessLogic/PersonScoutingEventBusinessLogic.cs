@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Carrick.BusinessLogic.CompositeObjects;
 using Carrick.BusinessLogic.Interfaces;
 
-namespace Carrick.BusinessLogic.BusinessLogic
+namespace Carrick.BusinessLogic
 {
     public class PersonScoutingEventBusinessLogic: BusinessLogicBase<IPersonScoutingEvent>
     {

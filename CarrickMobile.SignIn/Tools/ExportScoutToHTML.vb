@@ -1,13 +1,12 @@
 ﻿Imports System.IO
 Imports System.Web.UI
 Imports System.Text
-Imports Carrick.DataModel
 Imports Carrick.BusinessLogic.Interfaces
 
 Public Class ExportPersonToHTML
 
 
-    Public Function Execute(Person As Person) As String
+    Public Function Execute(Person As IPerson) As String
 
         Dim filepath As String = Nothing
         Try
@@ -79,7 +78,7 @@ Public Class ExportPersonToHTML
                         .RenderEndTag() 'Div
 
 
-                        For Each p As Person In BL.Singleton.PersonBL.GetParents(Person)
+                        For Each p As IPerson In BL.Singleton.PersonBL.GetParents(Person)
 
                             .RenderBeginTag(HtmlTextWriterTag.Div)
 
@@ -95,7 +94,7 @@ Public Class ExportPersonToHTML
                             WriteTableRow(ht, New String() {"Mobile", p.Mobile})
                             WriteTableRow(ht, New String() {"Family Code", p.FamilyCode})
                             'If Not publishprivateInformation Then
-                            For Each r As Residence In BL.Singleton.ResidenceBL.GetResidences(Person)
+                            For Each r As IResidence In BL.Singleton.ResidenceBL.GetResidences(Person)
                                 WriteTableRow(ht, New String() {"Phone", r.ResidencePhone})
                                 WriteTableRow(ht, New String() {"Residence Line 1", r.ResidenceAddressLine1})
                                 WriteTableRow(ht, New String() {"Residence Line 2", r.ResidenceAddressLine2})
@@ -110,7 +109,7 @@ Public Class ExportPersonToHTML
                             .RenderEndTag()
                         Next
 
-                        Dim badges As Dictionary(Of Integer, PersonBadge) = BL.Singleton.BadgeRequestBL.GetBadgeRequestsforPerson(Person)
+                        Dim badges As Dictionary(Of Integer, IPersonBadge) = BL.Singleton.PersonBadgeBL.GetBadgeRequestsforPerson(Person)
                         .RenderBeginTag(HtmlTextWriterTag.Div)
 
                         .RenderBeginTag(HtmlTextWriterTag.H2)
@@ -147,7 +146,7 @@ Public Class ExportPersonToHTML
                         .RenderEndTag()
                         .RenderEndTag()
 
-                        For Each itm As PersonBadge In badges.Values
+                        For Each itm As IPersonBadge In badges.Values
                             Dim s As New List(Of String)
                             s.Add(itm.Id.ToString)
                             s.Add(BL.Singleton.BadgeBL.GetBadge(itm).BadgeName)
@@ -178,7 +177,7 @@ Public Class ExportPersonToHTML
                         'End Div
                         .RenderEndTag()
 
-                        Dim GetPersonScoutingEvents As IEnumerable(Of PersonScoutingEvent) = BL.Singleton.ScoutingEventBL.GetAllItems
+                        Dim GetPersonScoutingEvents As IEnumerable(Of IPersonScoutingEvent) = BL.Singleton.ScoutingEventBL.GetAllItems
 
 
                         .RenderBeginTag(HtmlTextWriterTag.Div)
@@ -230,7 +229,7 @@ Public Class ExportPersonToHTML
                         Dim totalKilometersTravelled As Integer = 0
 
                         For Each itm In BL.Singleton.PersonScoutingEventBL.GetItemsForPerson(Person)
-                            Dim e As ScoutingEvent = itm.ScoutingEvent
+                            Dim e As IScoutingEvent = itm.ScoutingEvent
                             Dim s As New List(Of String)
 
 

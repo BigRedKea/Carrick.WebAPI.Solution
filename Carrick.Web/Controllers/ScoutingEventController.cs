@@ -1,6 +1,5 @@
 ﻿using Carrick.BusinessLogic;
 using Carrick.ServerData.Controllers;
-using Carrick.Server.DataModel;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -13,11 +12,11 @@ namespace Carrick.Web.Controllers
     public class ScoutingEventController : ApiController
     {
 
-        private ScoutingEventDataProvider datacontroller
+        private ScoutingEventBusinessLogic _BL
         {
             get
             {
-                return BusinessModel.Singleton.ScoutingEventDataController;
+                return BL.Singleton.ScoutingEventBL;
             }
         }
 
@@ -27,7 +26,7 @@ namespace Carrick.Web.Controllers
         [AllowAnonymous]
         public IScoutingEvent[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<IScoutingEvent>();
+            return _BL.GetAllItems().ToArray<IScoutingEvent>();
         }
 
 
@@ -35,7 +34,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IScoutingEvent[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IScoutingEvent>();
+            return _BL.GetUpdatedItems(updatetimestamp).ToArray<IScoutingEvent>();
         }
 
         // GET api/values/5
@@ -43,7 +42,7 @@ namespace Carrick.Web.Controllers
         [HttpGet]
         public IScoutingEvent Get(int id)
         {
-            return datacontroller.GetItem(id);
+            return _BL.GetItem(id);
         }
 
 
@@ -53,7 +52,7 @@ namespace Carrick.Web.Controllers
         [HttpPost]
         public IScoutingEvent Insert([FromBody]IScoutingEvent s)
         {
-            return datacontroller.InsertItem(s);
+            return _BL.InsertItem(s);
         }
 
 
@@ -63,7 +62,7 @@ namespace Carrick.Web.Controllers
         [HttpPut]
         public IScoutingEvent Update(int id, [FromBody] IScoutingEvent s)
         {
-            return datacontroller.ModifyItem(s);
+            return _BL.ModifyItem(s);
         }
 
         // DELETE api/values/5
@@ -72,7 +71,7 @@ namespace Carrick.Web.Controllers
         [HttpDelete]
         public IScoutingEvent Delete(int id)
         {
-            return datacontroller.DeleteItem(id);
+            return _BL.DeleteItem(id);
         }
     }
 }

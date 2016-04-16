@@ -89,18 +89,6 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SQLite.Net, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLite.Net.Core-PCL.3.1.1\lib\portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1\SQLite.Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLite.Net.Platform.Generic, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLite.Net-PCL.3.1.1\lib\net40\SQLite.Net.Platform.Generic.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLite.Net.Platform.Win32, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLite.Net-PCL.3.1.1\lib\net4\SQLite.Net.Platform.Win32.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -273,6 +261,8 @@
     <Compile Include="Areas\RouteDebugger\RequestHelper.cs" />
     <Compile Include="Areas\RouteDebugger\RouteDebuggerAreaRegistration.cs" />
     <Compile Include="Areas\RouteDebugger\RouteDebuggerConfig.cs" />
+    <Compile Include="BL.cs" />
+    <Compile Include="CarrickEntityDataModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BadgeController.cs" />
@@ -288,6 +278,26 @@
     <Compile Include="Controllers\Residence.cs" />
     <Compile Include="Controllers\ScoutingEventController.cs" />
     <Compile Include="Controllers\ScoutingRoleController.cs" />
+    <Compile Include="DataControllers\Authorisation.cs" />
+    <Compile Include="DataControllers\AuthorisationPerson.cs" />
+    <Compile Include="DataControllers\BadgeDataProvider.cs" />
+    <Compile Include="DataControllers\BusinessModel.cs" />
+    <Compile Include="DataControllers\EventLocationDataProvider.cs" />
+    <Compile Include="DataControllers\GenericDataProvider.cs" />
+    <Compile Include="DataControllers\LocationDataProvider.cs" />
+    <Compile Include="DataControllers\OrganisationUnitDataProvider.cs" />
+    <Compile Include="DataControllers\PersonBadgeDataProvider.cs" />
+    <Compile Include="DataControllers\PersonDataProvider.cs" />
+    <Compile Include="DataControllers\PersonOrganisationUnitDataProvider.cs" />
+    <Compile Include="DataControllers\PersonPersonDataProvider.cs" />
+    <Compile Include="DataControllers\PersonResidenceDataProviderr.cs" />
+    <Compile Include="DataControllers\PersonScoutingEventDataProvider.cs" />
+    <Compile Include="DataControllers\PersonScoutingRoleDataProvider.cs" />
+    <Compile Include="DataControllers\PersonSignInDataProvider.cs" />
+    <Compile Include="DataControllers\Repository.cs" />
+    <Compile Include="DataControllers\ResidenceDataProvider.cs" />
+    <Compile Include="DataControllers\ScoutingEventDataProvider.cs" />
+    <Compile Include="DataControllers\ScoutingRoleDataProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -303,11 +313,31 @@
     <Compile Include="Migrations\201604120106547_Initial.Designer.cs">
       <DependentUpon>201604120106547_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\201604120512429_Carrick.cs" />
+    <Compile Include="Migrations\201604120512429_Carrick.Designer.cs">
+      <DependentUpon>201604120512429_Carrick.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Badge.cs" />
+    <Compile Include="Models\EventLocation.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\OrganisationUnit.cs" />
+    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\PersonBadge.cs" />
+    <Compile Include="Models\PersonOrganisationUnit.cs" />
+    <Compile Include="Models\PersonPerson.cs" />
+    <Compile Include="Models\PersonResidence.cs" />
+    <Compile Include="Models\PersonScoutingEvent.cs" />
+    <Compile Include="Models\PersonScoutingRole.cs" />
+    <Compile Include="Models\PersonSignIn.cs" />
+    <Compile Include="Models\RelationshipKey.cs" />
+    <Compile Include="Models\Residence.cs" />
+    <Compile Include="Models\ScoutingEvent.cs" />
+    <Compile Include="Models\ScoutingRole.cs" />
+    <Compile Include="Models\TableBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="RequireHttpsAttribute.cs" />
@@ -407,10 +437,6 @@
       <Project>{b88df5aa-ad6a-493e-986f-62bf41dee512}</Project>
       <Name>Carrick.BusinessLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Carrick.Data\Carrick.ServerData.csproj">
-      <Project>{b6bce6f5-8bba-42e4-971b-01d42a0ecfcd}</Project>
-      <Name>Carrick.ServerData</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201603150054513_InitialCreate.resx">
@@ -421,6 +447,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604120106547_Initial.resx">
       <DependentUpon>201604120106547_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604120512429_Carrick.resx">
+      <DependentUpon>201604120512429_Carrick.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

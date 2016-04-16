@@ -12,12 +12,11 @@
     public class ResidenceController : ApiController
         {
 
-        private ResidenceDataProvider datacontroller
+        private ResidenceBusinessLogic _BL
         {
             get
             {
-                return BusinessModel.Singleton.ResidenceDataController;
-
+                return BL.Singleton.ResidenceBL;
             }
         }
 
@@ -26,7 +25,7 @@
         [HttpGet]
         public IResidence[] Get()
         {
-            return datacontroller.GetAllItems().ToArray<IResidence>();
+            return _BL.GetAllItems().ToArray<IResidence>();
         }
 
 
@@ -34,7 +33,7 @@
         [HttpGet]
         public IResidence[] Get(DateTime updatetimestamp)
         {
-            return datacontroller.GetUpdatedItems(updatetimestamp).ToArray<IResidence>();
+            return _BL.GetUpdatedItems(updatetimestamp).ToArray<IResidence>();
         }
 
         // GET api/values/5
@@ -42,7 +41,7 @@
         [HttpGet]
         public IResidence Get(int id)
         {
-            return datacontroller.GetItem(id);
+            return _BL.GetItem(id);
         }
 
 
@@ -51,7 +50,7 @@
         [HttpPost]
         public IResidence Insert([FromBody] IResidence s)
         {
-            return datacontroller.InsertItem(s);
+            return _BL.InsertItem(s);
         }
 
 
@@ -60,7 +59,7 @@
         [HttpPut]
         public IResidence Update(int id, [FromBody]  IResidence s)
         {
-            return datacontroller.ModifyItem(s);
+            return _BL.ModifyItem(s);
         }
 
         // DELETE api/values/5
@@ -68,7 +67,7 @@
         [HttpDelete]
         public void Delete(int id)
         {
-            datacontroller.DeleteItem(id);
+            _BL.DeleteItem(id);
         }
     }
 }

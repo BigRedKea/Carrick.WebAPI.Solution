@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Carrick.BusinessLogic.BusinessLogic
+namespace Carrick.BusinessLogic
 {
 
 

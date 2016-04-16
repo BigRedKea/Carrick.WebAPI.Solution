@@ -8,31 +8,30 @@ namespace Carrick.ClientData.DataProviders
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using BusinessLogic.Interfaces;   
+    using BusinessLogic.Interfaces;
     using System.Linq;
+    using DataProviders;
 
     public abstract class DataProviderBase<T,Z> : IDataProviderInterface<T>, IClientDataProvider where T : ITableBase where Z : TableBase, new()
 
     {
+
+        private LocalDataProvider<Z> _localStore;
+
         protected ModelDataProvider modelDataProvider;
         protected WebAPIHelper<T> helper;
-        protected Dictionary<int, T> Items = new Dictionary<int, T>();
+        
         protected ResolveConflictDelegate<T> resolver;
 
         internal DataProviderBase(ModelDataProvider modelDataProvider)
         {
             this.modelDataProvider = modelDataProvider;
+            _localStore = new LocalDataProvider<Z>();
+            _localStore.modelDataProvider = modelDataProvider;
+            _localStore.Initialise();
         }
    
-        //protected DataModel model()
-        //{
-        //    return modelDataProvider.model;
-        //}
 
-        public void Initialise()
-        {
-            modelDataProvider.GetLocalConnection().CreateTable<T>();
-        }
 
         // http://havrl.blogspot.com.au/2013/08/synchronization-algorithm-for.html
 
@@ -70,49 +69,40 @@ namespace Carrick.ClientData.DataProviders
         public void Sync()
         {
             // Download any changes from the server
-            T[] i = helper.GetSync(GetLatestUpdateDatetime());
+            T[] i = helper.GetSync(_localStore.GetLatestUpdateDatetime());
             foreach (T y in i)
             {
                 InsertUpdateServerChange(y, resolver);
             }
 
             //Make a local copy
-            List<T> itms = new List<T>();
-            foreach (T s in Items.Values)
-            {
-                itms.Add(s);
-            }
+            //List<Z> itms = new List<Z>();
+            //foreach (Z s in Items.Values)
+            //{
+            //    itms.Add(s);
+            //}
 
             // Upload any new items
-            foreach (T s in itms)
+            foreach (Z s in _localStore.GetAllItems())
             {
                 if (s.RowLastUpdated == null)
                 {
-                    DataStoredResponse resp = helper.Insert(s);
+                    DataStoredResponse resp = helper.Insert(Convert(s));
                     s.RowLastUpdated = resp.RowLastUpdated;
-                    UpdateLocalItem(s);
+                    _localStore.UpdateLocalItem(s);
                 }
 
-                if (s.IsDirty)
-                {
-                    DataStoredResponse resp = helper.Update(s.Id, s);
-                    s.RowLastUpdated = resp.RowLastUpdated;
-                    s.IsDirty = false;
-                    UpdateLocalItem(s);
-                }
+                if (s.IsDirty.HasValue)
+                    if( s.IsDirty.Value)
+                    {
+                        DataStoredResponse resp = helper.Update(s.Id, Convert(s));
+                        s.RowLastUpdated = resp.RowLastUpdated;
+                        s.IsDirty = false;
+                        _localStore.UpdateLocalItem(s);
+                    }
             }
 
 
-        }
-
-        protected internal void DropTable()
-        {
-            modelDataProvider.GetLocalConnection().DropTable<T>();
-        }
-
-        protected internal void CreateTable()
-        {
-            modelDataProvider.GetLocalConnection().CreateTable<T>();
         }
 
         public static ResolveConflictOption ResolveConflictFavourClient(T clientitem, T serveritem)
@@ -125,60 +115,9 @@ namespace Carrick.ClientData.DataProviders
             return ResolveConflictOption.FavourServer;
         }
 
-        public T GetItem(int id)
-        {
-            T s;
-            Items.TryGetValue(id, out s);
-            return s;
-        }
-
-
-        public IEnumerable<T> GetActiveItems()
-        {
-            return Items.Values.Where(x => (x.IsDeleted == false));
-        }
-
         public IEnumerable<T> GetAllItems()
         {
-            return _GetAllItems();
-        }
-
-        protected IEnumerable<T> _GetAllItems()
-        {
-            return Items.Values;
-        }
-
-        public Dictionary <int,T>.ValueCollection  GetItems()
-        {
-            return Items.Values;
-        }
-
-
-
-        public T GetItem(IRelationshipKey key)
-        {
-            if (key.Id.HasValue)
-            {
-                return GetItem(key.Id.Value);
-            }
-            else if (key.RowGuid.HasValue)
-            {
-                return GetItem(key.RowGuid);
-            }
-            else if (key.LocalId.HasValue)
-            {
-                return _GetItemFromLocalId(key.LocalId.Value);
-            }
-            else
-            {
-                return default(T);
-            }
-        }
-
-        private T _GetItemFromLocalId(int LocalId)
-        {
-            T p = Items.Values.Where(x => x.LocalId  == LocalId).FirstOrDefault();
-            return p;
+            return Convert(_localStore.GetAllItems());
         }
 
         protected internal void  CreateWebAPIHelper( String relativelocation)
@@ -186,73 +125,31 @@ namespace Carrick.ClientData.DataProviders
             helper = new WebAPIHelper<T>(modelDataProvider.client, "api/" + relativelocation);
         }
 
-        protected internal DateTime? GetLatestUpdateDatetime()
-        {
-            DateTime? lastupdatetime = null;
-            foreach (T s in Items.Values)
-            {
-                if (s.RowLastUpdated.HasValue)
-                {
-                    if ((lastupdatetime == null)
-                        || (DateTime.Compare(s.RowLastUpdated.Value, lastupdatetime.Value) > 0))
-                    {
-                        lastupdatetime = s.RowLastUpdated.Value;
-                    }
-                }
-
-            }
-            return lastupdatetime;
-        }
 
         public T InsertItem(T itm)
         {
-            modelDataProvider.GetLocalConnection().Insert(itm);
-            Items.Add(itm.LocalId, itm);
-            return itm;
-        }
-
-         internal void UpdateLocalItem(T sr)
-        {
-            modelDataProvider.GetLocalConnection().Update(sr);
-            Items.Remove(sr.LocalId);
-            Items.Add(sr.LocalId , sr);
-        }
-
-        public void LoadLocalData()
-        {
-            Items.Clear();
-            CreateTable(); // If it doesn't exist
-
-            foreach (Z s in GetTable())
-            {
-                SQLiteNetExtensions.Extensions.ReadOperations.GetChildren(modelDataProvider.GetLocalConnection(), s);
-                Items.Add(s.LocalId, Convert(s));
-            }
+            return Convert(_localStore.InsertItem(Convert(itm)));
         }
 
         public abstract T Convert(Z z);
 
         public abstract Z Convert(T z);
 
-        public T GetItem(Guid? uniqueId)
+        public IEnumerable<T> Convert(IEnumerable<Z> itms)
         {
-            if (uniqueId.HasValue)
-            { 
-            foreach (T s in Items.Values)
+            IList <T> retval = new List<T>();
+            foreach (Z itm in itms)
             {
-                if (s.RowGuid.ToString() == uniqueId.Value.ToString())
-                {
-                    return s;
-                }
+                retval.Add(Convert(itm));
             }
+            return retval;
         }
-            return default(T);
-        }
+
 
         internal protected void InsertUpdateServerChange(T serveritem, ResolveConflictDelegate<T> resolveconflict)
         {
             //Look for a local item
-            T localitem = GetItem(serveritem.RowGuid);
+            Z localitem = _localStore.GetItem(serveritem.PrimaryKey());
 
             // Insert into the local store if a local item cannot be found
             if (localitem == null)
@@ -260,13 +157,14 @@ namespace Carrick.ClientData.DataProviders
 
             else if (localitem.RowLastUpdated != serveritem.RowLastUpdated)
             {
-                if (localitem.IsDirty)
-                {
-                    ResolveConflictOption r = resolveconflict.Invoke(localitem, serveritem);
+                if (localitem.IsDirty.HasValue)
+                    if (localitem.IsDirty.Value)
+                    {
+                    ResolveConflictOption r = resolveconflict.Invoke(Convert(localitem), serveritem);
                     if (r == ResolveConflictOption.FavourClient)
                     {
                         // Push update back to the server
-                        DataStoredResponse resp = helper.Update(localitem.Id, localitem);
+                        DataStoredResponse resp = helper.Update(localitem.Id, Convert(localitem));
 
                         localitem.RowLastUpdated = resp.RowLastUpdated;
                         modelDataProvider.GetLocalConnection().Update(localitem);
@@ -274,7 +172,7 @@ namespace Carrick.ClientData.DataProviders
                     else if (r == ResolveConflictOption.FavourServer)
                     {
                         // Accept the server changes
-                        OverWriteWithServerVersion(localitem, serveritem);
+                        OverWriteWithServerVersion(localitem, Convert(serveritem));
                     }
                     //Conflict
                     // Update the local item with the server item
@@ -282,37 +180,17 @@ namespace Carrick.ClientData.DataProviders
                 else
                 {
                     //Overwrite with server version no conflict
-                    OverWriteWithServerVersion(localitem, serveritem);
+                    OverWriteWithServerVersion(localitem, Convert(serveritem));
                 }
             }
         }
 
-        internal protected void OverWriteWithServerVersion(T clientitem, T serveritem)
+        internal protected void OverWriteWithServerVersion(Z clientitem, Z serveritem)
         {
             //Overwrite with server version no conflict
             serveritem.LocalId = clientitem.LocalId;
             serveritem.IsDirty = false;
-            UpdateLocalItem(serveritem);
-        }
-
-        public T ModifyItem(T itm)
-        {
-            itm.IsDirty = true;
-            UpdateLocalItem(itm);
-            return itm;
-        }
-
-        public T DeleteItem(T itm)
-        {
-            itm.IsDeleted = true;
-            itm.IsDirty = true;
-            UpdateLocalItem(itm);
-            return itm;
-        }
-
-        protected internal TableQuery<Z> GetTable()
-        {
-            return modelDataProvider.GetLocalConnection().Table<Z>();
+            _localStore.UpdateLocalItem(serveritem);
         }
 
 
@@ -326,5 +204,50 @@ namespace Carrick.ClientData.DataProviders
         {
             return Convert(new Z());
         }
+
+        public T ModifyItem(T item)
+        {
+            return Convert(_localStore.ModifyItem(Convert(item)));
+        }
+   
+
+        public T DeleteItem(T item)
+        {
+            return Convert(_localStore.DeleteItem(Convert(item)));
+        }
+
+        public T GetItem(IRelationshipKey key)
+        {
+            return Convert(_localStore.GetItem(key));
+        }
+
+        public IEnumerable<T> GetActiveItems()
+        {
+            return Convert(_localStore.GetActiveItems());
+        }
+
+        public void Initialise()
+        {
+            _localStore.Initialise();
+        }
+
+        public void LoadLocalData()
+        {
+            _localStore.LoadLocalData();
+        }
+
+        public IRelationshipKey CreateRelationshipKey()
+        {
+            return new RelationshipKey();
+        }
+
+        public T DeleteItem(IRelationshipKey key)
+        {
+            Convert(_localStore.DeleteItem(Convert(GetItem(key))));
+            return GetItem(key);
+        }
+
+        public Func<T, object> defaultOrder { get; set; }
+
     }
 }
