@@ -24,9 +24,19 @@ namespace Carrick.Web.Controllers
         [AcceptVerbs("GET")]
         [HttpGet]
         [AllowAnonymous]
-        public IScoutingEvent[] Get()
+        public IScoutingEvent[] GetActiveItems()
         {
-            return _BL.GetAllItems().ToArray<IScoutingEvent>();
+            return _BL.GetActiveItems().ToArray<IScoutingEvent>();
+        }
+
+
+        // GET api/values
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IScoutingEvent[] GetFutureItems()
+        {
+            return _BL.GetFutureItems().ToArray<IScoutingEvent>();
         }
 
 

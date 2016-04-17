@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using Carrick.BusinessLogic.CompositeObjects;
 using Carrick.BusinessLogic.Interfaces;
+using System.Linq;
 
 namespace Carrick.BusinessLogic
 {
@@ -17,9 +18,16 @@ namespace Carrick.BusinessLogic
             throw new NotImplementedException();
         }
 
+        public IEnumerable<IScoutingEvent> GetFutureItems()
+        { 
+            return DataProvider.GetActiveItems().Where(x => x.StartDateTime > DateTime.Now);
+        }
+
         public IScoutingEvent GetScoutingEvent(PersonScoutingEventComposite p)
         {
             throw new NotImplementedException();
         }
+
+
     }
 }
