@@ -42,10 +42,6 @@ namespace Carrick.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public IPerson GetPerson(IPersonBadge itm)
-        {
-            throw new NotImplementedException();
-        }
 
         public IPerson GetPerson(int id)
         {

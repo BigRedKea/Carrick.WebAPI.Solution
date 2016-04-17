@@ -15,22 +15,6 @@ namespace Carrick.BusinessLogic
 
         }
 
-        public IBadge GetBadge(IPersonBadge br)
-        {
-            if (br != null)
-            {
-                return null;
-            }
-            else if (br.BadgeId != null)
-            {
-                return null;
-            }
-            else
-            { 
-                return GetItem(br.BadgeId.Value);
-            }
-        }
-
 
         public IEnumerable<IBadge> SearchActiveItems(string searchText, int Limit)
         {
@@ -51,10 +35,13 @@ namespace Carrick.BusinessLogic
 
             IEnumerable<IBadge> p = GetActiveItems()
                     .Where(x => x.BadgeEnabled.HasValue == true)
-                    .Where(x => x.BadgeEnabled.Value == true)
-                    .OrderBy(DataProvider.defaultOrder);
+                    .Where(x => x.BadgeEnabled.Value == true);
+                    //.OrderBy(DataProvider.defaultOrder);
             return p;
         }
+
+
+
 
     }
 }

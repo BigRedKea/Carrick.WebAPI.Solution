@@ -9,6 +9,7 @@
         {
             CreateWebAPIHelper("badge");
             resolver = ResolveConflictFavourClient;
+          
         }
 
         public override Badge Convert(IBadge z)
@@ -19,6 +20,15 @@
         public override IBadge Convert(Badge z)
         {
             return z;
+        }
+
+
+        public override System.Func<IBadge, object> defaultOrder
+        {
+            get
+            {
+                return (IBadge t) => t.BadgeSort;
+            }
         }
     }
 }

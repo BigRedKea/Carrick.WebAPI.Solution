@@ -14,20 +14,16 @@
         }
 
         public event PropertyChangedEventHandler PropertyChangedEvent;
-
-        //public int LocalId { get; set; }
     
         public int Id { get; set; }
 
         public Guid? RowGuid { get; set; } = Guid.NewGuid();
 
-        public bool IsDeleted { get; set; } = false; 
-
-        //public bool? IsDirty { get; set; } = false;
+        public DateTime? RowCreated { get; set; }
 
         public DateTime? RowLastUpdated { get; set; }
 
-        public DateTime? RowCreated { get; set; }
+        public DateTime? RowDeleted{ get; set; }
 
         public void PropertyChanged(string PropertyName, object value) 
         {

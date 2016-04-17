@@ -11,7 +11,6 @@
 
         internal BadgeDataProvider(Repository r) : base(r, r.DataModel.Badges)
         {
-            defaultOrder = (Badge t) => t.BadgeSort;
         }
 
         public override Badge Convert(IBadge z)
@@ -23,9 +22,6 @@
         {
             return z;
         }
-
-
-
 
         protected internal override IBadge TransferSpecificProperties(IBadge original, ref Badge destination, Authorisation <IBadge> Authorisation = null)
         {
@@ -44,5 +40,12 @@
         }
 
 
+        public override System.Func<IBadge, object> defaultOrder
+        {
+            get
+            {
+                return (IBadge t) => t.BadgeSort;
+            }
+        }
     }
 }

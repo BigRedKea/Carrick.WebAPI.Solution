@@ -24,7 +24,7 @@
             destination.LeaderAssignedGuid = original.LeaderAssignedGuid;
             destination.AuthorisedById = original.AuthorisedById;
             destination.AuthorisedByGuid = original.AuthorisedByGuid;
-            destination.PresentedDateTime = original.PresentedDateTime;
+            destination.PresentedTimeStamp = original.PresentedTimeStamp;
             destination.OrderID = original.OrderID;
             destination.BadgeMissingFromOrder = original.BadgeMissingFromOrder;
             return destination;

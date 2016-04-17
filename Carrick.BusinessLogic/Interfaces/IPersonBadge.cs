@@ -17,7 +17,7 @@ namespace Carrick.BusinessLogic.Interfaces
         int? AuthorisedById { get; set; }
         Guid? AuthorisedByGuid { get; set; }
 
-        DateTime? PresentedDateTime { get; set; }
+        DateTime? PresentedTimeStamp { get; set; }
 
         int? OrderID { get; set; }
 

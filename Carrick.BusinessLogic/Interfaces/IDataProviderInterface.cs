@@ -36,6 +36,6 @@ namespace Carrick.BusinessLogic.Interfaces
         IRelationshipKey CreateRelationshipKey();
         T DeleteItem(IRelationshipKey key);
 
-        Func<T, object> defaultOrder { get; set; }
+        Func<T, object> defaultOrder { get; }
     }
 }

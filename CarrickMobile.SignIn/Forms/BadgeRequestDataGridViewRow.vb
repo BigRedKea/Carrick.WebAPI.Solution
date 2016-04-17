@@ -120,8 +120,8 @@ Public Class BadgeRequestDataGridViewRow : Inherits DataGridViewRow
                 AuthorisedByCell.Value = BL.Singleton.PersonBL.GetItem(_BadgeRequest.PersonBadge.AuthorisedById.Value).ScoutName
             End If
 
-            If _BadgeRequest.PersonBadge.PresentedDateTime.HasValue Then
-                PresentedCell.Value = _BadgeRequest.PersonBadge.PresentedDateTime.Value.ToString("d/MMM/yy")
+            If _BadgeRequest.PersonBadge.PresentedTimeStamp.HasValue Then
+                PresentedCell.Value = _BadgeRequest.PersonBadge.PresentedTimeStamp.Value.ToString("d/MMM/yy")
             Else
                 PresentedCell.Value = Nothing
             End If

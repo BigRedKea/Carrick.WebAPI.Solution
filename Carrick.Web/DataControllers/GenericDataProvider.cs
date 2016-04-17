@@ -26,7 +26,6 @@ namespace Carrick.ServerData.Controllers
             {
                 Repository = r;
                 this.dataset = dataset;
-                defaultOrder = (Z t) => t.Id;
             }
             catch (Exception ex)
             {
@@ -112,32 +111,33 @@ namespace Carrick.ServerData.Controllers
             return Convert(copy);
         }
 
-        public Func<Z, object> defaultOrder{get; set; }
+        public virtual Func<T, object> defaultOrder
+        {
+            get
+            {
+                return (T t) => t.Id;
+            }
+        }
 
         Func<T, object> IDataProviderInterface<T>.defaultOrder
         {
             get
             {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
+                return (T t) => t.Id;
             }
         }
 
         public virtual IEnumerable<T> GetActiveItems ()
         {
-            IEnumerable<Z> p = _GetActiveItems().OrderBy(defaultOrder);
+            IEnumerable<Z> p = _GetActiveItems();
             IEnumerable<T> copy = CopyData(p, AuthorisationGet);
-            return copy;
+            return copy.OrderBy(defaultOrder);
         }
 
 
         protected IQueryable<Z> _GetActiveItems()
         {
-            return dataset.Where(x => (x.IsDeleted == false));
+            return dataset.Where(x => !(x.RowDeleted.HasValue ));
         }
 
         protected IQueryable<Z> _GetAllItems()
@@ -147,9 +147,9 @@ namespace Carrick.ServerData.Controllers
 
         public virtual IEnumerable<T> GetAllItems()
         {
-            IEnumerable<Z> p = dataset.OrderBy(defaultOrder);
+            IEnumerable<Z> p = dataset;
             IEnumerable<T> copy = CopyData(p, AuthorisationGet);
-            return copy;
+            return copy.OrderBy(defaultOrder);
         }
 
         //protected internal abstract T TransferSpecificProperties(T original, ref T destination, Authorisation<T> a);
@@ -160,10 +160,10 @@ namespace Carrick.ServerData.Controllers
         {
             TransferSpecificProperties(original, ref destination, a);
             destination.Id = original.Id;
-            destination.IsDeleted = original.IsDeleted;
-            destination.RowCreated = original.RowCreated;
             destination.RowGuid = original.RowGuid;
+            destination.RowCreated = original.RowCreated;
             destination.RowLastUpdated = original.RowLastUpdated;
+            destination.RowDeleted = original.RowDeleted;
 
             return Convert(destination);
         }
@@ -261,7 +261,7 @@ namespace Carrick.ServerData.Controllers
 
         public T DeleteItem(T item)
         {
-            item.IsDeleted = true;
+            item.RowDeleted = DateTime.UtcNow;
             return ModifyItem(item);
         }
 
@@ -276,14 +276,14 @@ namespace Carrick.ServerData.Controllers
         {
             T s = GetItem(id);
 
-            s.IsDeleted = true;
+            s.RowDeleted= DateTime.UtcNow;
             return ModifyItem(s);
         }
 
         public T DeleteItem(IRelationshipKey key)
         {
             T s = GetItem(key);
-            s.IsDeleted = true;
+            s.RowDeleted = DateTime.UtcNow;
             return ModifyItem(s);
         }
 

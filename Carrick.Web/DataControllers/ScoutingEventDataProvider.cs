@@ -5,11 +5,20 @@
 
     using BusinessLogic.Interfaces;
     using Web.Models;
+    using System;
     public class ScoutingEventDataProvider : GenericDataProvider<IScoutingEvent, ScoutingEvent>
     {
         internal ScoutingEventDataProvider(Repository r) : base(r, r.DataModel.ScoutingEvents)
         {
-            defaultOrder = (x => x.StartDateTime);
+
+        }
+
+        public override Func<IScoutingEvent, object> defaultOrder
+        {
+            get
+            {
+                return (x => x.StartDateTime);
+            }
         }
 
         protected internal override IScoutingEvent TransferSpecificProperties(IScoutingEvent original, ref ScoutingEvent destination, Authorisation<IScoutingEvent> Authorisation = null)

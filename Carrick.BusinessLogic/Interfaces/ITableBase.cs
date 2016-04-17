@@ -7,19 +7,15 @@ namespace Carrick.BusinessLogic.Interfaces
     public interface ITableBase
     {
 
-        //int LocalId { get; set; }
-
         int Id { get; set; }
 
         Guid? RowGuid { get; set; }
 
-        bool IsDeleted { get; set; }
-
-        //bool? IsDirty { get; set; }
+        DateTime? RowCreated { get; set; }
 
         DateTime? RowLastUpdated { get; set; }
 
-        DateTime? RowCreated { get; set; }
+        DateTime? RowDeleted { get; set; }
 
         IRelationshipKey PrimaryKey();
 

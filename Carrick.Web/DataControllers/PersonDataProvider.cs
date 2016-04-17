@@ -73,12 +73,9 @@
 
         public override IEnumerable<IPerson> GetActiveItems()
         {
-            return base.GetActiveItems().Where(x => (x.IsDeleted == false)
+            return base.GetActiveItems().Where(x => !(x.RowDeleted.HasValue)
                     && (x.DateLeftOrganisation == null));
         }
-
-
-
 
         public override Person Convert(IPerson z)
         {

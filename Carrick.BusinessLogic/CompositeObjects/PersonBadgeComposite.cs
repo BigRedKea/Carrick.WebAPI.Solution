@@ -13,6 +13,24 @@ namespace Carrick.BusinessLogic.CompositeObjects
     {
         public IPerson Person { get; set; }
         public IBadge Badge { get; set; }
-        public IPersonBadge PersonBadge { get; set; }  
+        public IPersonBadge PersonBadge { get; set; }
+
+        public int Id { get; set; }
+
+        public String PersonBadgeState {
+            get
+            {
+                if (PersonBadge.RowDeleted.HasValue)
+                { return "Deleted"; }
+                else if (PersonBadge.PresentedTimeStamp.HasValue)
+                { return "Presented"; }
+                else if (PersonBadge.AuthorisedByGuid.HasValue)
+                { return "Authorised to Present"; }
+                else if (PersonBadge.LeaderAssignedGuid.HasValue)
+                { return "Leader Assigned"; }
+                else
+                { return "Not Assigned"; }
+            }
+        }
     }
 }

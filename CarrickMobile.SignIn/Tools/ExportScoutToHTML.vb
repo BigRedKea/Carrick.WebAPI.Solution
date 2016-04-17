@@ -149,9 +149,9 @@ Public Class ExportPersonToHTML
                         For Each itm As IPersonBadge In badges.Values
                             Dim s As New List(Of String)
                             s.Add(itm.Id.ToString)
-                            s.Add(BL.Singleton.BadgeBL.GetBadge(itm).BadgeName)
-                            If itm.PresentedDateTime.HasValue Then
-                                s.Add(itm.PresentedDateTime.Value.ToString("dd/MMM/yyyy"))
+                            s.Add(BL.Singleton.BadgeBL.GetItem(itm).BadgeName)
+                            If itm.PresentedTimeStamp.HasValue Then
+                                s.Add(itm.PresentedTimeStamp.Value.ToString("dd/MMM/yyyy"))
                             Else
                                 s.Add("Not Presented")
                             End If

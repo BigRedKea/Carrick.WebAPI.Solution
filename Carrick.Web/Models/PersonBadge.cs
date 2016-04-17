@@ -21,7 +21,7 @@ namespace Carrick.Web.Models
         public int? AuthorisedById { get; set; }
         public Guid? AuthorisedByGuid { get; set; }
 
-        public DateTime? PresentedDateTime { get; set; }
+        public DateTime? PresentedTimeStamp { get; set; }
 
         public int? OrderID { get; set; }
 

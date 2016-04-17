@@ -247,7 +247,13 @@ namespace Carrick.ClientData.DataProviders
             return GetItem(key);
         }
 
-        public Func<T, object> defaultOrder { get; set; }
+        public virtual Func<T, object> defaultOrder
+        {
+            get
+            {
+                return (T t) => t.Id;
+            }
+        }
 
     }
 }

@@ -24,7 +24,11 @@ namespace Carrick.BusinessLogic
         public T GetItem(int id)
         {
             IRelationshipKey key = DataProvider.CreateRelationshipKey();
-            key.Id = id;
+            return GetItem(key);
+        }
+
+        public T GetItem(IRelationshipKey key)
+        {
             return DataProvider.GetItem(key);
         }
 

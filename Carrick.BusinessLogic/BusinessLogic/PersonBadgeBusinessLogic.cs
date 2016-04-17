@@ -19,18 +19,6 @@ namespace Carrick.BusinessLogic
             throw new NotImplementedException();
         }
 
-        private PersonBadgeComposite CreateBadgeRequestComposite(IPersonBadge br)
-        {
-            PersonBadgeComposite brc = new PersonBadgeComposite()
-            {
-                PersonBadge = br
-                          ,
-                Badge = _BL.BadgeBL.GetBadge(br)
-                          ,
-                Person = _BL.PersonBL.GetPerson(br)
-            };
-            return brc;
-        }
 
         public IEnumerable<PersonBadgeComposite> GetBadgesToAuthorise()
         {
@@ -38,9 +26,9 @@ namespace Carrick.BusinessLogic
 
             foreach (IPersonBadge br in GetAllItems())
             {
-                if (br.PresentedDateTime == null && br.AuthorisedById == null)
+                if (!br.PresentedTimeStamp.HasValue && !br.AuthorisedById.HasValue)
                 {
-                    brs.Add(CreateBadgeRequestComposite(br));
+                    brs.Add(GetComposite(br));
                 }
             }
             return brs;
@@ -54,9 +42,9 @@ namespace Carrick.BusinessLogic
 
             foreach (IPersonBadge br in GetAllItems())
             {
-                if (br.PresentedDateTime == null && !(br.AuthorisedById ==null))
+                if (!br.PresentedTimeStamp.HasValue && br.AuthorisedById.HasValue)
                 {
-                    brs.Add(CreateBadgeRequestComposite(br));
+                    brs.Add(GetComposite(br));
                 }
             }
             return brs;
@@ -68,14 +56,22 @@ namespace Carrick.BusinessLogic
 
             foreach (IPersonBadge s in items)
             {
-                PersonBadgeComposite r = new PersonBadgeComposite();
-                r.PersonBadge = s;
-                r.Badge = _BL.BadgeBL.GetItem(s.BadgeId.Value);
-                r.Person = _BL.PersonBL.GetItem(s.PersonId.Value);
+                PersonBadgeComposite r = GetComposite(s);
                 retval.Add(r);
             }
             return retval;
         }
+
+        public PersonBadgeComposite GetComposite(IPersonBadge s)
+        {
+            PersonBadgeComposite r = new PersonBadgeComposite();
+            r.Id = s.Id;
+            r.PersonBadge = s;
+            r.Badge = _BL.BadgeBL.GetItem(s.BadgeKey());
+            r.Person = _BL.PersonBL.GetItem(s.PersonKey());
+            return r;
+        }
+
 
         public void AddServiceBadges()
         {
@@ -103,9 +99,10 @@ namespace Carrick.BusinessLogic
             {
                 List<PersonBadgeComposite> brs = new List<PersonBadgeComposite>();
 
-                foreach (IPersonBadge br in base.GetActiveItems())
+                foreach (IPersonBadge br in DataProvider.GetActiveItems()
+                    .Where(x => x.PersonId==person.Id))
                 {
-                    brs.Add(CreateBadgeRequestComposite(br));
+                    brs.Add(GetComposite(br));
                 }
                 return brs;
             }
@@ -127,7 +124,7 @@ namespace Carrick.BusinessLogic
 
         public void SetBadgePresented(PersonBadgeComposite br)
         {
-            br.PersonBadge.PresentedDateTime = DateTime.Now;
+            br.PersonBadge.PresentedTimeStamp= DateTime.Now;
 
             if (br.Badge.Stock > 0)
             {

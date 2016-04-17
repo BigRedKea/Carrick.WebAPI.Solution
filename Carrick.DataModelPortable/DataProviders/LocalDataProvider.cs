@@ -49,7 +49,7 @@ namespace Carrick.ClientData.DataProviders
 
         public IEnumerable<Z> GetActiveItems()
         {
-            return Items.Values.Where(x => (x.IsDeleted == false));
+            return Items.Values.Where(x => !(x.RowDeleted.HasValue));
         }
 
         public IEnumerable<Z> GetAllItems()
@@ -121,7 +121,7 @@ namespace Carrick.ClientData.DataProviders
 
         public Z DeleteItem(Z itm)
         {
-            itm.IsDeleted = true;
+            itm.RowDeleted = DateTime.UtcNow;
             itm.IsDirty = true;
             UpdateLocalItem(itm);
             return itm;
