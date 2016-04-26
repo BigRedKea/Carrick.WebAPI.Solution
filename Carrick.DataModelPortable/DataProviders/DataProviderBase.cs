@@ -19,7 +19,7 @@ namespace Carrick.ClientData.DataProviders
         private LocalDataProvider<Z> _localStore;
 
         protected ModelDataProvider modelDataProvider;
-        protected WebAPIHelper<T> helper;
+        protected WebAPIHelper<Z> helper;
         
         protected ResolveConflictDelegate<T> resolver;
 
@@ -69,8 +69,8 @@ namespace Carrick.ClientData.DataProviders
         public void Sync()
         {
             // Download any changes from the server
-            T[] i = helper.GetSync(_localStore.GetLatestUpdateDatetime());
-            foreach (T y in i)
+            Z[] i = helper.GetSync(_localStore.GetLatestUpdateDatetime());
+            foreach (Z y in i)
             {
                 InsertUpdateServerChange(y, resolver);
             }
@@ -87,7 +87,7 @@ namespace Carrick.ClientData.DataProviders
             {
                 if (s.RowLastUpdated == null)
                 {
-                    DataStoredResponse resp = helper.Insert(Convert(s));
+                    DataStoredResponse resp = helper.Insert(s);
                     s.RowLastUpdated = resp.RowLastUpdated;
                     _localStore.UpdateLocalItem(s);
                 }
@@ -95,7 +95,7 @@ namespace Carrick.ClientData.DataProviders
                 if (s.IsDirty.HasValue)
                     if( s.IsDirty.Value)
                     {
-                        DataStoredResponse resp = helper.Update(s.Id, Convert(s));
+                        DataStoredResponse resp = helper.Update(s.Id, s);
                         s.RowLastUpdated = resp.RowLastUpdated;
                         s.IsDirty = false;
                         _localStore.UpdateLocalItem(s);
@@ -122,7 +122,7 @@ namespace Carrick.ClientData.DataProviders
 
         protected internal void  CreateWebAPIHelper( String relativelocation)
         {
-            helper = new WebAPIHelper<T>(modelDataProvider.client, "api/" + relativelocation);
+            helper = new WebAPIHelper<Z>(modelDataProvider.client, "api/" + relativelocation);
         }
 
 
@@ -146,25 +146,25 @@ namespace Carrick.ClientData.DataProviders
         }
 
 
-        internal protected void InsertUpdateServerChange(T serveritem, ResolveConflictDelegate<T> resolveconflict)
+        internal protected void InsertUpdateServerChange(Z serveritem, ResolveConflictDelegate<T> resolveconflict)
         {
             //Look for a local item
             Z localitem = _localStore.GetItem(serveritem.PrimaryKey());
 
             // Insert into the local store if a local item cannot be found
             if (localitem == null)
-                InsertItem(serveritem);
+                InsertItem(Convert(serveritem));
 
             else if (localitem.RowLastUpdated != serveritem.RowLastUpdated)
             {
                 if (localitem.IsDirty.HasValue)
                     if (localitem.IsDirty.Value)
                     {
-                    ResolveConflictOption r = resolveconflict.Invoke(Convert(localitem), serveritem);
+                    ResolveConflictOption r = resolveconflict.Invoke(Convert(localitem), Convert(serveritem));
                     if (r == ResolveConflictOption.FavourClient)
                     {
                         // Push update back to the server
-                        DataStoredResponse resp = helper.Update(localitem.Id, Convert(localitem));
+                        DataStoredResponse resp = helper.Update(localitem.Id, localitem);
 
                         localitem.RowLastUpdated = resp.RowLastUpdated;
                         modelDataProvider.GetLocalConnection().Update(localitem);
@@ -172,7 +172,7 @@ namespace Carrick.ClientData.DataProviders
                     else if (r == ResolveConflictOption.FavourServer)
                     {
                         // Accept the server changes
-                        OverWriteWithServerVersion(localitem, Convert(serveritem));
+                        OverWriteWithServerVersion(localitem, serveritem);
                     }
                     //Conflict
                     // Update the local item with the server item
@@ -180,7 +180,7 @@ namespace Carrick.ClientData.DataProviders
                 else
                 {
                     //Overwrite with server version no conflict
-                    OverWriteWithServerVersion(localitem, Convert(serveritem));
+                    OverWriteWithServerVersion(localitem, serveritem);
                 }
             }
         }

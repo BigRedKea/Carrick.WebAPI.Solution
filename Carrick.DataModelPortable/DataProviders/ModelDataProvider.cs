@@ -14,7 +14,7 @@ namespace Carrick.ClientData.DataProviders
 
     public class ModelDataProvider :IDataProviders
     {
-        
+        private SQLite.Net.Interop.ISQLitePlatform _platform;
         private SQLiteConnection _conn;
 
         internal HttpClient client = new HttpClient();
@@ -23,8 +23,9 @@ namespace Carrick.ClientData.DataProviders
         private Dictionary<Type, IClientDataProvider> _DataProviders = new Dictionary<Type, IClientDataProvider>();
 
 
-        public ModelDataProvider(String url, string username, string password)
+        public ModelDataProvider(SQLite.Net.Interop.ISQLitePlatform platform, String url, string username, string password)
         {
+            _platform = platform;
             this.url = url;
             client.BaseAddress = new Uri(this.url);
 
@@ -69,17 +70,19 @@ namespace Carrick.ClientData.DataProviders
 
         internal SQLiteConnection GetLocalConnection()
         {
+            if (_conn == null)
+            { 
+                //Creating database, if it doesn't already exist
+                string dbPath = ("c:\\temp\\test.db3");
+
+                _conn = new SQLiteConnection(_platform, dbPath);
+            }
             return _conn;
         }
 
 
-        public void CreateModel(SQLite.Net.Interop.ISQLitePlatform platform)
+        public void CreateModel()
         {
-            //Creating database, if it doesn't already exist
-            string dbPath = ("c:\\temp\\test.db3");
-
-            _conn = new SQLiteConnection(platform, dbPath);
-
             foreach (IClientDataProvider c in _DataProviders.Values)
             {
                 c.Initialise();
@@ -109,6 +112,7 @@ namespace Carrick.ClientData.DataProviders
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex.ToString());
+                    throw ex;
                 }
                     
             }

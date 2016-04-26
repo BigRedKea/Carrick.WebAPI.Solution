@@ -21,9 +21,11 @@ namespace Carrick.Web.Controllers
         }
 
         // GET api/values
+
+        [Route("api/badge/getallitems")]
         [AcceptVerbs("GET")]
         [HttpGet]
-        public IOrganisationUnit[] Get()
+        public IOrganisationUnit[] GetAllItems()
         {
             return _BL.GetAllItems().ToArray<IOrganisationUnit>();
         }

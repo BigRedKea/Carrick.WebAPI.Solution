@@ -20,23 +20,13 @@ namespace Carrick.Web.Controllers
             }
         }
 
-        // GET api/values
+
+        [Route("api/scoutingevent/getallitems")]
         [AcceptVerbs("GET")]
         [HttpGet]
-        [AllowAnonymous]
-        public IScoutingEvent[] GetActiveItems()
+        public IScoutingEvent[] GetAllItems()
         {
-            return _BL.GetActiveItems().ToArray<IScoutingEvent>();
-        }
-
-
-        // GET api/values
-        [AcceptVerbs("GET")]
-        [HttpGet]
-        [AllowAnonymous]
-        public IScoutingEvent[] GetFutureItems()
-        {
-            return _BL.GetFutureItems().ToArray<IScoutingEvent>();
+            return _BL.GetAllItems().ToArray<IScoutingEvent>();
         }
 
 

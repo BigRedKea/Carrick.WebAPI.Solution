@@ -1,13 +1,15 @@
 ﻿
 using System;
 using Carrick.BusinessLogic.Interfaces;
+using System.Collections.Generic;
 
 namespace Carrick.BusinessLogic.CompositeObjects
 {
     public class PersonComposite
     {
         public IPerson Person { get; set; }
-        public IOrganisationUnit Organisation { get; set; }
+        public IEnumerable<IOrganisationUnit> OrganisationUnits { get; set; }
+        public int Id { get; internal set; }
 
         public TimeSpan? Age()
         {
@@ -31,11 +33,6 @@ namespace Carrick.BusinessLogic.CompositeObjects
             return Person.PreferredName + " " + Person.Surname;
         }
 
-
-       IOrganisationUnit Patrol()
-        {
-            throw new NotImplementedException();
-        }
 
         public TimeSpan? LengthOfService()
         {

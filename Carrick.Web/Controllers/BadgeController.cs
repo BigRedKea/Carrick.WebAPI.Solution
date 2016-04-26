@@ -40,7 +40,7 @@ namespace Carrick.Web.Controllers
         }
 
 
-        [Route("api/Badge/GetAllItems")]
+        [Route("api/badge/getallitems")]
         [AcceptVerbs("GET")]
         [HttpGet]
         public IBadge[] GetAllItems()
@@ -64,10 +64,10 @@ namespace Carrick.Web.Controllers
             return _BL.GetActiveItems().ToArray<IBadge>();
         }
 
-
+        [Route("api/Badge/GetUpdatedItems")]
         [AcceptVerbs("GET")]
         [HttpGet]
-        public IBadge[] Get(DateTime updatetimestamp)
+        public IBadge[] GetUpdatedItems(DateTime updatetimestamp)
         {
             return _BL.GetUpdatedItems(updatetimestamp).ToArray<IBadge>();
         }

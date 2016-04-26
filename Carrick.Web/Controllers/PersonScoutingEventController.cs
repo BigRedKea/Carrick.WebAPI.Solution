@@ -20,10 +20,10 @@ namespace Carrick.Web.Controllers
             }
         }
 
-        // GET api/values
+        [Route("api/personscoutingevent/getallitems")]
         [AcceptVerbs("GET")]
         [HttpGet]
-        public IPersonScoutingEvent[] Get()
+        public IPersonScoutingEvent[] GetAllItems()
         {
             return _BL.GetAllItems().ToArray<IPersonScoutingEvent>();
         }

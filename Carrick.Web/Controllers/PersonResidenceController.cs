@@ -19,10 +19,10 @@
             }
         }
 
-        // GET api/values
+        [Route("api/personresidence/getallitems")]
         [AcceptVerbs("GET")]
         [HttpGet]
-        public IPersonResidence[] Get()
+        public IPersonResidence[] GetAllItems()
         {
             return _BL.GetAllItems().ToArray<IPersonResidence>();
         }

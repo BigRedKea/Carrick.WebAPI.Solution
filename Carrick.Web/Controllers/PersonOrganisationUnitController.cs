@@ -21,9 +21,10 @@ namespace Carrick.Web.Controllers
         }
 
         // GET api/values
+        [Route("api/personorganisationunit/getallitems")]
         [AcceptVerbs("GET")]
         [HttpGet]
-        public IPersonOrganisationUnit[] Get()
+        public IPersonOrganisationUnit[] GetAllItems()
         {
             return _BL.GetAllItems().ToArray<IPersonOrganisationUnit>();
         }

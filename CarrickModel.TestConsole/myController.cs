@@ -13,7 +13,7 @@ namespace ScoutModel.TestConsole
 
         public DotNetController(string baseurl, string username, string password) : base()
         {
-            mc = new ModelDataProvider(baseurl, username, password);
+            mc = new ModelDataProvider(new SQLite.Net.Platform.Generic.SQLitePlatformGeneric(),baseurl, username, password);
 
             base.DataProviders = mc;
 
@@ -21,7 +21,7 @@ namespace ScoutModel.TestConsole
 
         public void Execute()
         {
-            mc.CreateModel(new SQLite.Net.Platform.Generic.SQLitePlatformGeneric());
+            mc.CreateModel();
             mc.LoadLocalData();
 
             mc.Sync();

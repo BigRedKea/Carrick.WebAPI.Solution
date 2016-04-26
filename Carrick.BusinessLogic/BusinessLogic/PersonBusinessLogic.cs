@@ -3,6 +3,7 @@ using Carrick.BusinessLogic.Interfaces;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Carrick.BusinessLogic
 {
@@ -34,7 +35,7 @@ namespace Carrick.BusinessLogic
 
         public IEnumerable<IPerson> GetActiveScouts()
         {
-            throw new NotImplementedException();
+            return DataProvider.GetActiveItems().Where(x => x.DateLeftOrganisation == null);
         }
 
         public string GetScoutsSignedIn()
@@ -64,6 +65,29 @@ namespace Carrick.BusinessLogic
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<PersonComposite> GetCompositeItems(IEnumerable<IPerson> items)
+        {
+            IList<PersonComposite> retval = new List<PersonComposite>();
+
+            foreach (IPerson s in items)
+            {
+                PersonComposite r = GetComposite(s);
+                retval.Add(r);
+            }
+            return retval;
+        }
+
+        public PersonComposite GetComposite(IPerson s)
+        {
+            PersonComposite r = new PersonComposite();
+            r.Id = s.Id;
+            r.Person = s;
+            r.OrganisationUnits  = _BL.OrganisationUnitBL.GetOrganisationUnits(s);
+            r.Person = s;
+            return r;
+        }
+
 
         public delegate void PersonSignedInHandler(PersonBusinessLogic sender, PersonSignedInEventArgs e);
         public event PersonSignedInHandler PersonSignedInEvent;

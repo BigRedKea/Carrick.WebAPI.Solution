@@ -19,10 +19,10 @@
             }
         }
 
-        // GET api/values
+        [Route("api/personscoutingrole/getallitems")]
         [AcceptVerbs("GET")]
         [HttpGet]
-        public IPersonScoutingRole[] Get()
+        public IPersonScoutingRole[] GetAllItems()
         {
             return _BL.GetAllItems().ToArray<IPersonScoutingRole>();
         }

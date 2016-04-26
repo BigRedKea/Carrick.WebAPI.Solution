@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Xml.Serialization
 Imports Carrick.BusinessLogic.Interfaces
+Imports Carrick.BusinessLogic.CompositeObjects
 
 Public Class MainForm
     Public Sub New()
@@ -10,7 +11,19 @@ Public Class MainForm
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Dim OrganisationUnits As List(Of IOrganisationUnit) = BL.Singleton.OrganisationUnitBL.GetOrganisationsSortedLargestToSmallest
+
+        Dim OrganisationUnits As New List(Of IOrganisationUnit)
+
+        Dim q As IEnumerable = BL.Singleton.PersonBL.GetActiveScouts()
+
+        For Each p As PersonComposite In BL.Singleton.PersonBL.GetCompositeItems(q)
+            For Each organisation In p.OrganisationUnits
+                If Not (OrganisationUnits.Contains(p.OrganisationUnits)) Then
+                    OrganisationUnits.Add(organisation)
+                End If
+            Next
+        Next
+
 
         For Each p As IOrganisationUnit In OrganisationUnits
             Dim ctl As New OrganisationLoginUserControl(p)
@@ -68,7 +81,7 @@ Public Class MainForm
         If Not BL.Singleton.LeaderModeEnabled Then
             Dim frm As New PasswordForm
             frm.ShowDialog()
-            If frm.Password <> "*********" Then
+            If frm.Password <> "***" Then
                 Exit Sub
             End If
         End If
@@ -79,7 +92,7 @@ Public Class MainForm
     End Sub
 
     Private Sub RefreshScreen()
-        Me.CountPersons.Text = BL.Singleton.PersonBL.GetScoutsSignedIn() & " Scouts Logged In, out of " & BL.Singleton.PersonBL.GetActiveScouts().Count
+        'Me.CountPersons.Text = BL.Singleton.PersonBL.GetScoutsSignedIn() & " Scouts Logged In, out of " & BL.Singleton.PersonBL.GetActiveScouts().Count
 
         Me.ToolsToolStripMenuItem.Enabled = BL.Singleton.LeaderModeEnabled
         Me.BadgesToolStripMenuItem.Enabled = BL.Singleton.LeaderModeEnabled

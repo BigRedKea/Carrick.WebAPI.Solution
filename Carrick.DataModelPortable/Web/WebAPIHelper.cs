@@ -33,10 +33,9 @@ namespace Carrick.ClientData.Web
 
             if (Id == "")
             {
-                
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "api/" + relativepath + "/getallitems").Result;
 
-                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "api/" + relativepath).Result;
-               
+
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     data = JsonConvert.DeserializeObject<Z[]>(response.Content.ReadAsStringAsync().Result);
@@ -44,7 +43,7 @@ namespace Carrick.ClientData.Web
             }
             else
             {
-                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "api/" + relativepath + Id).Result;
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "api/" + relativepath + "/getitem" + Id).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     Z obj = JsonConvert.DeserializeObject<Z>(response.Content.ReadAsStringAsync().Result);
@@ -56,17 +55,17 @@ namespace Carrick.ClientData.Web
         }
 
 
-        private Z[] GetSync<Z>(DateTime? syncdatetime)
+        private T[] GetSync<Z>(DateTime? syncdatetime)
         {
 
-            Z[] data = new Z[0];
+            T[] data = new T[0];
 
             if (syncdatetime == null)
             {
-                HttpResponseMessage response = client.GetAsync(client.BaseAddress + relativepath).Result;
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + relativepath + "/getallitems").Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    data = JsonConvert.DeserializeObject<Z[]>(response.Content.ReadAsStringAsync().Result);
+                    data = JsonConvert.DeserializeObject<T[]>(response.Content.ReadAsStringAsync().Result);
                 }
                 else
                 {
@@ -77,11 +76,11 @@ namespace Carrick.ClientData.Web
             }
             else
             {
-                String s = client.BaseAddress + relativepath + "?updatetimestamp=" + syncdatetime.Value.ToString("s", CultureInfo.InvariantCulture);
+                String s = client.BaseAddress + relativepath + "/GetUpdatedItems/" + "?updatetimestamp=" + syncdatetime.Value.ToString("s", CultureInfo.InvariantCulture);
                 HttpResponseMessage response = client.GetAsync(s).Result;
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    data = JsonConvert.DeserializeObject<Z[]>(response.Content.ReadAsStringAsync().Result);
+                    data = JsonConvert.DeserializeObject<T[]>(response.Content.ReadAsStringAsync().Result);
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 ﻿using Carrick.BusinessLogic.Interfaces;
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Carrick.BusinessLogic
 {
@@ -12,9 +13,17 @@ namespace Carrick.BusinessLogic
         {
         }
 
+        public IEnumerable<IPersonOrganisationUnit> GetPersonOrganisationUnits(IPerson s)
+        {
+            var p = GetActiveItems()
+                .Where(x => x.PersonGuid == s.RowGuid);
+            return p;  
+        }
+
         public void ChangeOrganisation(IPerson _Scout, IOrganisationUnit selectedItem)
         {
             throw new NotImplementedException();
         }
+
     }
 }

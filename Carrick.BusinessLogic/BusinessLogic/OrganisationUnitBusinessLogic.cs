@@ -5,23 +5,12 @@
 
     using System.Collections;
     using System.Collections.Generic;
-
+    using System.Linq;
     public class OrganisationUnitBusinessLogic : BusinessLogicBase<IOrganisationUnit>
     {
         internal OrganisationUnitBusinessLogic(BusinessLogic BL) :base (BL)
         {
         }
-
-        public object GetOrganisations(IPerson s)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<IOrganisationUnit> GetOrganisationsSortedLargestToSmallest()
-        {
-            throw new NotImplementedException();
-        }
-
 
         public delegate void PersonAddedHandler(OrganisationUnitBusinessLogic sender, PersonAddedEventArgs e);
         public event PersonAddedHandler PersonAddedEvent;
@@ -50,7 +39,33 @@
                 PersonRemovedEvent(this, e);
             }
         }
+
+        internal IEnumerable<IOrganisationUnit> GetOrganisationUnits(IPerson s)
+        {
+            var keys = new List<IRelationshipKey>();
+            var retval = new List<IOrganisationUnit>();
+
+            foreach (var z in _BL.PersonOrganisationUnitBL.GetPersonOrganisationUnits(s))
+            {
+                if (!keys.Contains(z.PersonKey()))
+                    {
+                    keys.Add(z.PersonKey());
+                }             
+            }
+
+            foreach (var itm in GetActiveItems())
+            {
+                if(keys.Contains(itm.PrimaryKey()))
+                {
+                    retval.Add(itm);
+                }
+            }
+
+            return retval;
+        }
     }
+
+
 
     public class PersonAddedEventArgs
     {

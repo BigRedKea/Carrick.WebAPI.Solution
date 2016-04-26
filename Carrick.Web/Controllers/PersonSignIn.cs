@@ -20,12 +20,12 @@
             }
         }
 
-        // GET api/values
+        [Route("api/personsignin/getallitems")]
         [AcceptVerbs("GET")]
         [HttpGet]
-        public IPersonSignIn[] Get()
+        public IPersonSignIn[] GetAllItems()
         {
-            return _BL.GetAllItems().ToArray<IPersonSignIn>(); ;
+            return _BL.GetAllItems().ToArray<IPersonSignIn>();
         }
 
 

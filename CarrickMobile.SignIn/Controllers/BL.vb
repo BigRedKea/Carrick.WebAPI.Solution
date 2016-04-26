@@ -12,7 +12,7 @@ Public Class BL : Inherits BusinessLogic
 
     Public Sub New(baseurl As String, username As String, password As String)
         MyBase.New()
-        mc = New ModelDataProvider(baseurl, username, password)
+        mc = New ModelDataProvider(New SQLite.Net.Platform.Generic.SQLitePlatformGeneric(), baseurl, username, password)
         MyBase.DataProviders = mc
 
     End Sub
@@ -27,10 +27,8 @@ Public Class BL : Inherits BusinessLogic
     Friend Property LeaderModeEnabled As Boolean = False
 
     Public Sub Execute()
-        mc.CreateModel(New SQLite.Net.Platform.Generic.SQLitePlatformGeneric())
+        mc.CreateModel()
         mc.LoadLocalData()
-
         mc.Sync()
-
     End Sub
 End Class
