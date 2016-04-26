@@ -68,40 +68,45 @@ namespace Carrick.ClientData.DataProviders
         //9.Delete records where Deleted = true and Dirty = false
         public void Sync()
         {
-            // Download any changes from the server
-            Z[] i = helper.GetSync(_localStore.GetLatestUpdateDatetime());
-            foreach (Z y in i)
-            {
-                InsertUpdateServerChange(y, resolver);
-            }
-
-            //Make a local copy
-            //List<Z> itms = new List<Z>();
-            //foreach (Z s in Items.Values)
-            //{
-            //    itms.Add(s);
-            //}
-
-            // Upload any new items
-            foreach (Z s in _localStore.GetAllItems())
-            {
-                if (s.RowLastUpdated == null)
+            try {
+                // Download any changes from the server
+                Z[] i = helper.GetSync(_localStore.GetLatestUpdateDatetime());
+                foreach (Z y in i)
                 {
-                    DataStoredResponse resp = helper.Insert(s);
-                    s.RowLastUpdated = resp.RowLastUpdated;
-                    _localStore.UpdateLocalItem(s);
+                    InsertUpdateServerChange(y, resolver);
                 }
 
-                if (s.IsDirty.HasValue)
-                    if( s.IsDirty.Value)
+                //Make a local copy
+                //List<Z> itms = new List<Z>();
+                //foreach (Z s in Items.Values)
+                //{
+                //    itms.Add(s);
+                //}
+
+                // Upload any new items
+                foreach (Z s in _localStore.GetAllItems())
+                {
+                    if (s.RowLastUpdated == null)
                     {
-                        DataStoredResponse resp = helper.Update(s.Id, s);
+                        DataStoredResponse resp = helper.Insert(s);
                         s.RowLastUpdated = resp.RowLastUpdated;
-                        s.IsDirty = false;
                         _localStore.UpdateLocalItem(s);
                     }
-            }
 
+                    if (s.IsDirty.HasValue)
+                        if (s.IsDirty.Value)
+                        {
+                            DataStoredResponse resp = helper.Update(s.Id, s);
+                            s.RowLastUpdated = resp.RowLastUpdated;
+                            s.IsDirty = false;
+                            _localStore.UpdateLocalItem(s);
+                        }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Syncronise Data for " + GetDataType().ToString() , ex);
+            }
 
         }
 

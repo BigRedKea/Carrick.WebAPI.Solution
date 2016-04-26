@@ -28,6 +28,15 @@ namespace Carrick.Web.Controllers
             return _BL.GetAllItems().ToArray<IPersonScoutingEvent>();
         }
 
+        [Route("api/personscoutingevent/getupdateditems/{updatetimestamp}")]
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IPersonScoutingEvent[] GetUpdatedItems(String updatetimestamp)
+        {
+            DateTime d = DateTime.Parse(updatetimestamp);
+            return _BL.GetUpdatedItems(d).ToArray<IPersonScoutingEvent>();
+        }
 
         [AcceptVerbs("GET")]
         [HttpGet]

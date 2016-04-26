@@ -28,6 +28,16 @@
             return _BL.GetAllItems().ToArray<IPersonPerson>();
         }
 
+        [Route("api/personperson/getupdateditems/{updatetimestamp}")]
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IPersonPerson[] GetUpdatedItems(String updatetimestamp)
+        {
+            DateTime d = DateTime.Parse(updatetimestamp);
+            return _BL.GetUpdatedItems(d).ToArray<IPersonPerson>();
+        }
+
 
         [AcceptVerbs("GET")]
         [HttpGet]

@@ -22,12 +22,22 @@ namespace Carrick.Web.Controllers
 
         // GET api/values
 
-        [Route("api/badge/getallitems")]
+        [Route("api/organisationunit/getallitems")]
         [AcceptVerbs("GET")]
         [HttpGet]
         public IOrganisationUnit[] GetAllItems()
         {
             return _BL.GetAllItems().ToArray<IOrganisationUnit>();
+        }
+
+        [Route("api/organisationunit/getupdateditems/{updatetimestamp}")]
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IOrganisationUnit[] GetUpdatedItems(String updatetimestamp)
+        {
+            DateTime d = DateTime.Parse(updatetimestamp);
+            return _BL.GetUpdatedItems(d).ToArray<IOrganisationUnit>();
         }
 
 

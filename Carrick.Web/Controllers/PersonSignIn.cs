@@ -29,6 +29,17 @@
         }
 
 
+        [Route("api/personsignin/getupdateditems/{updatetimestamp}")]
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IPersonSignIn[] GetUpdatedItems(String updatetimestamp)
+        {
+            DateTime d = DateTime.Parse(updatetimestamp);
+            return _BL.GetUpdatedItems(d).ToArray<IPersonSignIn>();
+        }
+
+
         [AcceptVerbs("GET")]
         [HttpGet]
         public IPersonSignIn[] Get(DateTime updatetimestamp)

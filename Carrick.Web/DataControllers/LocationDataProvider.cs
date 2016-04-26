@@ -14,7 +14,7 @@
             //AuthorisationPerson ap = (AuthorisationPerson)Authorisation;
             if (destination == null) { destination = Convert(CreateItem()); }
 
-            destination.Lattitude= original.Lattitude;
+            destination.Latitude= original.Latitude;
             destination.LocationName = original.LocationName;
             destination.Longitude = original.Longitude;
             destination.WebLink = original.WebLink;

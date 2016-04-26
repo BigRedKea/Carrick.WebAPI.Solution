@@ -40,6 +40,16 @@ namespace Carrick.Web.Controllers
             return _BL.GetActiveItems().ToArray<IPersonBadge>();
         }
 
+        [Route("api/personbadge/getupdateditems/{updatetimestamp}")]
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IPersonBadge[] GetUpdatedItems(String updatetimestamp)
+        {
+            DateTime d = DateTime.Parse(updatetimestamp);
+            return _BL.GetUpdatedItems(d).ToArray<IPersonBadge>();
+        }
+
 
         [Route("api/personbadge/getactiveitemsforperson")]
         [AcceptVerbs("GET")]

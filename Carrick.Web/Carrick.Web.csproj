@@ -264,6 +264,8 @@
     <Compile Include="BL.cs" />
     <Compile Include="CarrickEntityDataModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\EventLocationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BadgeController.cs" />
     <Compile Include="Controllers\OrganisationUnitController.cs" />
@@ -290,7 +292,7 @@
     <Compile Include="DataControllers\PersonDataProvider.cs" />
     <Compile Include="DataControllers\PersonOrganisationUnitDataProvider.cs" />
     <Compile Include="DataControllers\PersonPersonDataProvider.cs" />
-    <Compile Include="DataControllers\PersonResidenceDataProviderr.cs" />
+    <Compile Include="DataControllers\PersonResidenceDataProvider.cs" />
     <Compile Include="DataControllers\PersonScoutingEventDataProvider.cs" />
     <Compile Include="DataControllers\PersonScoutingRoleDataProvider.cs" />
     <Compile Include="DataControllers\PersonSignInDataProvider.cs" />

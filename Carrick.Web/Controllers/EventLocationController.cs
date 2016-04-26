@@ -12,98 +12,90 @@ using Carrick.Web.Models;
 namespace Carrick.Web.Controllers
 {
     [RequireHttps]
-    public class BadgeController : ApiController
+    public class EventLocationController : ApiController
     {
 
-        private BadgeBusinessLogic _BL
+        private EventLocationBusinessLogic _BL
         {
             get
             {
-                return BL.Singleton.BadgeBL;
+                return BL.Singleton.EventLocationBL;
             }
         }
 
         [Authorize(Roles = "ScoutAdministrator")]
-        [Route("api/Badge/search")]
+        [Route("api/eventlocation/search")]
         [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<IBadge> SearchActiveItems(string searchText)
+        public IEnumerable<IEventLocation> SearchActiveItems(string searchText)
         {
             return _BL.SearchActiveItems(searchText, 40);
         }
 
-        [Route("api/Badge/new")]
+        [Route("api/eventlocation/new")]
         [HttpGet]
-        public IBadge NewItem()
+        public IEventLocation NewItem()
         {
             return _BL.CreateItem();
         }
 
 
-        [Route("api/badge/getallitems")]
+        [Route("api/eventlocation/getallitems")]
         [AcceptVerbs("GET")]
         [HttpGet]
         [AllowAnonymous]
-        public IBadge[] GetAllItems()
+        public IEventLocation[] GetAllItems()
         {
-            return _BL.GetAllItems().ToArray<IBadge>();
+            return _BL.GetAllItems().ToArray<IEventLocation>();
         }
 
-        [Route("api/Badge/GetActiveEnabledItems")]
-        [AcceptVerbs("GET")]
-        [HttpGet]
-        [AllowAnonymous]
-        public IBadge[] GetActiveEnabledItems()
-        {
-            return _BL.GetActiveEnabledItems().ToArray<IBadge>();
-        }
         
-        [Route("api/Badge/GetActiveItems")]
+        [Route("api/eventlocation/GetActiveItems")]
         [AcceptVerbs("GET")]
         [HttpGet]
         [AllowAnonymous]
-        public IBadge[] GetActiveItems()
+        public IEventLocation[] GetActiveItems()
         {
-            return _BL.GetActiveItems().ToArray<IBadge>();
+            return _BL.GetActiveItems().ToArray<IEventLocation>();
         }
 
-        [Route("api/badge/getupdateditems/{updatetimestamp}")]
+        [Route("api/eventlocation/getupdateditems/{updatetimestamp}")]
         [AcceptVerbs("GET")]
         [HttpGet]
         [AllowAnonymous]
-        public IBadge[] GetUpdatedItems(String updatetimestamp)
+        public IEventLocation[] GetUpdatedItems(String updatetimestamp)
         {
             DateTime d = DateTime.Parse(updatetimestamp);
-            return _BL.GetUpdatedItems(d).ToArray<IBadge>();
+            return _BL.GetUpdatedItems(d).ToArray<IEventLocation>();
         }
 
         // GET api/values/5
         [AcceptVerbs("GET")]
         [HttpGet]
-        public IBadge Get(int id)
+        public IEventLocation Get(int id)
         {
             return _BL.GetItem(id);
         }
 
-        [Route("api/Badge/detail/{id}")]
+        [Route("api/eventlocation/detail/{id}")]
         [HttpGet]
         [AllowAnonymous]
-        public IBadge GetDetail(int Id)
+        public IEventLocation GetDetail(int Id)
         {
             return _BL.GetItem(Id);
         }
 
         [Authorize(Roles = "ScoutAdministrator")]
-        [Route("api/badge/update")]
+        [Route("api/eventlocation/update")]
         [HttpPost]
-        public IBadge Update(Object itm)
+        public IEventLocation Update(Object itm)
         {
-            Badge b = Newtonsoft.Json.JsonConvert.DeserializeObject<Badge>(itm.ToString());
+            EventLocation b = Newtonsoft.Json.JsonConvert.DeserializeObject<EventLocation>(itm.ToString());
             return _BL.ModifyItem(b);
         }
 
         [Authorize(Roles = "ScoutAdministrator")]
-        [Route("api/badge/delete/{id}")]
+        [Route("api/eventlocation/delete/{id}")]
         [AcceptVerbs("DELETE")]
         [HttpPost]
         public void DeleteItem(int id)

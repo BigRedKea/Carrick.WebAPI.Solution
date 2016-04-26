@@ -27,6 +27,15 @@
             return _BL.GetAllItems().ToArray<IPersonScoutingRole>();
         }
 
+        [Route("api/personscoutingrole/getupdateditems/{updatetimestamp}")]
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IPersonScoutingRole[] GetUpdatedItems(String updatetimestamp)
+        {
+            DateTime d = DateTime.Parse(updatetimestamp);
+            return _BL.GetUpdatedItems(d).ToArray<IPersonScoutingRole>();
+        }
 
         [AcceptVerbs("GET")]
         [HttpGet]

@@ -15,7 +15,7 @@ namespace Carrick.Web.Models
         [MaxLength(256)]
         public string WebLink { get; set; }
 
-        public int? Lattitude { get; set; }
+        public int? Latitude { get; set; }
 
         public int? Longitude { get; set; }
     }

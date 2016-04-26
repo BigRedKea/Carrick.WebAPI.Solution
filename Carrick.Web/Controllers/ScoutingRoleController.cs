@@ -29,6 +29,17 @@ namespace Carrick.Web.Controllers
         }
 
 
+        [Route("api/scoutingrole/getupdateditems/{updatetimestamp}")]
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IScoutingRole[] GetUpdatedItems(String updatetimestamp)
+        {
+            DateTime d = DateTime.Parse(updatetimestamp);
+            return _BL.GetUpdatedItems(d).ToArray<IScoutingRole>();
+        }
+
+
         [AcceptVerbs("GET")]
         [HttpGet]
         public IScoutingRole[] Get(DateTime updatetimestamp)

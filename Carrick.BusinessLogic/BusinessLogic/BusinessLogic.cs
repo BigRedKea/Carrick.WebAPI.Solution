@@ -29,7 +29,36 @@ namespace Carrick.BusinessLogic
             }
         }
 
-        //BadgeRequest
+
+        
+        private EventLocationBusinessLogic _EventLocationBL;
+        public EventLocationBusinessLogic EventLocationBL
+        {
+            get
+            {
+                if (_EventLocationBL == null)
+                {
+                    _EventLocationBL = new EventLocationBusinessLogic(this);
+                }
+                return _EventLocationBL;
+            }
+        }
+
+        
+        private LocationBusinessLogic _LocationBL;
+        public LocationBusinessLogic LocationBL
+        {
+            get
+            {
+                if (_LocationBL == null)
+                {
+                    _LocationBL = new LocationBusinessLogic(this);
+                }
+                return _LocationBL;
+            }
+        }
+
+        
         private PersonBadgeBusinessLogic _PersonBadgeBL;
         public PersonBadgeBusinessLogic PersonBadgeBL
         {

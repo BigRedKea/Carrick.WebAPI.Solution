@@ -13,7 +13,7 @@
         protected internal override IPersonResidence TransferSpecificProperties(IPersonResidence original,ref PersonResidence destination, Authorisation<IPersonResidence> Authorisation = null)
         {
             //AuthorisationPerson ap = (AuthorisationPerson)Authorisation;
-            if (destination == null) { Convert(CreateItem()); }
+            if (destination == null) {destination = Convert(CreateItem()); }
             destination.PersonId = original.PersonId;
             destination.PersonGuid = original.PersonGuid;
             destination.ResidenceId = original.ResidenceId;

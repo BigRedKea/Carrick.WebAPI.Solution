@@ -29,6 +29,17 @@
         }
 
 
+        [Route("api/residence/getupdateditems/{updatetimestamp}")]
+        [AcceptVerbs("GET")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IResidence[] GetUpdatedItems(String updatetimestamp)
+        {
+            DateTime d = DateTime.Parse(updatetimestamp);
+            return _BL.GetUpdatedItems(d).ToArray<IResidence>();
+        }
+
+
         [AcceptVerbs("GET")]
         [HttpGet]
         public IResidence[] Get(DateTime updatetimestamp)

@@ -8,7 +8,7 @@
     {
         public PersonBadgeDataProvider(ModelDataProvider modelDataProvider) : base(modelDataProvider)
         {
-            CreateWebAPIHelper("badgerequest");
+            CreateWebAPIHelper("personbadge");
             resolver = ResolveConflictFavourClient;
         }
 

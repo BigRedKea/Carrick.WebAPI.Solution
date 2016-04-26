@@ -72,7 +72,7 @@ namespace Carrick.BusinessLogic
 
         public IEnumerable<T> GetUpdatedItems(DateTime d)
         {
-            throw new NotImplementedException();
+            return GetAllItems().Where(x => x.RowLastUpdated > d);
         }
 
     }

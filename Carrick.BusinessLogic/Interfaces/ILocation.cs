@@ -10,7 +10,7 @@ namespace Carrick.BusinessLogic.Interfaces
 
         string WebLink { get; set; }
 
-        int? Lattitude { get; set; }
+        int? Latitude { get; set; }
 
         int? Longitude { get; set; }
     }
