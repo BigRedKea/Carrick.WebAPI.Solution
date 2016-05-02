@@ -15,7 +15,15 @@ namespace Carrick.BusinessLogic
 
         public IEnumerable<IPerson> GetPersonsInOrganisation(IOrganisationUnit org)
         {
-            throw new NotImplementedException();
+
+            var units = _BL.PersonOrganisationUnitBL.GetPersonOrganisationUnits(org);
+            var p = new List<IPerson>();
+            foreach (IPersonOrganisationUnit pou in units)
+            {
+                p.Add(DataProvider.GetItem(pou.PersonKey()));
+            }
+
+            return p;
         }
 
         public IEnumerable<IPersonScoutingEvent> GetPersonsAtEvent(IScoutingEvent itm)
@@ -53,7 +61,9 @@ namespace Carrick.BusinessLogic
 
         public bool IsSignedIn(IPerson person)
         {
-            throw new NotImplementedException();
+            //HACK
+            return true;
+            //throw new NotImplementedException();
         }
 
         public void SignedIn(IPerson person, bool Value)

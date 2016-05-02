@@ -17,6 +17,24 @@ Public Class BL : Inherits BusinessLogic
 
     End Sub
 
+    Private _Scouts As ScoutsVM
+
+    Public ReadOnly Property Scouts As ScoutsVM
+        Get
+            If _Scouts Is Nothing Then
+                _Scouts = New ScoutsVM
+                Dim q As IEnumerable = BL.Singleton.PersonBL.GetActiveScouts()
+
+                For Each scout In BL.Singleton.PersonBL.GetCompositeItems(q)
+                    Dim s As New ScoutVM(scout)
+                    _Scouts.Add(s)
+                Next
+
+            End If
+            Return _Scouts
+        End Get
+    End Property
+
     Public Sub New()
         MyClass.New("https://localhost:44300", "chris@noonanfamily.org", "Test123!")
         Execute()

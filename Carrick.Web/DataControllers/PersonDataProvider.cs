@@ -39,7 +39,7 @@
 
             destination.PreferredName = original.PreferredName;
             destination.Surname = original.Surname;
-
+            destination.DateLeftOrganisation = original.DateLeftOrganisation;
 
             if (ap.CanAccessDateOfBirth(original))
             {
@@ -57,7 +57,6 @@
             if (ap.CanAccessMembership(original))
             {
                 destination.MembershipId = original.MembershipId;
-                destination.DateLeftOrganisation = original.DateLeftOrganisation;
                 destination.NotesForMembership = original.NotesForMembership;
                 destination.FamilyCode = original.FamilyCode;
             }

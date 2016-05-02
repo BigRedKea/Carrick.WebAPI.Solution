@@ -243,6 +243,8 @@
     <Compile Include="UserControls\ScoutLoginUserControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ViewModel\ScoutsVM.vb" />
+    <Compile Include="ViewModel\ScoutVM.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\BadgesForm.resx">

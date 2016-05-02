@@ -7,9 +7,9 @@ Public Class PersonLoginUserControl
     Private _LogoutColour As Color = Color.LightGray
     Private _LoginColour As Color = Color.Green
 
-    Public Property Person As PersonComposite
+    Public Property Person As ScoutVM
 
-    Sub New(S As PersonComposite)
+    Sub New(S As ScoutVM)
         InitializeComponent()
 
         _Person = S
@@ -29,22 +29,22 @@ Public Class PersonLoginUserControl
         'Birthday cake
         CakePicture.Visible = Person.IsBirthday()
 
-        If DateDiff(DateInterval.Day, _Person.LastSignedIn, Now) > 30 Then
+        If Person.FlagAsAbsent Then
             LoginButton.ForeColor = Color.Red
         End If
 
         If BL.Singleton.LeaderModeEnabled Then
-            NameLabel.Text = Person.Person.FullName & " [" & Person.Age.ToString("YY:MM") & "]"
+            NameLabel.Text = Person.FullName & " [" & Person.Age.ToString("YY:MM") & "]"
 
-            If _Person.Person.Gender = "F" Then
+            If _Person.Gender = "F" Then
                 NameLabel.ForeColor = Color.DeepPink
-            ElseIf _Person.Person.Gender = "M" Then
+            ElseIf _Person.Gender = "M" Then
                 NameLabel.ForeColor = Color.Blue
             Else
                 NameLabel.ForeColor = Color.Black
             End If
         Else
-            NameLabel.Text = Person.Person.FullName
+            NameLabel.Text = Person.FullName
             'HACK If Person.RankFK <= 2 Then NameLabel.Text = NameLabel.Text & " [Nights=" & Person.ScoutNights & "]"
             NameLabel.ForeColor = Color.Black
         End If
@@ -52,21 +52,21 @@ Public Class PersonLoginUserControl
 
         LoginButton.BackColor = _LogoutColour
 
-        SetLoginButton(BL.Singleton.PersonBL.IsSignedIn(Person.Person))
+        SetLoginButton(Person.SignedIn)
     End Sub
 
     Private Sub LoginButton_Click(sender As Object, e As EventArgs) Handles LoginButton.Click
         'Don't ask for sign out
         'Don't ask questions of leaders
-        If Not BL.Singleton.PersonBL.IsSignedIn(Person.Person) AndAlso Not BL.Singleton.LeaderModeEnabled Then
+        If Not Person.SignedIn AndAlso Not BL.Singleton.LeaderModeEnabled Then
 
-            Dim frm2 As New UpcomingEventsForm
-            frm2.LoadData(_Person.Person)
-            frm2.ShowDialog(Me)
+            'Dim frm2 As New UpcomingEventsForm
+            'frm2.LoadData(_Person)
+            'frm2.ShowDialog(Me)
         End If
 
-        BL.Singleton.PersonBL.SignedIn(Person.Person, Not BL.Singleton.PersonBL.IsSignedIn(Person.Person))
-        SetLoginButton(BL.Singleton.PersonBL.IsSignedIn(Person.Person))
+        Person.SignedIn = Not Person.SignedIn
+        SetLoginButton(Person.SignedIn)
     End Sub
 
     Private Sub SetLoginButton(SignedIn As Boolean)
@@ -79,7 +79,7 @@ Public Class PersonLoginUserControl
 
 
     Private Sub EditButton_Click(sender As Object, e As EventArgs) Handles EditButton.Click
-        Dim frm As New EditScoutForm(_Person.Person)
+        Dim frm As New EditScoutForm(_Person)
         frm.ShowDialog(Me)
     End Sub
 End Class

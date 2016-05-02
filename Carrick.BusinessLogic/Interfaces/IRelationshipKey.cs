@@ -7,5 +7,7 @@ namespace Carrick.BusinessLogic.Interfaces
             int? LocalId { get; set; }
             int? Id { get; set; }
             Guid? RowGuid { get; set; }
+
+            bool Matches(IRelationshipKey obj);
     }
 }

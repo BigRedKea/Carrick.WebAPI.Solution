@@ -16,11 +16,12 @@ Public Class OrganisationLoginUserControl
         _Patrol = org
         Me.TableLayoutPanel1.RowCount = 0
 
-        'For Each Scout As Person In BL.Singleton.PersonBL.GetPersonsInOrganisation(org)
-        '    AddPersonControl(Scout)
-        'Next
 
-        'PatrolColourPanel.BackColor = Color.FromName(org.PatrolColour)
+        If String.IsNullOrEmpty(org.PatrolColour) Then
+            PatrolColourPanel.BackColor = Color.White
+        Else
+            PatrolColourPanel.BackColor = Color.FromName(org.PatrolColour)
+        End If
 
         AddHandler BL.Singleton.OrganisationUnitBL.PersonAddedEvent, Sub(sender As Object, e As PersonAddedEventArgs)
                                                                          If e.OrganisationUnit.Equals(_Patrol) Then
@@ -38,10 +39,9 @@ Public Class OrganisationLoginUserControl
         'HACK PictureBox1.Visible = _Patrol.IsPatrolOnDuty(Now)
     End Sub
 
-    Private Sub AddPersonControl(Person As PersonComposite)
+    Public Sub AddScout(s As ScoutVM)
 
-        Dim ctl As PersonLoginUserControl = New PersonLoginUserControl(Person)
-
+        Dim ctl As PersonLoginUserControl = New PersonLoginUserControl(s)
 
         Me.TableLayoutPanel1.Controls.Add(ctl)
 

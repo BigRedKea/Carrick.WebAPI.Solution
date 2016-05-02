@@ -48,7 +48,9 @@ namespace Carrick.BusinessLogic.CompositeObjects
 
         public DateTime LastSignedIn()
         {
-            throw new NotImplementedException();
+            //HACK
+            return DateTime.Now;
+            //throw new NotImplementedException();
         }
 
         public Boolean IsBirthday()

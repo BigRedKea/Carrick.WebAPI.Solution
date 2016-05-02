@@ -49,16 +49,19 @@
             {
                 if (!keys.Contains(z.PersonKey()))
                     {
-                    keys.Add(z.PersonKey());
+                    keys.Add(z.OrganisationUnitKey());
                 }             
             }
 
             foreach (var itm in GetActiveItems())
             {
-                if(keys.Contains(itm.PrimaryKey()))
+                foreach (var key in keys)
                 {
-                    retval.Add(itm);
-                }
+                    if (key.Matches(itm.PrimaryKey()))
+                    {
+                        retval.Add(itm);
+                    }
+                }                 
             }
 
             return retval;

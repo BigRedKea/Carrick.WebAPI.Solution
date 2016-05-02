@@ -12,23 +12,28 @@ Public Class MainForm
 
         ' Add any initialization after the InitializeComponent() call.
 
-        Dim OrganisationUnits As New List(Of IOrganisationUnit)
+        Dim OrganisationUnits As New Dictionary(Of Integer, OrganisationLoginUserControl)
 
         Dim q As IEnumerable = BL.Singleton.PersonBL.GetActiveScouts()
 
-        For Each p As PersonComposite In BL.Singleton.PersonBL.GetCompositeItems(q)
+        For Each p As ScoutVM In BL.Singleton.Scouts
+            Dim ctl As OrganisationLoginUserControl
+
             For Each organisation In p.OrganisationUnits
-                If Not (OrganisationUnits.Contains(p.OrganisationUnits)) Then
-                    OrganisationUnits.Add(organisation)
+                If (OrganisationUnits.ContainsKey(organisation.Id)) Then
+                    ctl = (OrganisationUnits.Item(organisation.Id))
+                Else
+                    ctl = New OrganisationLoginUserControl(organisation)
+                    OrganisationUnits.Add(organisation.Id, ctl)
+                    Me.FlowLayoutPanel1.Controls.Add(ctl)
+                End If
+
+                If p.CurrentMember Then
+                    ctl.AddScout(p)
                 End If
             Next
         Next
 
-
-        For Each p As IOrganisationUnit In OrganisationUnits
-            Dim ctl As New OrganisationLoginUserControl(p)
-            Me.FlowLayoutPanel1.Controls.Add(ctl)
-        Next
 
         AddHandler BL.Singleton.PersonBL.PersonSignedInEvent, Sub(x As Object, e As EventArgs)
                                                                   RefreshScreen()

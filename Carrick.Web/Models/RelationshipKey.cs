@@ -13,5 +13,16 @@ namespace Carrick.Web.Models
         public int? Id { get; set; }
         public Guid? RowGuid { get; set; }
 
+        public bool Matches(IRelationshipKey obj)
+        {
+            if (Id == null || obj == null)
+            {
+                return (RowGuid.Value.ToString() == obj.RowGuid.Value.ToString());
+            }
+            else
+            {
+                return (Id.Value == obj.Id.Value);
+            }
+        }
     }
 }

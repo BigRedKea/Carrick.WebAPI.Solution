@@ -20,6 +20,13 @@ namespace Carrick.BusinessLogic
             return p;  
         }
 
+        public IEnumerable<IPersonOrganisationUnit> GetPersonOrganisationUnits(IOrganisationUnit org)
+        {
+            var p = GetActiveItems()
+                .Where(x => x.OrganisationUnitKey().Matches(org.PrimaryKey()));
+            return p;
+        }
+
         public void ChangeOrganisation(IPerson _Scout, IOrganisationUnit selectedItem)
         {
             throw new NotImplementedException();
